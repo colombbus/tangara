@@ -1,0 +1,122 @@
+<project name="help-generator" xmlns:ivy="antlib:org.apache.ivy.ant">
+	
+	<property name="artifact.techname" value="helpgenerator"/>
+	<property name="artifact.techversion" value="0.1"/>
+
+	<property name="src.main.java.dir" value="src/main/java" />
+	<property name="src.main.res.dir" value="src/main/resources" />
+	<property name="src.test.java.dir" value="src/test/java" />
+	<property name="src.test.res.dir" value="src/test/resources" />
+
+	<property name="dist.dir" value="dist" />
+	<property name="dist.main.classes.dir" value="${dist.dir}/main-classes" />
+	<property name="dist.test.classes.dir" value="${dist.dir}/test-classes" />
+	<property name="dist.test.reports.dir" value="${dist.dir}/test-reports" />
+	<property name="dist.package.jar" value="${dist.dir}/${artifact.techname}-${artifact.techversion}.jar" />
+
+	<property name="dist.main.lib.dir" value="${dist.dir}/lib-main" />
+	<property name="dist.test.lib.dir" value="${dist.dir}/lib-test" />
+
+	<property name="dist.run.lib.dir" value="${dist.dir}/lib-run" />
+	<property name="dist.run.generated.html" value="${dist.dir}/run-html" />
+	<property name="dist.run.mainclass" value="org.colombbus.helpgenerator.HelpGenerator"/>
+
+	<target name="init">
+		<mkdir dir="${dist.main.classes.dir}" />
+		<mkdir dir="${dist.test.classes.dir}" />
+		<mkdir dir="${dist.main.lib.dir}" />
+		<mkdir dir="${dist.test.lib.dir}" />
+		<mkdir dir="${dist.test.reports.dir}" />
+		<mkdir dir="${dist.run.generated.html}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<ivy:retrieve conf="compile" pattern="${dist.main.lib.dir}/[artifact]-[revision].[ext]" type="jar" />
+		<javac destdir="${dist.main.classes.dir}" includeantruntime="false">
+			<classpath>
+				<fileset dir="${dist.main.lib.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			<src path="${src.main.java.dir}" />
+		</javac>
+		<copy todir="${dist.main.classes.dir}">
+			<fileset dir="${src.main.res.dir}" />
+		</copy>
+	</target>
+
+	<target name="test-compile" depends="compile">
+		<ivy:retrieve conf="test" pattern="${dist.test.lib.dir}/[artifact]-[revision].[ext]" type="jar" />
+		<javac destdir="${dist.test.classes.dir}" includeantruntime="false">
+			<classpath>
+				<fileset dir="${dist.test.lib.dir}" includes="**/*.jar" />
+				<pathelement location="${dist.main.classes.dir}" />
+				<fileset dir="${dist.main.lib.dir}" includes="**/*.jar" />
+			</classpath>
+			<src path="${src.test.java.dir}" />
+		</javac>
+		<copy todir="${dist.test.classes.dir}">
+			<fileset dir="${src.test.res.dir}" />
+		</copy>
+	</target>
+
+	<target name="test" depends="test-compile">
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${dist.test.classes.dir}" />
+				<fileset dir="${dist.test.lib.dir}" includes="**/*.jar" />
+				<pathelement location="${dist.main.classes.dir}" />
+				<fileset dir="${dist.main.lib.dir}" includes="**/*.jar" />
+			</classpath>
+
+			<formatter type="plain" />
+
+			<batchtest fork="yes" todir="${dist.test.reports.dir}">
+				<fileset dir="${src.test.java.dir}">
+					<exclude name="**/*IntegTest.java" />
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="test-integ" depends="test-compile">
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${dist.test.classes.dir}" />
+				<fileset dir="${dist.test.lib.dir}" includes="**/*.jar" />
+				<pathelement location="${dist.main.classes.dir}" />
+				<fileset dir="${dist.main.lib.dir}" includes="**/*.jar" />
+			</classpath>
+
+			<formatter type="plain" />
+
+			<batchtest fork="yes" todir="${dist.test.reports.dir}">
+				<fileset dir="${src.test.java.dir}">
+					<include name="**/*IntegTest.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="package" depends="compile,test-compile">
+		<jar destfile="${dist.package.jar}">
+			<fileset dir="${dist.main.classes.dir}" />
+		</jar>
+	</target>
+
+	<target name="run" depends="package">
+		<ivy:retrieve conf="runtime" pattern="${dist.run.lib.dir}/[artifact]-[revision].[ext]" type="jar" />
+		<java fork="true" classname="${dist.run.mainclass}">
+			<classpath>
+				<fileset dir="${dist.run.lib.dir}" includes="*.jar"/>
+				<fileset file="${dist.package.jar}"/>
+			</classpath>
+			<arg path="${dist.run.generated.html}"/>
+		</java>
+	</target>
+</project>

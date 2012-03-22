@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>$page.title</title>
+	<link rel="stylesheet" media="screen" type="text/css" href="main.css"/>
+	#foreach( $css in $page.cssSet )
+	<link rel="stylesheet" media="$css.media" type="text/css" href="$css.localUrl"/>
+	#end
+</head>
+<body>
+	<div class="pageToc">
+	#foreach( $tocLevel1 in $toc.level1List )
+		<h1 class="tocLevel1">$tocLevel1.title</h1>
+			#if( ! $tocLevel1.header.empty )
+			$tocLevel1.header
+			#end
+		
+			#foreach( $tocLevel2 in $tocLevel1.level2List )
+			<h2 class="tocLevel2">$tocLevel2.title</h2>
+			<div class="tocLevel2">
+				<ul>
+					#if( ! $tocLevel2.level3List.empty )
+					<li class="level3">
+						#foreach( $tocLevel3 in $tocLevel2.level3List)
+						<div class="li">
+							<a href="$tocLevel3.localUrl" class="wikilink1" title="$tocLevel3.objectId">$tocLevel3.title</a>
+							#if( $tocLevel3.graphical )
+							<img src="star.png" class="media" alt="star"/>
+							#end
+						</div>
+						#end
+					</li>
+					#end
+				</ul>
+			</div>
+			#end
+			
+	
+			#if( ! $tocLevel1.footer.empty )
+			$tocLevel1.footer
+			#end
+	#end
+	</div>
+	
+	<div class="pageContent">
+	$page.content
+	</div>
+</body>
+</html>

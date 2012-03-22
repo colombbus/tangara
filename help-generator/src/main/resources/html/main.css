@@ -1,0 +1,12 @@
+div.pageToc {
+	float:left;
+	width:300px;
+	height:100%;
+	border: 1px black;
+}
+
+div.pageContent {
+	width:900px;
+	height:100%;
+	margin-left: 320px;
+}

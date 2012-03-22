@@ -1,0 +1,10 @@
+# ignore eclipse bin directory
+*/bin
+# ignore generation directory in all modules
+*/dist
+
+# binary, generate or backup files
+*.jar
+*.class
+*~
+

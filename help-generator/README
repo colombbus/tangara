@@ -1,0 +1,34 @@
+
+Principle
+---------
+
+- download index page from http://tangara.colombbus.org/wiki/doku.php?id=objet:les_objets_de_tangara
+- analyze index page and deduce:
+	- object id list
+	- table of content (TOC)
+- download object pages and their associated resources (images and css)
+- download command page from http://tangara.colombbus.org/wiki/doku.php?id=logiciel:commandes
+	- this page is considered as the default page of the help documentation
+- fix object pages and command page
+	- fix path in anchors and images
+	- fix header and footer
+- generate new local web site with
+	- fixed pages
+	- download resources (css and images mainly)
+
+That's all
+
+
+
+Future features
+---------------
+
+Fix CSS support
+	only main.css is declared in pages
+
+Add search support
+	=> include an index file
+
+Add generated html packaging 
+
+ 

@@ -1,0 +1,15 @@
+<ivy-module version="2.0">
+    <info organisation="org.colombbus.tangara" module="translation"/>
+    <configurations>
+    	<conf name="runtime" visibility="public"/>
+    	<conf name="compile" extends="runtime" />
+    	<conf name="test" extends="runtime"/>
+    	<conf name="ide" extends="test,compile" />
+    </configurations>
+    <publications>
+    	<artifact conf="runtime" name="{module}" ext="jar" />
+    </publications>
+    <dependencies>
+        <dependency org="junit" name="junit" rev="4.10" conf="test->default"/>
+    </dependencies>
+</ivy-module>

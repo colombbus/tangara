@@ -1,6 +1,6 @@
 <project name="help-generator" xmlns:ivy="antlib:org.apache.ivy.ant">
 	
-	<property name="artifact.techname" value="helpgenerator"/>
+	<property name="artifact.techname" value="help-generator"/>
 	<property name="artifact.techversion" value="0.1"/>
 
 	<property name="src.main.java.dir" value="src/main/java" />

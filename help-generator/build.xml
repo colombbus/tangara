@@ -30,11 +30,11 @@
 		<mkdir dir="${dist.run.generated.html}"/>
 	</target>
 
-	<target name="clean">
+	<target name="clean" description="remove generated data">
 		<delete dir="${dist.dir}" />
 	</target>
 
-	<target name="compile" depends="init">
+	<target name="compile" depends="init" description="compile the main source code">
 		<ivy:retrieve conf="compile" pattern="${dist.main.lib.dir}/[artifact]-[revision].[ext]" type="jar" />
 		<javac destdir="${dist.main.classes.dir}" includeantruntime="false">
 			<classpath>
@@ -64,7 +64,7 @@
 		</copy>
 	</target>
 
-	<target name="test" depends="test-compile">
+	<target name="test" depends="test-compile" description="run the unit tests">
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath>
 				<pathelement location="${dist.test.classes.dir}" />
@@ -84,7 +84,7 @@
 		</junit>
 	</target>
 
-	<target name="test-integ" depends="test-compile">
+	<target name="test-integ" depends="test-compile" description="run the integration tests">
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath>
 				<pathelement location="${dist.test.classes.dir}" />
@@ -103,7 +103,7 @@
 		</junit>
 	</target>
 
-	<target name="package" depends="compile,test-compile">
+	<target name="package" depends="compile,test-compile" description="create the final production">
 		<jar destfile="${dist.package.jar}">
 			<fileset dir="${dist.main.classes.dir}" />
 		</jar>

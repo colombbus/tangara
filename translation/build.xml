@@ -1,5 +1,11 @@
 <project name="translation" xmlns:ivy="antlib:org.apache.ivy.ant">
 	
+	<property file="build-settings.properties" />
+	<property name="artifact.module" value="translation" />
+
+	<import file="../build-main.xml"/>
+	<import file="../build-publication.xml" optional="true"/>
+<!--
 	<property name="artifact.techname" value="translation"/>
 	<property name="artifact.techversion" value="1.7"/>
 
@@ -7,6 +13,7 @@
 	<property name="src.main.res.dir" value="src/main/resources" />
 	<property name="src.test.java.dir" value="src/test/java" />
 	<property name="src.test.res.dir" value="src/test/resources" />
+-->
 	<property name="src.test.data.translation.dir" value="src/test/data/translation"/>
 
 	<property name="dist.dir" value="dist" />
@@ -18,18 +25,14 @@
 
 	<property name="dist.main.lib.dir" value="${dist.dir}/lib-main" />
 	<property name="dist.test.lib.dir" value="${dist.dir}/lib-test" />
-	
-	<property name="dist.run.lib.dir" value="${dist.dir}/lib-run" />
-	<property name="dist.run.generated.html" value="${dist.dir}/run-html" />
-	<property name="dist.run.mainclass" value="org.colombbus.helpgenerator.HelpGenerator"/>
 
+	<!--
 	<target name="init">
 		<mkdir dir="${dist.main.classes.dir}" />
 		<mkdir dir="${dist.test.classes.dir}" />
 		<mkdir dir="${dist.main.lib.dir}" />
 		<mkdir dir="${dist.test.lib.dir}" />
 		<mkdir dir="${dist.test.reports.dir}" />
-		<mkdir dir="${dist.run.generated.html}"/>
 	</target>
 
 	<target name="clean" description="remove generated data">
@@ -50,11 +53,13 @@
 			<fileset dir="${src.main.res.dir}" />
 		</copy>
 	</target>
-
+-->
+	
 	<target name="test-compile" depends="compile">
+		<mkdir dir="${dist.test.classes.dir}" />
+		<mkdir dir="${dist.test.lib.dir}" />
 		<mkdir dir="${dist.test.generated.dir}"/>
-		
-		<ivy:retrieve conf="test" pattern="${dist.test.lib.dir}/[artifact]-[revision].[ext]" type="jar" />
+		<ivy:retrieve conf="test" pattern="${dist.test.lib.dir}/${lib.artifact.pattern}" type="jar" settingsRef="default.ivysettings"/>
 		<javac destdir="${dist.test.classes.dir}" includeantruntime="false">
 			<compilerarg line="-processorpath ${dist.main.classes.dir}${path.separator}${src.main.res.dir}" />
 			<compilerarg line="-AtranslationPath=${src.test.data.translation.dir}" />
@@ -71,6 +76,8 @@
 		</copy>
 	</target>
 
+	
+<!--
 	<target name="test" depends="test-compile" description="run the unit tests">
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath>
@@ -90,7 +97,9 @@
 			</batchtest>
 		</junit>
 	</target>
+-->
 
+<!--
 	<target name="test-integ" depends="test-compile" description="run the integration tests">
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath>
@@ -109,11 +118,13 @@
 			</batchtest>
 		</junit>
 	</target>
+-->
 
+<!--
 	<target name="package" depends="compile,test-compile" description="create the final production">
 		<jar destfile="${dist.package.jar}">
 			<fileset dir="${dist.main.classes.dir}" />
 		</jar>
 	</target>
-
+-->
 </project>

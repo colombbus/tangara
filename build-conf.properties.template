@@ -1,0 +1,32 @@
+# Template file of build-conf.properties files
+#
+# build-conf.properties files contains the dynamic information about 
+# the current build of a module (version and status) and the local
+# repository management.
+# Each module directory shall contain its own build-conf.properties
+# file. This file should be updated before each publication.
+#
+# WARN: This file shall never be commited into source repository
+#       (Git currently) 
+#
+
+
+# Specify the version of artifact
+# Mandatory property
+# Accepted values are: <major>.<minor>.<fix>(.<build>)
+#   for instance 1.6.5, 3.7.11.45
+#   the field <build> is optional
+artifact.version=9.99.999
+
+
+# Set the status of the published artifacts 
+# Mandatory property
+# Accepted values are: 'integration', 'milestone', 'release'
+# Detailled information: http://ant.apache.org/ivy/history/latest-milestone/terminology.html#status
+artifact.status=integration
+
+# Overwrite the previously published artifacts during local publication
+# Optional property. 
+# Default value is false. 
+# Accepted values are:  'true', 'false'
+publication.local.force=true

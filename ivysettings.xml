@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings >
+	<settings defaultResolver="ibiblio"/>
+	<include url="${ivy.default.settings.dir}/ivysettings.xml"/>
+	<resolvers>
+		<ibiblio name="ibiblio" m2compatible="true"/>
+		<!-- Add here other repositories where external dependencies are located -->
+	</resolvers>
+
+</ivysettings>

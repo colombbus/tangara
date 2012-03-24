@@ -2,9 +2,11 @@
 */bin
 # ignore generation directory in all modules
 */dist
-
+# ignore build configuration files
+*/build-conf.properties
 # binary, generate or backup files
 *.jar
 *.class
 *~
+*.bak
 

@@ -1,0 +1,75 @@
+#{{{ parameters
+folding=explicit
+view.wrapGuide=false
+view.lineHighlight=false
+view.bgColor=#C5D6DB
+view.structureHighlight=false
+buffer.wrap=none
+buffer.maxLineLen=0
+view.eolMarkers=false
+view.eolMarkerColor=#C5D6DB
+view.selectionColor=#CCCCFF
+view.multipleSelectionColor=#CCFFCC
+view.gutter.bgColor=#DCDCDC
+view.gutter.focusBorderColor=#EEEEEE
+view.gutter.noFocusBorderColor=#EEEEEE
+view.gutter.fgColor=#666666
+view.gutter.minDigitCount=5
+view.gutter.currentLineColor=#CC1613
+view.gutter.lineNumbers=true
+view.gutter.highlightInterval=0
+view.gutter.fontsize=12
+#}}}
+
+#{{{ keys
+prev-paragraph.shortcut=C+UP
+next-paragraph.shortcut=C+DOWN
+select-prev-paragraph.shortcut=CS+UP
+select-next-paragraph.shortcut=CS+DOWN
+backspace-word.shortcut=C+BACK_SPACE
+delete-word.shortcut=C+DELETE
+document-home.shortcut=C+HOME
+document-end.shortcut=C+END
+select-document-home.shortcut=CS+HOME
+select-document-end.shortcut=CS+END
+prev-word.shortcut=C+LEFT
+select-prev-word.shortcut=CS+LEFT
+next-word.shortcut=C+RIGHT
+select-next-word.shortcut=CS+RIGHT
+shift-left.shortcut2=S+TAB
+select-none.shortcut=ESCAPE
+backspace.shortcut=BACK_SPACE
+delete.shortcut=DELETE
+overwrite.shortcut=INSERT
+home.shortcut=HOME
+end.shortcut=END
+select-home.shortcut=S+HOME
+select-end.shortcut=S+END
+prev-page.shortcut=PAGE_UP
+next-page.shortcut=PAGE_DOWN
+select-prev-page.shortcut=S+PAGE_UP
+select-next-page.shortcut=S+PAGE_DOWN
+prev-char.shortcut=LEFT
+select-prev-char.shortcut=S+LEFT
+next-char.shortcut=RIGHT
+select-next-char.shortcut=S+RIGHT
+prev-line.shortcut=UP
+select-prev-line.shortcut=S+UP
+next-line.shortcut=DOWN
+select-next-line.shortcut=S+DOWN
+insert-newline-indent.shortcut=ENTER
+insert-tab-indent.shortcut=TAB
+#}}}
+
+#{{{ styles
+view.style.function=color:#444444
+view.style.keyword1=color:#7F0055 style:b
+view.style.keyword2=color:#7F0055 style:b
+view.style.keyword3=color:#7F0055 style:b
+view.style.comment1=color:#3F7F5F
+view.style.comment2=color:#3F7F5F
+view.style.comment3=color:#3F7F5F
+view.style.literal1=color:#0066aa
+view.style.keyword4=color:#204090
+
+#}}}

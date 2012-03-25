@@ -1,0 +1,3 @@
+fr Outils
+en Herramientas
+es Tools

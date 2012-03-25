@@ -1,0 +1,48 @@
+<project name="translation" xmlns:ivy="antlib:org.apache.ivy.ant">
+	
+	<property file="build-conf.properties" />
+	<property name="artifact.module" value="software" />
+
+	<import file="../build-main.xml"/>
+	<import file="../build-publication.xml" optional="true"/>
+
+	<property name="dist.apt.generated.dir" value="${dist.dir}/.apt_generated"/>
+	<property name="src.main.conf.translation.dir" value="${src.main.conf.dir}/translation" />
+	
+	<target name="compile" depends="pre-compile" description="--> Compile the main source code">
+		<mkdir dir="${dist.apt.generated.dir}"/>
+		
+		<ivy:retrieve conf="compile" pattern="${dist.main.lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings" />
+		<javac destdir="${dist.main.classes.dir}" includeantruntime="false" source="${java.source}" target="${java.target}" encoding="${java.encoding}">
+			<compilerarg line="-processorpath ${dist.main.lib.dir}/translation.jar -AtranslationPath=${src.main.conf.translation.dir} -s ${dist.apt.generated.dir}" />
+			<classpath>
+				<fileset dir="${dist.main.lib.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			<src path="${src.main.java.dir}" />
+		</javac>
+		<copy todir="${dist.main.classes.dir}">
+			<fileset dir="${src.main.res.dir}" />
+		</copy>
+	</target>
+
+
+	
+	<target name="test-compile" depends="pre-test-compile">
+		<ivy:retrieve conf="test" pattern="${dist.test.lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings"/>
+		<javac destdir="${dist.test.classes.dir}" includeantruntime="false" source="${java.source}" target="${java.target}" encoding="${java.encoding}">
+			<compilerarg line="-processorpath ${dist.test.lib.dir}/translation.jar -AtranslationPath=${src.main.conf.translation.dir} -s ${dist.apt.generated.dir}" />
+			<classpath>
+				<fileset dir="${dist.test.lib.dir}" includes="**/*.jar" />
+				<pathelement location="${dist.main.classes.dir}" />
+				<fileset dir="${dist.main.lib.dir}" includes="**/*.jar" />
+			</classpath>
+			<src path="${src.test.java.dir}" />
+		</javac>
+		<copy todir="${dist.test.classes.dir}">
+			<fileset dir="${src.test.res.dir}" />
+		</copy>
+	</target>
+
+</project>

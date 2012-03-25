@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings >
-	<settings defaultResolver="ibiblio"/>
+	<settings defaultResolver="localTangara"/>
 	<include url="${ivy.default.settings.dir}/ivysettings.xml"/>
 	<resolvers>
-		<ibiblio name="ibiblio" m2compatible="true"/>
+		<chain name="localTangara" returnFirst="true">
+			<filesystem name="localRepo">
+				<ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}"/>
+				<artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}"/>
+			</filesystem>
+			<ibiblio name="ibiblio" m2compatible="true"/>
+		</chain>
 		<!-- Add here other repositories where external dependencies are located -->
 	</resolvers>
 

@@ -1,5 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="build-main" xmlns:ivy="antlib:org.apache.ivy.ant">
-
+	
+	<property name="java.source" value="1.6"/>
+	<property name="java.target" value="1.6"/>
+	<property name="java.encoding" value="UTF-8"/>
+	
 	<property file="build-conf.properties" />
 	
 	<!-- set default values for optional properties in the build-conf.properties -->  
@@ -10,6 +15,7 @@
 
 	<property name="src.main.java.dir" value="src/main/java" />
 	<property name="src.main.res.dir" value="src/main/resources" />
+	<property name="src.main.conf.dir" value="src/main/config" />
 	<property name="src.test.java.dir" value="src/test/java" />
 	<property name="src.test.res.dir" value="src/test/resources" />
 
@@ -27,7 +33,7 @@
 	<property name="dist.main.lib.dir" value="${dist.dir}/lib-main" />
 	<property name="dist.test.lib.dir" value="${dist.dir}/lib-test" />
 
-	<property name="lib.artifact.pattern" value="[artifact]-[revision].[ext]" />
+	<property name="lib.artifact.pattern" value="[artifact].[ext]" />
 	<property name="package.artifact.pattern" value="[artifact](-[classifier]).[ext]" />
 
 
@@ -65,12 +71,17 @@
 	<target name="init" depends="assertConfigurationRequirement">
 		<ivy:configure settingsId="default.ivysettings" file="${build-main.dir}/ivysettings.xml"/>
 	</target>
-
-	<target name="compile" depends="init" description="--> Compile the main source code">
+	
+	
+	
+	<target name="pre-compile" depends="init">
 		<mkdir dir="${dist.main.classes.dir}" />
 		<mkdir dir="${dist.main.lib.dir}" />
-		<ivy:retrieve conf="compile" pattern="${dist.main.lib.dir}/${lib.artifact.pattern}" type="jar" settingsRef="default.ivysettings" />
-		<javac destdir="${dist.main.classes.dir}" includeantruntime="false">
+	</target>
+
+	<target name="compile" depends="pre-compile" description="--> Compile the main source code">
+		<ivy:retrieve conf="compile" pattern="${dist.main.lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings" />
+		<javac destdir="${dist.main.classes.dir}" includeantruntime="false" source="${java.source}" target="${java.target}" encoding="${java.encoding}">
 			<classpath>
 				<fileset dir="${dist.main.lib.dir}">
 					<include name="**/*.jar" />
@@ -85,11 +96,14 @@
 
 
 	
-	<target name="test-compile" depends="compile">
+	<target name="pre-test-compile" depends="compile">
 		<mkdir dir="${dist.test.classes.dir}" />
 		<mkdir dir="${dist.test.lib.dir}" />
-		<ivy:retrieve conf="test" pattern="${dist.test.lib.dir}/${lib.artifact.pattern}" type="jar" settingsRef="default.ivysettings"/>
-		<javac destdir="${dist.test.classes.dir}" includeantruntime="false">
+	</target>
+	
+	<target name="test-compile" depends="pre-test-compile">
+		<ivy:retrieve conf="test" pattern="${dist.test.lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings"/>
+		<javac destdir="${dist.test.classes.dir}" includeantruntime="false" source="${java.source}" target="${java.target}" encoding="${java.encoding}">
 			<classpath>
 				<fileset dir="${dist.test.lib.dir}" includes="**/*.jar" />
 				<pathelement location="${dist.main.classes.dir}" />
@@ -119,6 +133,7 @@
 			<batchtest fork="yes" todir="${dist.test.reports.dir}">
 				<fileset dir="${src.test.java.dir}">
 					<exclude name="**/*IntegTest.java" />
+					<exclude name="**/*ValidTest.java" />
 					<include name="**/*Test.java" />
 				</fileset>
 			</batchtest>
@@ -148,7 +163,7 @@
 
 
 
-	<target name="package" depends="compile,test-compile" description="--> Create the final artifact(s)">
+	<target name="package" depends="compile,test" description="--> Create the final artifact(s)">
 		<jar destfile="${dist.package.jar}">
 			<fileset dir="${dist.main.classes.dir}" />
 		</jar>
@@ -176,6 +191,12 @@
 						overwrite="${publication.local.overwrite}">
 			<artifacts pattern="${dist.package.dir}/${package.artifact.pattern}" />
 		</ivy:publish>
+	</target>
+
+	
+	
+	<target name="resolve" depends="init" description="--> Verify the dependencies">
+		<ivy:resolve conf="runtime" settingsRef="default.ivysettings"/>
 	</target>
 
 </project>

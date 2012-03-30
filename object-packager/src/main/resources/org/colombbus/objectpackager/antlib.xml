@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<antlib xmlns:antcontrib="antlib:org.colombbus.objectpackager">
+   <taskdef name="package-objects" classname="org.colombbus.objectpackager.ObjectPackagerTask"/>
+</antlib>

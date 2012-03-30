@@ -43,7 +43,7 @@
 
 
 	<target name="assertConfigurationRequirement">
-		<fail message="The file 'build-conf.properties' is mssing.\nCreate it in module directory from template file '../build-conf.properties.template'">
+		<fail message="The file 'build-conf.properties' is mssing. Create it in module directory from template file '../build-conf.properties.template'">
 			<condition>
 				<not>
 					<resourceexists>
@@ -183,12 +183,12 @@
 		<ivy:resolve conf="runtime" settingsRef="default.ivysettings"/>
 		<echo>Pattern = ${package.artifact.pattern}</echo>
 		<ivy:publish 	resolver="local" 
-						settingsref="default.ivysettings" 
-						pubrevision="${artifact.version}" 
-						pubdate="${now}"
-			            status="${artifact.status}"
-			            forcedeliver="true"
-						overwrite="${publication.local.overwrite}">
+					settingsref="default.ivysettings" 
+					pubrevision="${artifact.version}" 
+					pubdate="${now}"
+					status="${artifact.status}"
+					forcedeliver="true"
+					overwrite="${publication.local.overwrite}">
 			<artifacts pattern="${dist.package.dir}/${package.artifact.pattern}" />
 		</ivy:publish>
 	</target>

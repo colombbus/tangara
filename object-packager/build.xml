@@ -1,0 +1,21 @@
+<project name="object-packager" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property file="build-settings.properties" />
+	<property name="artifact.module" value="object-packager" />
+
+	<import file="../build-main.xml"/>
+	<import file="../build-publication.xml" optional="true"/>
+
+	<target name="publish-local" depends="build-main.publish-local" description="--> Publish the artifact(s)  to the local repository">
+		<echo message="-- ANT extension published --"/>
+		<echo message="Install it using the antlib procedure detailled at "/>
+		<echo message="    http://ant.apache.org/manual/Types/antlib.html#antlibnamespace"/>
+		<echo message="The XML namespace to add to the project entity is "/>
+		<echo message="    xmlns:antcontrib=&quot;antlib:org.colombbus.objectpackager&quot;"/>
+	</target>
+	
+	<target name="install" depends="package" description="--> Install the extension to current ANT">
+		<copy file="${dist.package.jar}" todir="${ant.library.dir}" overwrite="true"/>
+	</target>
+
+</project>

@@ -1,0 +1,66 @@
+Button, ,Bouton,Boton
+Character,character,Personnage,Personaje
+ClientsButton, ,BoutonClients,BotonClientes
+ClientsList, ,ListeClients,ListaClientes
+ColorButton, ,BoutonCouleur,BotonColor
+Connection, ,Connexion,Conexion
+DisplayMessages, ,AffichageMessages,VisualizacionMensajes
+DisplaySound, ,AffichageSon,VisualizacionSonido
+Drawing, ,Dessin,Diseno
+FileButton, ,BoutonFichier,BotonArchivo
+Frame, ,Cadre,Cuadrado
+Sprite,sprite,Animation,Animacion
+Information, ,Information,Informacion
+Internet, ,Internet,Internet
+KeyStroke, ,CommandesClavier,ComandosTeclado
+Projector, ,Projecteur,Proyector
+Picture, ,Image,Imagen
+Question, ,Question,Pregunta
+Sound, ,Son,Sonido
+ToCarry, ,AEmporter,ALlevar
+Text, ,Texte,Texto
+Window, ,Fenetre,Ventana
+WriteMessages, ,EcritureMessages,EscrituraMensajes
+Rider, ,Suiveur,Seguidor
+Path, ,Chemin,Camino
+Block, ,Bloc,Bloque
+Dimmer, ,Variateur,Variador
+Random, ,Hasard,Casualidad
+Photo, ,Photo,Foto
+Pixel, ,Pixel,Pixel
+Walker, ,Promeneur,Paseante
+Clock, ,Minuteur,Minutero
+Witness, ,Temoin,Testigo
+WitnessCollision, ,TemoinCollision,TestigoColision
+WitnessDirectionChange, ,TemoinChangementDirection,TestigoCambioDireccion
+WitnessImageChange, ,TemoinChangementImage,TestigoCambioImagen
+WitnessCrossing, ,TemoinCroisement,TestigoCruce
+Rectangle, ,Rectangle,Rectangulo
+Circle, ,Cercle,Circulo
+Curve, ,Courbe,Curva
+ArrayNode, ,NoeudTableau,NodoMatriz
+Array, ,Tableau,Matriz
+StringNode, ,NoeudTexte,NodoTexto
+Triangle, ,Triangle,Triangulo
+InputArea, ,ZoneSaisie,ZonaDeEntrada
+List, ,Liste,Lista
+Calculator, ,Calculatrice,Calculadora
+Chronometer, ,Chronometre,Cronometro
+Space3D, ,Espace3D, Espacio3D
+Segment3D, ,Segment3D, Segmento3D
+Triangle3D, ,Triangle3D,Triangle3D
+Quadrilateral3D, ,Quadrilatere3D,Cuadrilatero3D
+Box3D, ,Boite3D, Caja3D
+Cube3D, ,Cube3D, Cubo3D
+Sphere3D, ,Sphere3D, Esfera3D
+Texture, ,Texture,Textura
+Object3D, ,Objet3D, Objeto3D
+Point3D, ,Point3D,Punto3D
+Vector3D, ,Vecteur3D,Vector3D
+Light3D, ,Lumiere3D,Luz3D
+Path3D, ,Chemin3D,Camino3D
+Cylinder3D, ,Cylindre3D,Cilindro
+Text3D, ,Texte3D,Texto3D
+Walker3D, ,Promeneur3D,Paseante3D
+Rider3D, ,Suiveur3D,Seguidor3D
+Location, ,Position,Posicion

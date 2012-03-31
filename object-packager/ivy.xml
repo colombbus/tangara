@@ -25,11 +25,8 @@
 	</publications>
 
 	<dependencies>
-		<dependency org="org.apache.ant" name="ant" rev="1.8.3" conf="compile->compile(*),master(*);runtime->runtime(*)"/>
-	
 		<dependency org="commons-io" name="commons-io" rev="2.1" conf="compile->compile(*),master(*);runtime->runtime(*)"/>
-		<dependency org="org.apache.commons" name="commons-lang3" rev="3.1" conf="compile->compile(*),master(*);runtime->runtime(*)"/>
-
+		<dependency org="org.apache.ant" name="ant" rev="1.8.3" conf="provided->compile(*),master(*)"/>	
 		<dependency org="junit" name="junit" rev="4.10" conf="test->runtime(*),master(*)" />
 	</dependencies>
 </ivy-module>

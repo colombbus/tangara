@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
-<antlib xmlns:antcontrib="antlib:org.colombbus.objectpackager">
+<antlib xmlns:antcontrib="tgr:org.colombbus.objectpackager">
    <taskdef name="package-objects" classname="org.colombbus.objectpackager.ObjectPackagerTask"/>
 </antlib>

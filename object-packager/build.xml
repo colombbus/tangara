@@ -5,17 +5,29 @@
 
 	<import file="../build-main.xml"/>
 	<import file="../build-publication.xml" optional="true"/>
+	
+	<property name="dist.runtime-lib.dir" value="${dist.dir}/runtime-lib"/>
+
 
 	<target name="publish-local" depends="build-main.publish-local" description="--> Publish the artifact(s)  to the local repository">
 		<echo message="-- ANT extension published --"/>
 		<echo message="Install it using the antlib procedure detailled at "/>
 		<echo message="    http://ant.apache.org/manual/Types/antlib.html#antlibnamespace"/>
 		<echo message="The XML namespace to add to the project entity is "/>
-		<echo message="    xmlns:antcontrib=&quot;antlib:org.colombbus.objectpackager&quot;"/>
+		<echo message="    xmlns:tgr=&quot;antlib:org.colombbus.objectpackager&quot;"/>
 	</target>
 	
+	
+	
 	<target name="install" depends="package" description="--> Install the extension to current ANT">
-		<copy file="${dist.package.jar}" todir="${ant.library.dir}" overwrite="true"/>
+		<echo>Copy the ANT extension and its runtime dependencies into ANT library directory ${ant.library.dir}.</echo>
+		<mkdir dir="${dist.runtime-lib.dir}"/>
+		<ivy:retrieve conf="runtime" pattern="${dist.runtime-lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings" />
+		
+		<copy todir="${ant.library.dir}" overwrite="false" verbose="true">
+			<fileset dir="${dist.runtime-lib.dir}" includes="*.jar"/>
+		</copy>
+		<copy file="${dist.package.jar}" todir="${ant.library.dir}" overwrite="true" verbose="true"/>
 	</target>
 
 </project>

@@ -80,7 +80,7 @@
 	</target>
 
 	<target name="compile" depends="pre-compile" description="--> Compile the main source code">
-		<ivy:retrieve conf="compile" pattern="${dist.main.lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings" />
+		<ivy:retrieve conf="compile,provided" pattern="${dist.main.lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings" />
 		<javac destdir="${dist.main.classes.dir}" includeantruntime="false" source="${java.source}" target="${java.target}" encoding="${java.encoding}">
 			<classpath>
 				<fileset dir="${dist.main.lib.dir}">

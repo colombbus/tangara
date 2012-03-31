@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tools.ant.BuildException;
+
 /**
  * Collect all the classes relatives to a Tangara objects.
  *
@@ -54,7 +56,13 @@ class FileObjectCollector {
 	}
 
 	private void collectByFilteringDirectory(String objectName, File directory) {
-		for (File file : directory.listFiles()) {
+		File[] files = directory.listFiles();
+		if( files == null) {
+			String msg = String.format("No files found in directory %s", (directory==null?"NULL":directory.getPath()));
+			throw new BuildException(msg);
+		}
+
+		for (File file : files) {
 			if (fileBelongsObject(file, objectName)) {
 				objectFiles.add(file);
 			}

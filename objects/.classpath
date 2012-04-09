@@ -7,6 +7,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/software"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/translation"/>
-	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?ivyXmlPath=ivy.xml&amp;confs=*&amp;ivySettingsPath=file%3A%2Fhome%2Fgwen%2Frepositories%2Fgit%2Ftangara%2Fivysettings.xml&amp;loadSettingsOnDemand=false&amp;propertyFiles="/>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=objects&amp;ivyXmlPath=ivy.xml&amp;confs=*&amp;ivySettingsPath=file%3A%2Fhome%2Fgwen%2Frepositories%2Fgit%2Ftangara%2Fivysettings.xml&amp;loadSettingsOnDemand=false&amp;propertyFiles="/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

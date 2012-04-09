@@ -19,11 +19,11 @@
 		<artifact name="${artifact.module}" type="zip" ext="zip" conf="master"/>
     </publications>
     
-    <dependencies>
+	<dependencies>
 		<dependency org="org.colombbus.tangara" name="translation" rev="1.6.7" conf="provided->compile(*),master(*)"/>
 		<dependency org="org.colombbus.tangara" name="software" rev="1.6.7" conf="provided->compile(*),master(*)"/>
 
-		<dependency org="log4j" name="log4j" rev="1.2.16" conf="compile->compile(*),master(*);runtime->runtime(*)"/>
+		<dependency org="log4j" name="log4j" rev="1.2.16" conf="provided->compile(*),master(*)"/>
 		
 		<dependency org="javax.media" name="jmf" rev="2.1.1e" conf="compile->compile(*),master(*);optional->default"/>
 		<dependency org="net.sourceforge.java3dsloader" name="java3dsloader" rev="1.2" conf="compile->compile(*),master(*);optional->default"/>
@@ -31,6 +31,6 @@
 		<dependency org="net.java.java3d" name="j3dutils" rev="1.5.2" conf="compile->compile(*),master(*);optional->default" />
 		<dependency org="net.java.java3d" name="vecmath" rev="1.5.2" conf="compile->compile(*),master(*);optional->default" />
 
-		<dependency org="junit" name="junit" rev="4.10" conf="test->runtime(*),master(*)" />
-    </dependencies>
+		<dependency org="junit" name="junit" rev="4.10" conf="test->runtime(*),master(*)"/>
+	</dependencies>
 </ivy-module>

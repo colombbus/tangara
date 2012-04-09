@@ -163,6 +163,27 @@
 
 
 
+	<target name="test-valid" depends="test-compile" description="--> Run the validation tests (Require user interaction)">
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${dist.test.classes.dir}" />
+				<fileset dir="${dist.test.lib.dir}" includes="**/*.jar" />
+				<pathelement location="${dist.main.classes.dir}" />
+				<fileset dir="${dist.main.lib.dir}" includes="**/*.jar" />
+			</classpath>
+
+			<formatter type="plain" />
+
+			<batchtest fork="yes" todir="${dist.test.reports.dir}">
+				<fileset dir="${src.test.java.dir}">
+					<include name="**/*ValidTest.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+
+
 	<target name="package" depends="compile,test" description="--> Create the final artifact(s)">
 		<jar destfile="${dist.package.jar}">
 			<fileset dir="${dist.main.classes.dir}" />

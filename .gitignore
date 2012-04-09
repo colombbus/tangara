@@ -9,3 +9,5 @@
 *.class
 *~
 *.bak
+# log files
+*/*.log

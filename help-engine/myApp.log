@@ -1,0 +1,132 @@
+2012-04-09 14:26:33,282 DEBUG [Thread-1] o.e.j.u.log [Log.java:157] Logging to Logger[org.eclipse.jetty.util.log] via org.eclipse.jetty.util.log.Slf4jLog
+2012-04-09 14:26:33,369 DEBUG [Thread-1] o.e.j.u.c.Container [Container.java:201] Container org.eclipse.jetty.server.Server@32efa7 + SelectChannelConnector@0.0.0.0:7777 as connector
+2012-04-09 14:26:33,400 DEBUG [Thread-1] o.e.j.u.c.Container [Container.java:201] Container org.eclipse.jetty.server.Server@32efa7 + org.colombbus.helpengine.ResourceFileHandler@1878144 as handler
+2012-04-09 14:26:33,401 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:26:33,401 INFO [Thread-1] o.e.j.s.Server [Server.java:252] jetty-7.6.2.v20120308
+2012-04-09 14:26:33,516 DEBUG [Thread-1] o.e.j.u.c.Container [Container.java:201] Container org.eclipse.jetty.server.Server@32efa7 + qtp12053597{8<=0<=0/254,-1} as threadpool
+2012-04-09 14:26:33,517 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:26:33,518 DEBUG [Thread-1] o.e.j.s.h.AbstractHandler [AbstractHandler.java:52] starting org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:26:33,518 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:26:33,518 DEBUG [Thread-1] o.e.j.s.h.AbstractHandler [AbstractHandler.java:52] starting org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:26:33,518 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting qtp12053597{8<=0<=0/254,-1}
+2012-04-09 14:26:33,542 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED qtp12053597{8<=7<=8/254,0}
+2012-04-09 14:26:33,543 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:26:33,557 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting null/null
+2012-04-09 14:26:33,560 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED PooledBuffers [0/1024@6144,0/1024@16384,0/1024@-]/PooledBuffers [0/1024@6144,0/1024@32768,0/1024@-]
+2012-04-09 14:26:33,560 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@d56b37
+2012-04-09 14:26:33,574 DEBUG [qtp12053597-12 Selector0] o.e.j.i.nio [SelectorManager.java:280] Starting Thread[qtp12053597-12 Selector0,5,main] on org.eclipse.jetty.io.nio.SelectorManager$1@17ba38f
+2012-04-09 14:26:33,575 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@d56b37
+2012-04-09 14:26:33,581 INFO [Thread-1] o.e.j.s.AbstractConnector [AbstractConnector.java:333] Started SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:26:33,582 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:26:33,582 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:26:37,862 TRACE [AWT-EventQueue-0] o.c.h.DefaultHelpEngine [null:-1] Open help url http://localhost:7777/logiciel_commandes.html
+2012-04-09 14:26:38,281 DEBUG [qtp12053597-12 Selector0] o.e.j.i.nio [SelectorManager.java:837] created SCEP@132ae7{l(/127.0.0.1:39841)<->r(/127.0.0.1:7777),d=false,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=0}-{AsyncHttpConnection@65b738,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-14,l=0,c=0},r=0}
+2012-04-09 14:26:38,282 DEBUG [qtp12053597-16] o.e.j.h.HttpParser [HttpParser.java:277] filled 342/342
+2012-04-09 14:26:38,289 DEBUG [qtp12053597-16 - /logiciel_commandes.html] o.e.j.s.Server [Server.java:344] REQUEST /logiciel_commandes.html on AsyncHttpConnection@65b738,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-5,l=10,c=0},r=1
+2012-04-09 14:26:38,336 WARN [qtp12053597-16 - /logiciel_commandes.html] o.c.h.ResourceFileHandler [null:-1] Resource '/html/logiciel_commandes.html' not found
+2012-04-09 14:26:38,337 WARN [qtp12053597-16 - /logiciel_commandes.html] o.c.h.ResourceFileHandler [null:-1] Text resource /logiciel_commandes.html not found
+2012-04-09 14:26:38,338 TRACE [qtp12053597-16 - /logiciel_commandes.html] o.c.h.ResourceFileHandler [null:-1] html fetch /logiciel_commandes.html
+2012-04-09 14:26:38,339 DEBUG [qtp12053597-16 - /logiciel_commandes.html] o.e.j.s.Server [Server.java:346] RESPONSE /logiciel_commandes.html  200
+2012-04-09 14:26:38,342 DEBUG [qtp12053597-16] o.e.j.s.AsyncHttpConnection [AsyncHttpConnection.java:206] Enabled read interest SCEP@132ae7{l(/127.0.0.1:39841)<->r(/127.0.0.1:7777),d=true,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=0}-{AsyncHttpConnection@65b738,g=HttpGenerator{s=4,h=0,b=0,c=-1},p=HttpParser{s=0,l=10,c=0},r=1}
+2012-04-09 14:26:38,345 DEBUG [qtp12053597-16] o.e.j.h.HttpParser [HttpParser.java:277] filled 0/0
+2012-04-09 14:26:38,434 DEBUG [qtp12053597-17] o.e.j.h.HttpParser [HttpParser.java:277] filled 300/300
+2012-04-09 14:26:38,435 DEBUG [qtp12053597-17 - /favicon.ico] o.e.j.s.Server [Server.java:344] REQUEST /favicon.ico on AsyncHttpConnection@65b738,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-5,l=10,c=0},r=2
+2012-04-09 14:26:38,437 WARN [qtp12053597-17 - /favicon.ico] o.c.h.ResourceFileHandler [null:-1] Resource '/html/favicon.ico' not found
+2012-04-09 14:26:38,438 WARN [qtp12053597-17 - /favicon.ico] o.c.h.ResourceFileHandler [null:-1] Binary resource /favicon.ico not found
+2012-04-09 14:26:38,438 TRACE [qtp12053597-17 - /favicon.ico] o.c.h.ResourceFileHandler [null:-1] fetch binary /favicon.ico
+2012-04-09 14:26:38,438 DEBUG [qtp12053597-17 - /favicon.ico] o.e.j.s.Server [Server.java:346] RESPONSE /favicon.ico  200
+2012-04-09 14:26:38,439 DEBUG [qtp12053597-17] o.e.j.s.AsyncHttpConnection [AsyncHttpConnection.java:206] Enabled read interest SCEP@132ae7{l(/127.0.0.1:39841)<->r(/127.0.0.1:7777),d=true,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=1r}-{AsyncHttpConnection@65b738,g=HttpGenerator{s=4,h=0,b=0,c=-1},p=HttpParser{s=0,l=10,c=0},r=2}
+2012-04-09 14:26:38,440 DEBUG [qtp12053597-17] o.e.j.h.HttpParser [HttpParser.java:277] filled 0/0
+2012-04-09 14:26:38,459 DEBUG [qtp12053597-18] o.e.j.h.HttpParser [HttpParser.java:277] filled 330/330
+2012-04-09 14:26:38,460 DEBUG [qtp12053597-18 - /favicon.ico] o.e.j.s.Server [Server.java:344] REQUEST /favicon.ico on AsyncHttpConnection@65b738,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-5,l=10,c=0},r=3
+2012-04-09 14:26:38,460 WARN [qtp12053597-18 - /favicon.ico] o.c.h.ResourceFileHandler [null:-1] Resource '/html/favicon.ico' not found
+2012-04-09 14:26:38,460 WARN [qtp12053597-18 - /favicon.ico] o.c.h.ResourceFileHandler [null:-1] Binary resource /favicon.ico not found
+2012-04-09 14:26:38,460 TRACE [qtp12053597-18 - /favicon.ico] o.c.h.ResourceFileHandler [null:-1] fetch binary /favicon.ico
+2012-04-09 14:26:38,461 DEBUG [qtp12053597-18 - /favicon.ico] o.e.j.s.Server [Server.java:346] RESPONSE /favicon.ico  200
+2012-04-09 14:26:38,462 DEBUG [qtp12053597-18] o.e.j.s.AsyncHttpConnection [AsyncHttpConnection.java:206] Enabled read interest SCEP@132ae7{l(/127.0.0.1:39841)<->r(/127.0.0.1:7777),d=true,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=1r}-{AsyncHttpConnection@65b738,g=HttpGenerator{s=4,h=0,b=0,c=-1},p=HttpParser{s=0,l=10,c=0},r=3}
+2012-04-09 14:26:38,462 DEBUG [qtp12053597-18] o.e.j.h.HttpParser [HttpParser.java:277] filled 0/0
+2012-04-09 14:26:46,307 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:26:46,307 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:26:46,308 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@d56b37
+2012-04-09 14:26:46,308 DEBUG [qtp12053597-12 Selector0] o.e.j.i.nio [SelectorManager.java:299] Stopped Thread[qtp12053597-12 Selector0,5,main] on org.eclipse.jetty.io.nio.SelectorManager$1@17ba38f
+2012-04-09 14:26:46,319 DEBUG [Thread-2] o.e.j.i.n.ChannelEndPoint [ChannelEndPoint.java:204] close SCEP@132ae7{l(/127.0.0.1:39841)<->r(/127.0.0.1:7777),d=false,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=1!}-{AsyncHttpConnection@65b738,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-14,l=0,c=-3},r=3}
+2012-04-09 14:26:46,320 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@d56b37
+2012-04-09 14:26:46,321 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping PooledBuffers [1/1024@6144,0/1024@16384,0/1024@-]/PooledBuffers [1/1024@6144,1/1024@32768,0/1024@-]
+2012-04-09 14:26:46,321 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED null/null
+2012-04-09 14:26:46,321 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:26:46,321 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:26:46,322 DEBUG [Thread-2] o.e.j.s.h.AbstractHandler [AbstractHandler.java:63] stopping org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:26:46,322 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:26:46,322 DEBUG [Thread-2] o.e.j.s.h.AbstractHandler [AbstractHandler.java:63] stopping org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:26:46,322 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping qtp12053597{8<=8<=8/254,0}
+2012-04-09 14:26:46,373 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED qtp12053597{8<=0<=0/254,0}
+2012-04-09 14:26:46,373 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:26:46,374 DEBUG [Thread-2] o.e.j.u.t.ShutdownThread [ShutdownThread.java:125] Stopped org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:26:46,374 DEBUG [Thread-2] o.e.j.u.t.ShutdownThread [ShutdownThread.java:125] Stopped org.eclipse.jetty.server.Server@32efa7
+2012-04-09 14:30:38,430 DEBUG [Thread-1] o.e.j.u.log [Log.java:157] Logging to Logger[org.eclipse.jetty.util.log] via org.eclipse.jetty.util.log.Slf4jLog
+2012-04-09 14:30:38,466 DEBUG [Thread-1] o.e.j.u.c.Container [Container.java:201] Container org.eclipse.jetty.server.Server@f9c40 + SelectChannelConnector@0.0.0.0:7777 as connector
+2012-04-09 14:30:38,509 DEBUG [Thread-1] o.e.j.u.c.Container [Container.java:201] Container org.eclipse.jetty.server.Server@f9c40 + org.colombbus.helpengine.ResourceFileHandler@1878144 as handler
+2012-04-09 14:30:38,510 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting org.eclipse.jetty.server.Server@f9c40
+2012-04-09 14:30:38,511 INFO [Thread-1] o.e.j.s.Server [Server.java:252] jetty-7.6.2.v20120308
+2012-04-09 14:30:38,646 DEBUG [Thread-1] o.e.j.u.c.Container [Container.java:201] Container org.eclipse.jetty.server.Server@f9c40 + qtp22939763{8<=0<=0/254,-1} as threadpool
+2012-04-09 14:30:38,646 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:30:38,646 DEBUG [Thread-1] o.e.j.s.h.AbstractHandler [AbstractHandler.java:52] starting org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:30:38,647 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:30:38,647 DEBUG [Thread-1] o.e.j.s.h.AbstractHandler [AbstractHandler.java:52] starting org.eclipse.jetty.server.Server@f9c40
+2012-04-09 14:30:38,647 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting qtp22939763{8<=0<=0/254,-1}
+2012-04-09 14:30:38,660 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED qtp22939763{8<=7<=8/254,0}
+2012-04-09 14:30:38,660 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:30:38,669 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting null/null
+2012-04-09 14:30:38,672 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED PooledBuffers [0/1024@6144,0/1024@16384,0/1024@-]/PooledBuffers [0/1024@6144,0/1024@32768,0/1024@-]
+2012-04-09 14:30:38,672 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:174] starting org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@ed662d
+2012-04-09 14:30:38,682 DEBUG [qtp22939763-12 Selector0] o.e.j.i.nio [SelectorManager.java:280] Starting Thread[qtp22939763-12 Selector0,5,main] on org.eclipse.jetty.io.nio.SelectorManager$1@131303f
+2012-04-09 14:30:38,682 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@ed662d
+2012-04-09 14:30:38,683 INFO [Thread-1] o.e.j.s.AbstractConnector [AbstractConnector.java:333] Started SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:30:38,684 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:30:38,684 DEBUG [Thread-1] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:167] STARTED org.eclipse.jetty.server.Server@f9c40
+2012-04-09 14:30:47,739 TRACE [AWT-EventQueue-0] o.c.h.DefaultHelpEngine [null:-1] Open help url http://localhost:7777/logiciel_commandes.html
+2012-04-09 14:30:48,084 DEBUG [qtp22939763-12 Selector0] o.e.j.i.nio [SelectorManager.java:837] created SCEP@f894ce{l(/127.0.0.1:39871)<->r(/127.0.0.1:7777),d=false,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=0}-{AsyncHttpConnection@1f1680f,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-14,l=0,c=0},r=0}
+2012-04-09 14:30:48,086 DEBUG [qtp22939763-15] o.e.j.h.HttpParser [HttpParser.java:277] filled 342/342
+2012-04-09 14:30:48,093 DEBUG [qtp22939763-15 - /logiciel_commandes.html] o.e.j.s.Server [Server.java:344] REQUEST /logiciel_commandes.html on AsyncHttpConnection@1f1680f,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-5,l=10,c=0},r=1
+2012-04-09 14:30:48,143 TRACE [qtp22939763-15 - /logiciel_commandes.html] o.c.h.ResourceFileHandler [null:-1] html fetch /logiciel_commandes.html
+2012-04-09 14:30:48,143 DEBUG [qtp22939763-15 - /logiciel_commandes.html] o.e.j.s.Server [Server.java:346] RESPONSE /logiciel_commandes.html  200
+2012-04-09 14:30:48,150 DEBUG [qtp22939763-15] o.e.j.s.AsyncHttpConnection [AsyncHttpConnection.java:206] Enabled read interest SCEP@f894ce{l(/127.0.0.1:39871)<->r(/127.0.0.1:7777),d=true,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=0}-{AsyncHttpConnection@1f1680f,g=HttpGenerator{s=4,h=0,b=0,c=-1},p=HttpParser{s=0,l=10,c=0},r=1}
+2012-04-09 14:30:48,162 DEBUG [qtp22939763-15] o.e.j.h.HttpParser [HttpParser.java:277] filled 0/0
+2012-04-09 14:30:48,239 DEBUG [qtp22939763-16] o.e.j.h.HttpParser [HttpParser.java:277] filled 338/338
+2012-04-09 14:30:48,240 DEBUG [qtp22939763-16 - /main.css] o.e.j.s.Server [Server.java:344] REQUEST /main.css on AsyncHttpConnection@1f1680f,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-5,l=45,c=0},r=2
+2012-04-09 14:30:48,241 TRACE [qtp22939763-16 - /main.css] o.c.h.ResourceFileHandler [null:-1] fetch css /main.css
+2012-04-09 14:30:48,241 DEBUG [qtp22939763-16 - /main.css] o.e.j.s.Server [Server.java:346] RESPONSE /main.css  200
+2012-04-09 14:30:48,243 DEBUG [qtp22939763-16] o.e.j.s.AsyncHttpConnection [AsyncHttpConnection.java:206] Enabled read interest SCEP@f894ce{l(/127.0.0.1:39871)<->r(/127.0.0.1:7777),d=true,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=1r}-{AsyncHttpConnection@1f1680f,g=HttpGenerator{s=4,h=0,b=0,c=-1},p=HttpParser{s=0,l=45,c=0},r=2}
+2012-04-09 14:30:48,243 DEBUG [qtp22939763-16] o.e.j.h.HttpParser [HttpParser.java:277] filled 0/0
+2012-04-09 14:30:48,244 DEBUG [qtp22939763-17] o.e.j.h.HttpParser [HttpParser.java:277] filled 353/353
+2012-04-09 14:30:48,245 DEBUG [qtp22939763-17 - /star.png] o.e.j.s.Server [Server.java:344] REQUEST /star.png on AsyncHttpConnection@1f1680f,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-5,l=45,c=0},r=3
+2012-04-09 14:30:48,249 DEBUG [qtp22939763-12 Selector0] o.e.j.i.nio [SelectorManager.java:837] created SCEP@12462b3{l(/127.0.0.1:39872)<->r(/127.0.0.1:7777),d=false,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=0}-{AsyncHttpConnection@1cbfa42,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-14,l=0,c=0},r=0}
+2012-04-09 14:30:48,250 DEBUG [qtp22939763-18] o.e.j.h.HttpParser [HttpParser.java:277] filled 354/354
+2012-04-09 14:30:48,251 DEBUG [qtp22939763-18 - /error.png] o.e.j.s.Server [Server.java:344] REQUEST /error.png on AsyncHttpConnection@1cbfa42,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-5,l=45,c=0},r=1
+2012-04-09 14:30:48,253 TRACE [qtp22939763-18 - /error.png] o.c.h.ResourceFileHandler [null:-1] fetch binary /error.png
+2012-04-09 14:30:48,253 DEBUG [qtp22939763-18 - /error.png] o.e.j.s.Server [Server.java:346] RESPONSE /error.png  200
+2012-04-09 14:30:48,254 DEBUG [qtp22939763-18] o.e.j.s.AsyncHttpConnection [AsyncHttpConnection.java:206] Enabled read interest SCEP@12462b3{l(/127.0.0.1:39872)<->r(/127.0.0.1:7777),d=true,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=0r}-{AsyncHttpConnection@1cbfa42,g=HttpGenerator{s=4,h=0,b=0,c=-1},p=HttpParser{s=0,l=45,c=0},r=1}
+2012-04-09 14:30:48,254 DEBUG [qtp22939763-18] o.e.j.h.HttpParser [HttpParser.java:277] filled 0/0
+2012-04-09 14:30:48,258 TRACE [qtp22939763-17 - /star.png] o.c.h.ResourceFileHandler [null:-1] fetch binary /star.png
+2012-04-09 14:30:48,258 DEBUG [qtp22939763-17 - /star.png] o.e.j.s.Server [Server.java:346] RESPONSE /star.png  200
+2012-04-09 14:30:48,259 DEBUG [qtp22939763-17] o.e.j.s.AsyncHttpConnection [AsyncHttpConnection.java:206] Enabled read interest SCEP@f894ce{l(/127.0.0.1:39871)<->r(/127.0.0.1:7777),d=true,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=1r}-{AsyncHttpConnection@1f1680f,g=HttpGenerator{s=4,h=0,b=0,c=-1},p=HttpParser{s=0,l=45,c=0},r=3}
+2012-04-09 14:30:48,259 DEBUG [qtp22939763-17] o.e.j.h.HttpParser [HttpParser.java:277] filled 0/0
+2012-04-09 14:30:54,754 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping org.eclipse.jetty.server.Server@f9c40
+2012-04-09 14:30:54,755 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:30:54,756 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@ed662d
+2012-04-09 14:30:54,756 DEBUG [qtp22939763-12 Selector0] o.e.j.i.nio [SelectorManager.java:299] Stopped Thread[qtp22939763-12 Selector0,5,main] on org.eclipse.jetty.io.nio.SelectorManager$1@131303f
+2012-04-09 14:30:54,772 DEBUG [Thread-2] o.e.j.i.n.ChannelEndPoint [ChannelEndPoint.java:204] close SCEP@f894ce{l(/127.0.0.1:39871)<->r(/127.0.0.1:7777),d=false,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=1!}-{AsyncHttpConnection@1f1680f,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-14,l=0,c=-3},r=3}
+2012-04-09 14:30:54,773 DEBUG [Thread-2] o.e.j.i.n.ChannelEndPoint [ChannelEndPoint.java:204] close SCEP@12462b3{l(/127.0.0.1:39872)<->r(/127.0.0.1:7777),d=false,open=true,ishut=false,oshut=false,rb=false,wb=false,w=true,i=1!}-{AsyncHttpConnection@1cbfa42,g=HttpGenerator{s=0,h=-1,b=-1,c=-1},p=HttpParser{s=-14,l=0,c=-3},r=1}
+2012-04-09 14:30:54,774 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@ed662d
+2012-04-09 14:30:54,774 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping PooledBuffers [2/1024@6144,0/1024@16384,0/1024@-]/PooledBuffers [1/1024@6144,1/1024@32768,0/1024@-]
+2012-04-09 14:30:54,775 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED null/null
+2012-04-09 14:30:54,775 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED SelectChannelConnector@0.0.0.0:7777
+2012-04-09 14:30:54,775 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:30:54,775 DEBUG [Thread-2] o.e.j.s.h.AbstractHandler [AbstractHandler.java:63] stopping org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:30:54,775 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED org.colombbus.helpengine.ResourceFileHandler@1878144
+2012-04-09 14:30:54,775 DEBUG [Thread-2] o.e.j.s.h.AbstractHandler [AbstractHandler.java:63] stopping org.eclipse.jetty.server.Server@f9c40
+2012-04-09 14:30:54,776 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:182] stopping qtp22939763{8<=8<=8/254,0}
+2012-04-09 14:30:54,827 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED qtp22939763{8<=0<=0/254,0}
+2012-04-09 14:30:54,828 DEBUG [Thread-2] o.e.j.u.c.AbstractLifeCycle [AbstractLifeCycle.java:191] STOPPED org.eclipse.jetty.server.Server@f9c40
+2012-04-09 14:30:54,828 DEBUG [Thread-2] o.e.j.u.t.ShutdownThread [ShutdownThread.java:125] Stopped org.eclipse.jetty.server.Server@f9c40
+2012-04-09 14:30:54,828 DEBUG [Thread-2] o.e.j.u.t.ShutdownThread [ShutdownThread.java:125] Stopped org.eclipse.jetty.server.Server@f9c40

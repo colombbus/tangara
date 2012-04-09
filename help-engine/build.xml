@@ -1,0 +1,63 @@
+<project name="help-engine" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property file="build-settings.properties" />
+	<property name="artifact.module" value="help-engine" />
+	
+	<import file="../build-main.xml" />
+	<import file="../build-publication.xml" optional="true" />
+
+	<property name="dist.run.lib.dir" value="${dist.dir}/lib-run" />
+	<property name="dist.generated.html" value="${dist.dir}/generated-html" />
+	<property name="dist.generator.mainclass" value="org.colombbus.helpgenerator.HelpGenerator" />
+
+
+
+	<target name="downloadHtml" depends="compile">
+		<mkdir dir="${dist.generated.html}/html" />
+		<ivy:retrieve conf="compile" pattern="${dist.run.lib.dir}/[artifact]-[revision].[ext]" type="jar" settingsref="default.ivysettings" />
+		<java fork="true" classname="${dist.generator.mainclass}">
+			<classpath>
+				<fileset dir="${dist.run.lib.dir}" includes="*.jar" />
+				<pathelement path="${dist.main.classes.dir}" />
+			</classpath>
+			<arg path="${dist.generated.html}/html" />
+		</java>
+	</target>
+
+
+
+	<target name="package" depends="compile,test,downloadHtml" description="--> Create the final artifact(s)">
+		<echo>Prepare to create ${dist.package.jar}</echo>
+		<jar destfile="${dist.package.jar}">
+			<fileset dir="${dist.main.classes.dir}" includes="org/colombbus/helpengine/**" />
+			<fileset dir="${dist.generated.html}" />
+		</jar>
+
+		<jar destfile="${dist.package.source.jar}">
+			<fileset dir="${src.main.java.dir}" />
+			<fileset dir="${src.main.res.dir}" />
+		</jar>
+	</target>
+
+
+
+	<target name="test-valid" depends="package" description="--> Run the validation tests (Require user interaction)">
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${dist.test.classes.dir}" />
+				<fileset dir="${dist.test.lib.dir}" includes="**/*.jar" />
+				<pathelement location="${dist.main.classes.dir}" />
+				<fileset dir="${dist.main.lib.dir}" includes="**/*.jar" />
+				<pathelement path="${dist.package.jar}" />
+			</classpath>
+
+			<formatter type="plain" />
+
+			<batchtest fork="yes" todir="${dist.test.reports.dir}">
+				<fileset dir="${src.test.java.dir}">
+					<include name="**/*ValidTest.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+</project>

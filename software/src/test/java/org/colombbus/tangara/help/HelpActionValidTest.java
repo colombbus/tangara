@@ -18,6 +18,9 @@
 package org.colombbus.tangara.help;
 
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.*;
 
@@ -27,8 +30,8 @@ import org.junit.*;
 
 public class HelpActionValidTest {
 
-	HelpEngine helpEngine;
-	JFrame frame;
+	private HelpEngine helpEngine;
+	Semaphore endOfApplication = new Semaphore(0);
 
 	@Before
 	public void setup() {
@@ -42,28 +45,32 @@ public class HelpActionValidTest {
 		helpEngine.shutdown();
 	}
 
-
-
 	@Test
 	public void testHelpAction() throws Exception {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
 			public void run() {
-				frame = new JFrame();
-				frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-				frame.setLayout(new BorderLayout());
-				JButton button = new JButton(new HelpAction(helpEngine));
-				frame.add(button, BorderLayout.CENTER);
-				frame.setSize(200, 100);
-				frame.setVisible(true);
+				launchUI();
 			}
 		});
-		waitWhileFrameVisible();
+		endOfApplication.acquire();
 	}
 
-	private void waitWhileFrameVisible() throws InterruptedException {
-		while (frame.isVisible()) {
-			Thread.sleep(500);
-		}
+	void launchUI() {
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+		JButton button = new JButton(new HelpAction(helpEngine));
+		frame.add(button, BorderLayout.CENTER);
+		frame.setSize(200, 100);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				endOfApplication.release();
+			}
+		});
+
+		frame.setVisible(true);
 	}
+
 }

@@ -1,7 +1,7 @@
 /**
  * Tangara is an educational platform to get started with programming.
  * Copyright (C) 2008 Colombbus (http://www.colombbus.org)
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -53,42 +53,43 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import org.apache.log4j.Logger;
+import org.colombbus.helpengine.HelpEngine;
 import org.colombbus.tangara.help.HelpAction;
 
 /**
  * This is the banner at the top of GameArea. It serves as a menu
- * 
+ *
  * @author gwen
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class Banner extends JMenuBar {
 	/** Class logger */
 	private static final Logger LOG = Logger.getLogger(Banner.class);
 
-	private JMenu fileMenu = null;
-	private JMenu editMenu = null;
-	private JMenuItem openFileItem = null;
-	private JMenuItem exportProgramItem = null;
-	private JMenuItem closeTabItem = null;
-	private JMenuItem exitItem = null;
-    private JMenuItem searchItem = null;
+	private JMenu fileMenu;
+	private JMenu editMenu;
+	private JMenuItem openFileItem;
+	private JMenuItem exportProgramItem;
+	private JMenuItem closeTabItem;
+	private JMenuItem exitItem;
+    private JMenuItem searchItem;
 
-	private JSeparator separator1 = null;
-	private JSeparator separator2 = null;
-	private JSeparator separator3 = null;
-    private JSeparator separator4 = null;
-    private JSeparator separator5 = null;
-    private JSeparator separator6 = null;
+	private JSeparator separator1;
+	private JSeparator separator2;
+	private JSeparator separator3;
+    private JSeparator separator4;
+    private JSeparator separator5;
+    private JSeparator separator6;
 
-	private JMenuItem library = null;
-	private JMenuItem about = null;
-	private JMenuItem help = null;
-	private JMenuItem checkUpdate = null;
+	private JMenuItem library;
+	private JMenuItem about;
+	private JMenuItem help;
+	private JMenuItem checkUpdate;
 
 	private EditorFrame parentFrame;
 
-	private boolean menuVisible = false;
+	private boolean menuVisible;
 
 
 	// for painting buffering
@@ -98,14 +99,14 @@ public class Banner extends JMenuBar {
 	private Color titleColor;
 	private Font titleFont;
 	private String title;
-	private boolean popupOpen = false;
-	private boolean onMenu = false;
+	private boolean popupOpen;
+	private boolean onMenu;
 
 	private static final String[] BG_IMG_NAME_LIST = {
 			Messages.getString("Banner.backgroundImage"), Messages.getString("Banner.colombbusIcon"), Messages.getString("Banner.tangaraIcon") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-	private JMenuItem makeProgramFileItem = null;
+	private JMenuItem makeProgramFileItem;
 
-	private JMenu toolsMenu = null;
+	private JMenu toolsMenu;
 
 	private JMenu helpMenu = null;
 
@@ -114,7 +115,7 @@ public class Banner extends JMenuBar {
 	private JCheckBoxMenuItem writingHelpItem = null;
 
 	private JCheckBoxMenuItem displayLineNumbersItem = null;
-	
+
 	private JMenuItem newProgramItem = null;
 
 	private JMenuItem saveProgramItem = null;
@@ -125,40 +126,36 @@ public class Banner extends JMenuBar {
 
 	private List<Image> imageList;
 
-	private JRadioButtonMenuItem basicLevelItem = null;
-	private JRadioButtonMenuItem advancedLevelItem = null;
+	private JRadioButtonMenuItem basicLevelItem;
+	private JRadioButtonMenuItem advancedLevelItem ;
 
-	private JMenuItem configurationMenu = null;
+	private JMenuItem configurationMenu;
+	private JMenuItem undoItem;
+	private JMenuItem redoItem;
 
+	private HelpEngine helpEngine;
 
-	private JMenuItem undoItem = null;
-
-	private JMenuItem redoItem = null;
-
-
-	private static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN,
-			14);
+	private static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 14);
 
 	/**
 	 * Creates a new banner placed on the <code>EditorFrame</code> according to
 	 * the configuration passed as parameters
-	 * 
-	 * @param configuration
-	 *            the program configuration
+	 *
 	 * @param parentFrame
 	 *            the Tangara frame
+	 * @param helpEngine
 	 */
-	public Banner(Configuration configuration, EditorFrame parentFrame) {
+	public Banner(EditorFrame parentFrame, HelpEngine helpEngine) {
 		this.parentFrame = parentFrame;
+		this.helpEngine = helpEngine;
 		initialize();
 		initPaint();
 	}
 
 	/**
 	 * Repaints the menu if the mouse is no longer located on
-	 * 
 	 */
-	private void testMenu() {
+	private void repaintMenuIfNecessary() {
 		if ((!popupOpen) && (!onMenu)) {
 			menuVisible = false;
 			repaint();
@@ -168,7 +165,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * Defines and draws the design of Tangara banner
-	 * 
+	 *
 	 */
 	private void initPaint() {
 		if (imageList == null) {
@@ -189,14 +186,14 @@ public class Banner extends JMenuBar {
 		// the first image is the background with the exact height & width
 		Image bgImg = imageList.get(0);
 
-		
+
 		int maxScreenWidth=Toolkit.getDefaultToolkit().getScreenSize().width;
 		bannerImageModel = new BufferedImage(maxScreenWidth, bgImg.getHeight(null), BufferedImage.TYPE_INT_RGB);
 		Graphics bannerGraphics = bannerImageModel.getGraphics();
 
 		// draw left image
 		bannerGraphics.drawImage(imageList.get(1), 0, 0, null);
-		
+
 
 		int left_shift = imageList.get(1).getWidth(null);
 
@@ -223,7 +220,7 @@ public class Banner extends JMenuBar {
 	 * Paints the banner. Here we override paint and not paintComponent, because
 	 * when the banner is displayed we don't want children elements like menus
 	 * to be displayed
-	 * 
+	 *
 	 * @param g
 	 *            the graphics context to use for painting
 	 */
@@ -260,7 +257,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * Sets the banner to work for program mode
-	 * 
+	 *
 	 */
 	public void setProgramMode() {
 		newProgramItem.setVisible(true);
@@ -281,7 +278,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * Sets the banner to work for command mode
-	 * 
+	 *
 	 */
 	public void setCommandMode() {
 		newProgramItem.setVisible(false);
@@ -303,7 +300,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes this
-	 * 
+	 *
 	 */
 	private void initialize() {
 		this.setSize(new Dimension(114, 42));
@@ -331,7 +328,7 @@ public class Banner extends JMenuBar {
 				javax.swing.SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						testMenu();
+						repaintMenuIfNecessary();
 					}
 				});
 			}
@@ -348,7 +345,7 @@ public class Banner extends JMenuBar {
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						testMenu();
+						repaintMenuIfNecessary();
 					}
 				});
 			}
@@ -376,7 +373,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes fileMenu
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenu getFileMenu() {
@@ -399,7 +396,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes editMenu
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenu getEditMenu() {
@@ -425,14 +422,14 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes exportProgramItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getExportProgramItem() {
 		if (exportProgramItem == null) {
 			exportProgramItem = new JMenuItem();
 			exportProgramItem.setText(Messages.getString("Banner.menu.export")); //$NON-NLS-1$
-			exportProgramItem.setFont(MENU_FONT); //$NON-NLS-1$
+			exportProgramItem.setFont(MENU_FONT);
 			exportProgramItem.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -446,17 +443,17 @@ public class Banner extends JMenuBar {
 		}
 		return exportProgramItem;
 	}
-	
+
 	/**
 	 * This method initializes openFileItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getOpenFileItem() {
 		if (openFileItem == null) {
 			openFileItem = new JMenuItem();
 			openFileItem.setText(Messages.getString("Banner.menu.open")); //$NON-NLS-1$
-			openFileItem.setFont(MENU_FONT); //$NON-NLS-1$
+			openFileItem.setFont(MENU_FONT);
 			openFileItem.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -466,17 +463,17 @@ public class Banner extends JMenuBar {
 		}
 		return openFileItem;
 	}
-	
+
 	/**
 	 * This method initializes closeTabItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getCloseTabItem() {
 		if (closeTabItem == null) {
 			closeTabItem = new JMenuItem();
 			closeTabItem.setText(Messages.getString("Banner.menu.close")); //$NON-NLS-1$
-			closeTabItem.setFont(MENU_FONT); //$NON-NLS-1$
+			closeTabItem.setFont(MENU_FONT);
 			closeTabItem.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -489,7 +486,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes exitItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getExitItem() {
@@ -512,7 +509,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes separator1
-	 * 
+	 *
 	 * @return javax.swing.JSeparator
 	 */
 	private JSeparator getSeparator1() {
@@ -524,7 +521,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes separator2
-	 * 
+	 *
 	 * @return javax.swing.JSeparator
 	 */
 	private JSeparator getSeparator2() {
@@ -534,10 +531,10 @@ public class Banner extends JMenuBar {
 		return separator2;
 	}
 
-	
+
 	/**
 	 * This method initializes makeProgramFileItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getMakeProgramFileItem() {
@@ -559,7 +556,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes toolsMenu
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenu getToolsMenu() {
@@ -584,7 +581,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes library
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenuItem getLibrary() {
@@ -604,7 +601,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes helpMenu
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenu getHelpingMenu() {
@@ -622,18 +619,18 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * Get help menu's item.
-	 * 
+	 *
 	 * @return A help menu's item never <code>null</code>.
 	 */
 	private JMenuItem getHelp() {
 		if (help == null) {
-			help = new JMenuItem(new HelpAction());
+			help = new JMenuItem(new HelpAction(helpEngine));
 			help.setFont(MENU_FONT);
 		}
 
 		return help;
 	}
-	
+
 	private JMenuItem getCheckUpdate() {
 		if( checkUpdate == null) {
 			checkUpdate = new JMenuItem( new CheckUpdateAction());
@@ -641,10 +638,10 @@ public class Banner extends JMenuBar {
 		}
 		return checkUpdate;
 	}
-	
+
 	/**
 	 * This method initializes about
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenuItem getAbout() {
@@ -661,7 +658,7 @@ public class Banner extends JMenuBar {
 		}
 		return about;
 	}
-	
+
     private JMenuItem getSearchItem() {
         if (searchItem == null) {
             searchItem = new JMenuItem(parentFrame.getSearchAction());
@@ -672,7 +669,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes rulersItem
-	 * 
+	 *
 	 * @return javax.swing.JCheckBoxMenuItem
 	 */
 	private JCheckBoxMenuItem getRulersItem() {
@@ -694,7 +691,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes separator4
-	 * 
+	 *
 	 * @return javax.swing.JSeparator
 	 */
 	private JSeparator getSeparator3() {
@@ -706,7 +703,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes writingHelpItem
-	 * 
+	 *
 	 * @return javax.swing.JCheckBoxMenuItem
 	 */
 	private JCheckBoxMenuItem getWritingHelpItem() {
@@ -730,10 +727,10 @@ public class Banner extends JMenuBar {
 		}
 		return writingHelpItem;
 	}
-	
+
 	/**
 	 * This method initializes writingHelpItem
-	 * 
+	 *
 	 * @return javax.swing.JCheckBoxMenuItem
 	 */
 	private JCheckBoxMenuItem getDisplayLineNumbersItem() {
@@ -760,7 +757,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes newProgramItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getNewProgramItem() {
@@ -782,7 +779,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes saveProgramItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getSaveProgramItem() {
@@ -805,7 +802,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes saveProgramAsItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getSaveProgramAsItem() {
@@ -827,7 +824,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes interfaceLevelMenu
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenu getInterfaceLevelMenu() {
@@ -844,7 +841,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes configurationMenu
-	 * 
+	 *
 	 * @return javax.swing.JMenu
 	 */
 	private JMenuItem getConfigurationMenu() {
@@ -866,7 +863,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes basicLevelItem
-	 * 
+	 *
 	 * @return javax.swing.JRadioButtonMenuItem
 	 */
 	private JRadioButtonMenuItem getBasicLevelItem() {
@@ -891,7 +888,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes advancedLevelItem
-	 * 
+	 *
 	 * @return javax.swing.JRadioButtonMenuItem
 	 */
 	private JRadioButtonMenuItem getAdvancedLevelItem() {
@@ -915,7 +912,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * Sets the level of display to basic
-	 * 
+	 *
 	 */
 	public void setBasicLevel() {
 		basicLevelItem.setSelected(true);
@@ -923,7 +920,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * Sets the level of display to advanced
-	 * 
+	 *
 	 */
 	public void setAdvancedLevel() {
 		advancedLevelItem.setSelected(true);
@@ -931,7 +928,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes separator5
-	 * 
+	 *
 	 * @return javax.swing.JSeparator
 	 */
 	private JSeparator getSeparator5() {
@@ -943,7 +940,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes separator5
-	 * 
+	 *
 	 * @return javax.swing.JSeparator
 	 */
 	private JSeparator getSeparator6() {
@@ -955,7 +952,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes undoItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getUndoItem() {
@@ -968,7 +965,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes redoItem
-	 * 
+	 *
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getRedoItem() {
@@ -981,7 +978,7 @@ public class Banner extends JMenuBar {
 
 	/**
 	 * This method initializes separator6
-	 * 
+	 *
 	 * @return javax.swing.JSeparator
 	 */
 	private JSeparator getSeparator4() {

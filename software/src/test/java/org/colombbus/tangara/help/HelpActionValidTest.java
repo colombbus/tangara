@@ -19,20 +19,30 @@ package org.colombbus.tangara.help;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.colombbus.helpengine.DefaultHelpEngine;
+import org.colombbus.helpengine.HelpEngine;
+import org.junit.*;
 
-/**
- * Validation test, ignored for the moment because it requires human interaction
- */
-@Ignore
-public class HelpActionIntegTest {
+public class HelpActionValidTest {
 
-	private JFrame frame;
+	HelpEngine helpEngine;
+	JFrame frame;
+
+	@Before
+	public void setup() {
+		helpEngine = new DefaultHelpEngine();
+		helpEngine.setPort(7777);
+		helpEngine.startup();
+	}
+
+	@After
+	public void teardown() {
+		helpEngine.shutdown();
+	}
+
+
 
 	@Test
 	public void testHelpAction() throws Exception {
@@ -40,9 +50,9 @@ public class HelpActionIntegTest {
 			@Override
 			public void run() {
 				frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 				frame.setLayout(new BorderLayout());
-				JButton button = new JButton(new HelpAction());
+				JButton button = new JButton(new HelpAction(helpEngine));
 				frame.add(button, BorderLayout.CENTER);
 				frame.setSize(200, 100);
 				frame.setVisible(true);

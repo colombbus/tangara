@@ -1,7 +1,7 @@
 /**
  * Tangara is an educational platform to get started with programming.
  * Copyright (C) 2008 Colombbus (http://www.colombbus.org)
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -72,6 +72,7 @@ import javax.swing.text.TabStop;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.colombbus.helpengine.HelpEngine;
 import org.colombbus.tangara.io.ScriptReader;
 import org.colombbus.tangara.io.ScriptWriter;
 import org.gjt.sp.jedit.textarea.TextArea;
@@ -80,29 +81,19 @@ import org.gjt.sp.jedit.textarea.TextArea;
 /**
  * The main framework of Tangara. It contains all panes of the UI when you run
  * Tangara in normal mode (with no arguments in main)
- * 
- * @author gwen
- * 
  */
-
 @SuppressWarnings("serial")
 public class EditorFrame extends TFrame {
-	
-	/**
-	 * This class contains the informations of a tab.
-	 * 
-	 */
-	
+
 	private static final int optionType = JOptionPane.OK_CANCEL_OPTION;
 
-	/** Class logger */
 	private static Logger LOG = Logger.getLogger(EditorFrame.class);
 
 	private static final double DIVIDER1_LOCATION = 0.65;
 	private static final double DIVIDER2_LOCATION = 0.5;
 
 	private int commandHistory = 0;
-	
+
 	private PopupManager popupManager;
 
 	private boolean writingHelp = true;
@@ -118,26 +109,26 @@ public class EditorFrame extends TFrame {
 	private int interfaceLevel;
 	private Configuration configuration;
 	public int commandModifier;
-	
+
 	private JSplitPane jSplitPane1 = null;
 	private JPanel basePanel = null;
 	private JPanel controlPanel = null;
 	private JSplitPane jSplitPane2 = null;
-	
+
 	private JLabel toProgramLabel = null;
 	private JLabel selectAllLabel = null;
 	private JLabel deselectAllLabel = null;
-	
+
 	private JPanel pageEnd = null;
-	
+
 	private LogConsole console = null;
-	
+
 	private boolean noCodeSelected = true;
-	
+
 	private JPanel msgButtons = null;
 	private JPanel msgButtonsPanel = null;
 	private JPanel msgButtonsMainPanel = null;
-	
+
 	private JScrollPane scrollPane = null;
 	private JPanel commandPanel = null;
 	private JPanel cmdButtonPanel = null;
@@ -153,8 +144,8 @@ public class EditorFrame extends TFrame {
 	private OptionPanel optionPanel = null;
     protected TextPaneManager programManager = null;
     private CommandTransferHandler commandHandler = null;
-    private int programIndex = -1; 
-        
+    private int programIndex = -1;
+
 	private static int tabSize = 0;
 
 	private AbstractAction cutAction = null;
@@ -163,28 +154,29 @@ public class EditorFrame extends TFrame {
 	private AbstractAction undoAction = null;
     private AbstractAction redoAction = null;
 
-    private Editable focusOwner = null;
-    
-    
+    private Editable focusOwner;
+    private HelpEngine helpEngine;
+
+
 	public static enum QuoteMode {
 		// the old mode with many sharps before each quotation mark
-		SHARP, 
+		SHARP,
 		// the sharps are placed automatically. The sharps can still
 		// be placed to force the level.
 		INTUITIVE
 	}
-	
+
 	public static QuoteMode quoteMode = QuoteMode.INTUITIVE;
 
 	/**
 	 * Creates a new instance of EditorFrame with the specified configuration
-	 * 
+	 *
 	 * @param the
 	 *            current configuration
 	 */
-	public EditorFrame(Configuration configuration) {
-		super();
+	public EditorFrame(Configuration configuration, HelpEngine helpEngine) {
 		this.configuration = configuration;
+		this.helpEngine = helpEngine;
 		loadParameters();
 		initialize();
 	}
@@ -210,7 +202,7 @@ public class EditorFrame extends TFrame {
 		// We read the default activation of display line numbers.
 		displayLineNumbers = configuration.getProperty("lineNumbers.display").equals("1"); //$NON-NLS-1$ //$NON-NLS-2$
 		TextPane.setDisplayLineNumbers(displayLineNumbers);
-		
+
 		// We read the default quote mode from the configuration file.
 		// We get back the value of tangara.quoteMode (cf. tangara properties).
 		String mode = configuration.getProperty("quote.mode"); //$NON-NLS-1$
@@ -228,7 +220,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method changes the standard size of a TAB for a given JTextPane.
-	 * 
+	 *
 	 * @param the
 	 *            JTextPane where to apply this method.
 	 */
@@ -254,7 +246,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Gets the current font
-	 * 
+	 *
 	 * @return the used font
 	 */
 	public Font getFontParameter() {
@@ -263,7 +255,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Returns the current mode (command or program)
-	 * 
+	 *
 	 * @return true if we are in command mode, false in program mode
 	 */
 	public boolean getMode() {
@@ -272,7 +264,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Returns the pane in command mode
-	 * 
+	 *
 	 * @return the pane in command mode
 	 */
 	public TextPane catchEditorPane() {
@@ -281,7 +273,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Prints the "Welcome" message
-	 * 
+	 *
 	 */
 	private void showWelcomeMessage() {
 		String message = Messages.getString("EditorFrame.welcome"); //$NON-NLS-1$
@@ -290,7 +282,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Clears the code editor pane
-	 * 
+	 *
 	 */
 	public void clearCommandPane() {
 		commandPane.getBuffer().remove(0, commandPane.getBufferLength());
@@ -298,7 +290,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Gets the code in <code>commandPane</code> and launches its interpretation
-	 * 
+	 *
 	 */
 	public void executeInputScript() {
 		// move to the beginning document
@@ -332,12 +324,12 @@ public class EditorFrame extends TFrame {
 	public void executeProgram(String commands) {
 		executeProgram(commands, -1);
 	}
-	
+
 	public void executeProgram(String commands, int currentIndex) {
 		programIndex = currentIndex;
 		refresh();
 		optionPanel.setCommandMode();
-		
+
 		if (quoteMode == QuoteMode.INTUITIVE)
 			commands = StringParser.addQuoteDelimiters(commands);
 
@@ -345,7 +337,7 @@ public class EditorFrame extends TFrame {
 		if (Program.instance().getDesignMode())
 			optionPanel.changeDesignMode();
 		Program.instance().executeScript(commands);
-		
+
 	}
 
 	/**
@@ -473,11 +465,11 @@ public class EditorFrame extends TFrame {
             }
 		}
 	}
-	
+
 	/**
 	 * Allows to choose which files to export
-	 * @throws IOException 
-	 * 
+	 * @throws IOException
+	 *
 	 */
 	public void exportProgram() throws IOException {
 		graphicsPane.freeze(true);
@@ -494,7 +486,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Allows to choose which file to open
-	 * 
+	 *
 	 */
 	public void openFile() {
 		graphicsPane.freeze(true);
@@ -512,7 +504,7 @@ public class EditorFrame extends TFrame {
         	try {
         		File scriptFile = new File(scriptPathname);
         		String script = loadScript(scriptFile);
-        		
+
         		int index = getProgramManager().getFileIndex(scriptFile);
         		if (index > -1) {
         			// The file is already open : we just select the corresponding tab
@@ -536,7 +528,7 @@ public class EditorFrame extends TFrame {
         }
         graphicsPane.freeze(false);
     }
-	
+
 	private String loadScript( File sourceFile) throws IOException {
 		ScriptReader reader = new ScriptReader();
 		String script = reader.readScript(sourceFile);
@@ -546,7 +538,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Allows to create a new program when you choose "Make program" in the file
 	 * menu from the command historic. Only in command mode
-	 * 
+	 *
 	 */
 	public void makeProgram() {
 		graphicsPane.freeze(true);
@@ -557,7 +549,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Only in program mode. Allows to save your program.
-	 * 
+	 *
 	 */
 	public void setConfiguration() {
 		graphicsPane.freeze(true);
@@ -587,7 +579,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Only in program mode. Allows to save your program.
-	 * 
+	 *
 	 */
 	public void saveProgram() {
 		File currentFile = getProgramManager().getCurrentFile();
@@ -600,7 +592,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Only in program mode. Saves the program according to the chosen
 	 * destination file
-	 * 
+	 *
 	 * @param destinationFile
 	 *            the destination file
 	 */
@@ -613,7 +605,7 @@ public class EditorFrame extends TFrame {
 			failToSaveFile(destinationFile, th);
 		}
 	}
-	
+
 	private void saveBufferToFile(File destinationFile) throws IOException {
 		String script = getProgramManager().getCurrentContents();
 		OutputStream out=null;
@@ -624,7 +616,7 @@ public class EditorFrame extends TFrame {
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
-		
+
 	}
 
 	private void succeedToSaveFile(File destinationFile) {
@@ -648,12 +640,12 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Only in program mode. Allows to save your program by selecting the
 	 * filename
-	 * 
+	 *
 	 */
 	public void saveProgramAs() {
 		graphicsPane.freeze(true);
 		String dialogTitle = Messages.getString("EditorFrame.program.save.title");//$NON-NLS-1$
-		
+
 		if (getProgramManager().getCurrentFile()== null)
 			fileChooser.setSelectedFile(new File(getProgramManager().getCurrentDirectory(),Messages.getString("EditorFrame.file.newFile"))); //$NON-NLS-1$
 		else
@@ -677,7 +669,7 @@ public class EditorFrame extends TFrame {
 		}
 		graphicsPane.freeze(false);
 	}
-	
+
 	private boolean userConfirmFileOverride(File destinationFile) {
 		String messagePattern = Messages.getString("EditorFrame.program.override.message"); //$NON-NLS-1$
 		String message = MessageFormat.format(messagePattern, destinationFile.getName());
@@ -692,7 +684,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Creates a new tab and set the text as newContent.
-	 * 
+	 *
 	 * @param newContent
 	 *            the text to set in the new tab's programPane.
 	 */
@@ -702,11 +694,11 @@ public class EditorFrame extends TFrame {
 		// Reset undo manager
 		programResetUndo();
 	}
-	
+
 
 	/**
 	 * Inserts commands from history
-	 * 
+	 *
 	 */
 	public void insertCommandsFromHistory() {
 		graphicsPane.freeze(true);
@@ -718,7 +710,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Inserts commands to the program (in program mode) (launched by command
 	 * selection)
-	 * 
+	 *
 	 * @param commands
 	 *            the list of commands to insert
 	 */
@@ -733,12 +725,12 @@ public class EditorFrame extends TFrame {
     		String previousText = tp.getText();
     		int carretPosition = tp.getCaretPosition();
     		int firstLine = tp.getFirstLine();
-    		
+
     		String textBefore = ""; //$NON-NLS-1$
     		for(int i = 0; i < carretPosition; i++) {
     			textBefore += previousText.charAt(i);
     		}
-    		
+
     		String textAfter = ""; //$NON-NLS-1$
     		for(int i = carretPosition; i < previousText.length(); i++) {
     			textAfter += previousText.charAt(i);
@@ -761,7 +753,7 @@ public class EditorFrame extends TFrame {
     	setProgramMode();
 	}
 
-	
+
 	public void closePane() {
 		getProgramManager().closeCurrentPane();
 	}
@@ -770,10 +762,10 @@ public class EditorFrame extends TFrame {
 		getProgramManager().addPane();
 		programResetUndo();
 	}
-	
+
 	/**
 	 * Gets the file chooser of Tangara frame
-	 * 
+	 *
 	 * @return javax.swing.JFileChooser
 	 */
 	public JFileChooser getFileChooser() {
@@ -783,7 +775,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Copies the selected area (from command editor pane, program pane, or
 	 * output pane).
-	 * 
+	 *
 	 */
 	public void copy() {
 		if (focusOwner != null)
@@ -793,7 +785,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Cuts the selected area (from command editor pane, program pane, or output
 	 * pane).
-	 * 
+	 *
 	 */
 	public void cut() {
 		if (focusOwner != null)
@@ -803,21 +795,21 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Paste the content of the clipboard system in the selected pane (according
 	 * to the mode)
-	 * 
+	 *
 	 */
 	public void paste() {
 		if (focusOwner != null)
 			focusOwner.paste();
 	}
-	
-	
+
+
 	public void enableEdit() {
         if (cutAction != null)
             cutAction.setEnabled(true);
         if (copyAction != null)
             copyAction.setEnabled(true);
 	}
-	
+
 	public void disableEdit() {
         if (cutAction != null)
             cutAction.setEnabled(false);
@@ -827,7 +819,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Quit Tangara (close the window and the program).
-	 * 
+	 *
 	 */
 	public void exit() {
 		graphicsPane.freeze(true);
@@ -852,7 +844,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Prints the error passed as parameters (with a newline)
-	 * 
+	 *
 	 * @param text
 	 *            the error to print
 	 */
@@ -862,7 +854,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Prints the message passed as parameters (with a newline)
-	 * 
+	 *
 	 * @param text
 	 *            the message to print
 	 */
@@ -872,7 +864,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Gets the current directory of the file chooser
-	 * 
+	 *
 	 * @return java.io.File the path of the directory
 	 */
 	public File getCurrentDirectory() {
@@ -881,7 +873,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Sets the current directory for the file chooser
-	 * 
+	 *
 	 * @param directory
 	 *            the new directory
 	 */
@@ -892,7 +884,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Sets the writing help value
-	 * 
+	 *
 	 * @param value
 	 */
 	public void setWritingHelp(boolean value) {
@@ -901,7 +893,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Gets the writing help value
-	 * 
+	 *
 	 * @return writingHelp
 	 */
 	public boolean getWritingHelp() {
@@ -910,7 +902,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Displays the popup manager (to add methods) after "."
-	 * 
+	 *
 	 * @param pane
 	 *            the pane in Tangara where you are typing your code
 	 * @param aClass
@@ -924,7 +916,7 @@ public class EditorFrame extends TFrame {
         popupManager.start();
     }
 
-	
+
 	/**
 	 * Stop displaying the popup manager designed to choose methods.
 	 */
@@ -938,7 +930,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Sets the interface level in the options bar and the banner
-	 * 
+	 *
 	 * @param level
 	 *            advanced or basic
 	 */
@@ -963,7 +955,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Gets the interface level
-	 * 
+	 *
 	 * @return the interface level (basic or advanced)
 	 */
 	public int getInterfaceLevel() {
@@ -973,7 +965,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * Changes the quote mode in accordance with the given string. There are
 	 * three possible modes: SHARP, INTUITIVE, COLOR
-	 * 
+	 *
 	 * @param newMode
 	 */
 	public void setQuoteMode(String newMode) {
@@ -989,7 +981,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Shows the program pane when you are in advanced level
-	 * 
+	 *
 	 */
 	public void showProgram() {
 		if (getInterfaceLevel() > Configuration.LEVEL_BASIC) {
@@ -1011,7 +1003,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes the design of the frame.
-	 * 
+	 *
 	 */
 	private void initialize() {
 		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -1057,7 +1049,7 @@ public class EditorFrame extends TFrame {
 						.getString("EditorFrame.file.programFilesDescription"); //$NON-NLS-1$
 			}
 		});
-		
+
 		fileChooserWithoutFilter = new JFileChooser(Program.instance().getCurrentDirectory());
 		pack();
 		setVisible(true);
@@ -1066,7 +1058,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Returns the cut action
-	 * 
+	 *
 	 * @return
 	 */
 	public Action getCutAction() {
@@ -1087,7 +1079,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Returns the copy action
-	 * 
+	 *
 	 * @return
 	 */
 	public Action getCopyAction() {
@@ -1108,7 +1100,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Returns the paste action
-	 * 
+	 *
 	 * @return
 	 */
 	public Action getPasteAction() {
@@ -1129,7 +1121,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Returns the undo action
-	 * 
+	 *
 	 * @return
 	 */
 	public Action getUndoAction() {
@@ -1149,7 +1141,7 @@ public class EditorFrame extends TFrame {
 
    /**
      * Returns the undo action
-     * 
+     *
      * @return
      */
     public Action getRedoAction() {
@@ -1167,12 +1159,12 @@ public class EditorFrame extends TFrame {
         return redoAction;
     }
 
-	
 
-    
+
+
 	/**
 	 * This method initializes jSplitPane1
-	 * 
+	 *
 	 * @return javax.swing.JSplitPane
 	 */
 	private JSplitPane getJSplitPane1() {
@@ -1188,7 +1180,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes basePanel
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getBasePanel() {
@@ -1202,7 +1194,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes controlPanel
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getControlPanel() {
@@ -1216,7 +1208,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes jSplitPane2
-	 * 
+	 *
 	 * @return javax.swing.JSplitPane
 	 */
 	private JSplitPane getJSplitPane2() {
@@ -1225,18 +1217,18 @@ public class EditorFrame extends TFrame {
 			jSplitPane2.setDividerSize(5);
 			jSplitPane2.setResizeWeight(1.0D);
 			jSplitPane2.setTopComponent(getEditionPanel());
-			
+
 			jSplitPane2.setBottomComponent(getPageEnd());
-			
+
 			//jSplitPane2.setBottomComponent(getMsgScrollPane());
 			jSplitPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		}
 		return jSplitPane2;
 	}
-	
+
 	/**
 	 * This method initializes pageEnd
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getPageEnd()
@@ -1245,20 +1237,20 @@ public class EditorFrame extends TFrame {
 		{
 			pageEnd = new JPanel();
 			pageEnd.setLayout(new BorderLayout());
-			
+
 			scrollPane = new JScrollPane(getConsole());
-			
+
 			pageEnd.add(scrollPane,BorderLayout.CENTER);
-			
+
 			pageEnd.add(getMsgButtonsMainPanel(),BorderLayout.NORTH);
 		}
 		return pageEnd;
 	}
-	
+
 	/**
-	 * This method initializes msgButtonsPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes msgButtonsPanel
+	 *
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getMsgButtonsMainPanel()
 	{
@@ -1275,11 +1267,11 @@ public class EditorFrame extends TFrame {
 		}
 		return msgButtonsMainPanel;
 	}
-	
+
 	/**
-	 * This method initializes msgButtonsPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes msgButtonsPanel
+	 *
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getMsgButtonsPanel()
 	{
@@ -1288,10 +1280,10 @@ public class EditorFrame extends TFrame {
 			msgButtonsPanel = new JPanel();
 			msgButtonsPanel.setLayout(new BorderLayout());
 			msgButtonsPanel.setBackground(Color.white);
-			
-			
+
+
 			msgButtonsPanel.add(getMsgButtons(), BorderLayout.WEST);
-			
+
 			JLabel endIcon = new JLabel();
 			endIcon.setText(""); //$NON-NLS-1$
 			endIcon.setBackground(Color.white);
@@ -1300,10 +1292,10 @@ public class EditorFrame extends TFrame {
 		}
 		return msgButtonsPanel;
 	}
-	
+
 	/**
 	 * This method initializes console
-	 * 
+	 *
 	 * @return org.colombbus.tangara.Console
 	 */
 	private LogConsole getConsole() {
@@ -1328,10 +1320,10 @@ public class EditorFrame extends TFrame {
 		}
 		return console;
 	}
-	
+
 	/**
 	 * This method initializes msgButtons
-	 * 	
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getMsgButtons()
@@ -1350,10 +1342,10 @@ public class EditorFrame extends TFrame {
 				public void mousePressed(java.awt.event.MouseEvent e)
 				{
 					console.insertCodeToProgram();
-				}   
+				}
 				@Override
 				public void mouseExited(java.awt.event.MouseEvent e)
-				{    
+				{
 					if(!noCodeSelected)
 					{
 						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -1370,7 +1362,7 @@ public class EditorFrame extends TFrame {
 					}
 				}
 			});
-			
+
 			selectAllLabel = new JLabel();
 			selectAllLabel.setText(Messages.getString("EditorFrame.button.selectAll")); //$NON-NLS-1$
 			selectAllLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 13)); //$NON-NLS-1$
@@ -1382,10 +1374,10 @@ public class EditorFrame extends TFrame {
 				public void mousePressed(java.awt.event.MouseEvent e)
 				{
 					console.selectAll();
-				}   
+				}
 				@Override
 				public void mouseExited(java.awt.event.MouseEvent e)
-				{    
+				{
 					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					selectAllLabel.setForeground(new Color(60, 87, 174));
 				}
@@ -1396,7 +1388,7 @@ public class EditorFrame extends TFrame {
 					selectAllLabel.setForeground(new Color(100, 100, 255));
 				}
 			});
-			
+
 			deselectAllLabel = new JLabel();
 			deselectAllLabel.setText(Messages.getString("EditorFrame.button.deselectAll")); //$NON-NLS-1$
 			deselectAllLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 13)); //$NON-NLS-1$
@@ -1408,10 +1400,10 @@ public class EditorFrame extends TFrame {
 				public void mousePressed(java.awt.event.MouseEvent e)
 				{
 					console.clearSelection();
-				}   
+				}
 				@Override
 				public void mouseExited(java.awt.event.MouseEvent e)
-				{    
+				{
 					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					deselectAllLabel.setForeground(new Color(60, 87, 174));
 				}
@@ -1422,10 +1414,10 @@ public class EditorFrame extends TFrame {
 					deselectAllLabel.setForeground(new Color(100, 100, 255));
 				}
 			});
-			
+
 			JLabel separatorLabel1 = new JLabel("        ");			 //$NON-NLS-1$
 			JLabel separatorLabel2 = new JLabel("        "); //$NON-NLS-1$
-			
+
 			msgButtons = new JPanel();
 			msgButtons.setLayout(new FlowLayout());
 			msgButtons.setBackground(new Color(240,240,240));
@@ -1437,32 +1429,32 @@ public class EditorFrame extends TFrame {
 		}
 		return msgButtons;
 	}
-	
+
 	/**
 	 * This method writes a message on the MsgTable
-	 * 
+	 *
 	 */
 	@Override
 	public void addLogMsg(String message, int style, int lineNumber) {
 		if (style == LogConsole.STYLE_ERROR && lineNumber>-1 && programIndex > -1) {
 			message = MessageFormat.format(Messages.getString("EditorFrame.error.lineNumber"),message, lineNumber+1);
 		}
-		console.log(message, style, lineNumber, programIndex);			
+		console.log(message, style, lineNumber, programIndex);
 	}
-	
+
 	@Override
 	public int getCurrentLogIndex() {
 		return console.getCurrentIndex();
 	}
-	
+
 	@Override
 	public void setErrorLines(int index, int number, int errorLineNumber) {
 		console.setErrors(index, number, errorLineNumber, programIndex);
 	}
-	
+
 	/**
 	 * This method initializes jPanel2
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getCommandPanel() {
@@ -1477,7 +1469,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes cmdButtonPanel
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getCmdButtonPanel() {
@@ -1508,7 +1500,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes cmdRunButton
-	 * 
+	 *
 	 * @return javax.swing.JButton
 	 */
 	private JButton getCmdRunButton() {
@@ -1534,7 +1526,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes refreshButton
-	 * 
+	 *
 	 * @return javax.swing.JButton
 	 */
 	private JButton getRefreshButton() {
@@ -1568,7 +1560,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * This method refreshs the state of Tangara : delete every object and erase
 	 * history.
-	 * 
+	 *
 	 */
 	private void refresh() {
 		Program.instance().reset();
@@ -1580,7 +1572,7 @@ public class EditorFrame extends TFrame {
 	/**
 	 * This method initializes and returns commandPane, for the command mode
 	 * window.
-	 * 
+	 *
 	 * @return javax.swing.JEditorPane
 	 */
 	public TextPane getCommandPane() {
@@ -1603,7 +1595,7 @@ public class EditorFrame extends TFrame {
             commandHistory--;
         }
 	}
-	
+
 	public void historyDown() {
         if (commandHistory > 0) {
             commandHistory--;
@@ -1620,7 +1612,7 @@ public class EditorFrame extends TFrame {
             }
         }
 	}
-	
+
 	public void clearCommand() {
         if (commandHistory > 0) {
             commandHistory = 0;
@@ -1636,10 +1628,10 @@ public class EditorFrame extends TFrame {
                 setPopupDisplay(getProgramManager().getCurrentPane(), objectClass);
         }
 	}
-	
+
 	/**
 	 * Get panel containing the game panel
-	 * 
+	 *
 	 * @return the panel containing the game area
 	 */
 	@Override
@@ -1653,7 +1645,7 @@ public class EditorFrame extends TFrame {
 					Class<?> type = Class.forName(className);
 					graphicsPane = (GraphicsPane) type.newInstance();
 
-				} catch (ClassNotFoundException e) { 
+				} catch (ClassNotFoundException e) {
 					// If the language is unknown, the English version used.
 					String className = "org.colombbus.tangara.en.GraphicsPane_en"; //$NON-NLS-1$
 					Class<?> type;
@@ -1672,19 +1664,19 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Initializes the banner of Tangara window
-	 * 
+	 *
 	 * @return Tangara banner
 	 */
 	private Banner getBanner() {
 		if (banner == null) {
-			banner = new Banner(this.configuration, this);
+			banner = new Banner(this, helpEngine);
 		}
 		return banner;
 	}
 
 	/**
 	 * This method initializes editionPanel
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getEditionPanel() {
@@ -1699,7 +1691,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes modePanel
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getModePanel() {
@@ -1715,7 +1707,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * This method initializes optionPanel
-	 * 
+	 *
 	 * @return org.colombbus.tangara.OptionPanel
 	 */
 	private OptionPanel getOptionPanel()
@@ -1725,8 +1717,8 @@ public class EditorFrame extends TFrame {
 		}
 		return optionPanel;
 	}
-	
-    
+
+
     public TextPaneManager getProgramManager() {
     	if (programManager == null) {
     		programManager = new TextPaneManager(this);
@@ -1734,10 +1726,10 @@ public class EditorFrame extends TFrame {
     	}
     	return programManager;
     }
-	
+
 	/**
 	 * Undo the last command
-	 * 
+	 *
 	 */
 	public void programUndo() {
 		getProgramManager().getCurrentPane().undo();
@@ -1745,7 +1737,7 @@ public class EditorFrame extends TFrame {
 
 	/**
 	 * Redo the last command
-	 * 
+	 *
 	 */
 	public void programRedo() {
 		getProgramManager().getCurrentPane().redo();
@@ -1755,25 +1747,25 @@ public class EditorFrame extends TFrame {
 	    if (undoAction != null)
 	        undoAction.setEnabled(true);
 	}
-	
+
 	public void disableUndo() {
         if (undoAction != null)
             undoAction.setEnabled(false);
 	}
-	
+
 	public void enableRedo() {
         if (redoAction != null)
             redoAction.setEnabled(true);
 	}
-	
+
 	public void disableRedo() {
         if (redoAction != null)
             redoAction.setEnabled(false);
 	}
-	
+
 	/**
 	 * Resets all undo managers
-	 * 
+	 *
 	 */
 	public void programResetUndo() {
 		// Reset undo manager
@@ -1786,22 +1778,22 @@ public class EditorFrame extends TFrame {
 		// Do not compute the size of the main frame
 		return false;
 	}
-	
+
 	public void displaySearch() {
 		getProgramManager().displaySearch();
 	}
-	
+
 	 public Action getSearchAction() {
 		 return getProgramManager().getSearchAction();
 	 }
-	 
+
 	 public CommandTransferHandler getCommandHandler() {
 		 if (commandHandler == null) {
 			 commandHandler = new CommandTransferHandler();
 		 }
 		 return commandHandler;
 	 }
-	 
+
 	 public void setFocusOwner(Editable component) {
 		 focusOwner = component;
 		 if (component.mayCopy())
@@ -1809,16 +1801,16 @@ public class EditorFrame extends TFrame {
 		 else
 			 this.disableEdit();
 	 }
-	 
+
 	 public void setDisplayLineNumbers(boolean state) {
 		 programManager.setDisplayLineNumbers(state);
 		 displayLineNumbers = state;
 	 }
-	
+
 	 public boolean getDisplayLineNumbers() {
 		 return displayLineNumbers;
 	 }
-	 
+
 	 public void selectLine(int programIndex, int lineNumber) {
 		 // 1st set Program Mode
 		 setProgramMode();

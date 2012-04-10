@@ -18,107 +18,30 @@
 package org.colombbus.tangara.help;
 
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
-//import javax.help.HelpBroker;
-//import javax.help.HelpSet;
-//import javax.help.HelpSetException;
 import javax.swing.AbstractAction;
 
-import org.apache.log4j.Logger;
-import org.colombbus.tangara.Configuration;
+import org.colombbus.helpengine.HelpEngine;
 import org.colombbus.tangara.Messages;
 
 /**
  * Help action which show a JavaHelp application.
- *
- * @version $Id: HelpAction.java,v 1.1.2.7 2009-07-19 08:20:38 gwenael.le_roux Exp $
  */
 @SuppressWarnings("serial")
 public class HelpAction extends AbstractAction {
 
-	/** Logging system */
-	private static Logger LOG = Logger.getLogger(HelpAction.class);
+	private HelpEngine helpEngine;
 
-	//FIXME help desactived
-	//private static HelpBroker helpBroker;
-	private static final Lock brokerInitlock = new ReentrantLock();
 
-	/**
-	 * Add properties to the action.
-	 */
-	public HelpAction() {
+	public HelpAction(HelpEngine helpEngine) {
 		String actionName = Messages.getString("HelpAction.name"); //$NON-NLS-1$
 		putValue(NAME, actionName);
+		this.helpEngine = helpEngine;
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
-		try {
-			createHelpBrokerIfNecessary();
-			displayHelpBroker();
-		} catch (Exception e) {
-			LOG.fatal(e.getMessage());
-		}
-	}
-
-	private void createHelpBrokerIfNecessary() throws Exception {
-		//FIXME help desactived
-//		if (helpBroker != null)
-//			return;
-//		brokerInitlock.lock();
-//		try {
-//			if (helpBroker != null)
-//				return;
-//			createHelpBroker();
-//		} finally {
-//			brokerInitlock.lock();
-//		}
-	}
-
-	//FIXME help desactived
-//	private void createHelpBroker() throws Exception {
-//		HelpSet helpSet = createHelpSet();
-//		helpBroker = helpSet.createHelpBroker();
-//	}
-//
-//	private HelpSet createHelpSet() throws FileNotFoundException,
-//			MalformedURLException, HelpSetException {
-//		URL helpLocation = buildHelpBaseLocation();
-//
-//		URL[] helpLocationList = new URL[] { helpLocation };
-//		ClassLoader classLoader = new URLClassLoader(helpLocationList);
-//
-//		String helpSetName = Messages.getString("HelpAction.helpsetName"); //$NON-NLS-1$
-//		URL helpSetLocation = HelpSet.findHelpSet(classLoader, helpSetName);
-//		HelpSet helpSet = new HelpSet(classLoader, helpSetLocation);
-//		return helpSet;
-//	}
-
-	private URL buildHelpBaseLocation() throws FileNotFoundException,
-			MalformedURLException {
-		File tangaraRootDir = Configuration.instance().getTangaraPath()
-				.getParentFile();
-		String helpDirRelativePath = Messages.getString("HelpAction.directory"); //$NON-NLS-1$
-		File helpDir = new File(tangaraRootDir, helpDirRelativePath);
-
-		if (!helpDir.exists() || !helpDir.canRead())
-			throw new FileNotFoundException("helpset directory does not exist");
-
-		URL helpBaseURL = helpDir.toURI().toURL();
-		return helpBaseURL;
-	}
-
-	/**
-	 * Display the help broker
-	 */
-	private void displayHelpBroker() {
-		//FIXME help desactived
-//		helpBroker.setDisplayed(true);
+		helpEngine.openHelp();
 	}
 }

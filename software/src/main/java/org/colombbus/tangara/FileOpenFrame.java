@@ -1,7 +1,7 @@
 /**
  * Tangara is an educational platform to get started with programming.
  * Copyright (C) 2008 Colombbus (http://www.colombbus.org)
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,9 +27,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import org.apache.log4j.Logger;
 
@@ -43,30 +43,22 @@ public class FileOpenFrame extends TFrame
 
 	/** Class logger */
     private static Logger LOG = Logger.getLogger(FileOpenFrame.class);
-    
+
 	private GraphicsPane graphicsPane;
 	private JPanel jContentPane;
 
 	private static final String ICON_PATH = "logo_tangara.png";
-	
-	/**
-	 * This is the default constructor
-	 */
-	public FileOpenFrame()
-	{
+
+	public FileOpenFrame() {
 		super();
 		initialize();
 	}
 
-	/**
-	 * This method initializes this
-	 *
-	 */
 	private void initialize()
 	{
 		this.setContentPane(getJContentPane());
         this.setTitle(Messages.getString("ProgramFrame.application.title"));
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
         	@Override
 			public void windowClosing(WindowEvent e)
@@ -139,7 +131,7 @@ public class FileOpenFrame extends TFrame
 			graphicsPane = createGraphicsPaneInstance(className);
 		}
 	}
-	
+
 	private GraphicsPane createGraphicsPaneInstance(String className) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		Class<?> type = Class.forName(className);
 		GraphicsPane gp = (GraphicsPane) type.newInstance();

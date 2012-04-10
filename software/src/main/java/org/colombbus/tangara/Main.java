@@ -29,15 +29,20 @@ import java.net.URL;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.apache.bsf.BSFException;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.colombbus.helpengine.DefaultHelpEngine;
+import org.colombbus.helpengine.HelpEngine;
 import org.colombbus.tangara.io.ScriptReader;
 import org.colombbus.tangara.update.SoftwareUpdate;
 
@@ -53,7 +58,7 @@ public class Main {
 	/** Defines the mode (normal or by a .tgr file) */
 	static boolean programMode = false;
 	/** The name of the .tgr file */
-	static String programName = null;
+	static String programName;
 	/** The frame of Tangara */
 	private static TFrame frame;
 	/** Class logger */
@@ -64,6 +69,10 @@ public class Main {
 	private static File tempDirectory;
 
 	private static Main INSTANCE = new Main();
+
+	private static int HELP_SERVER_PORT = 7777;
+	private static HelpEngine helpEngine;
+	private static final Lock initializationLock = new ReentrantLock();
 
 	private final static String RESOURCES_DIRECTORY = "resources/";
 
@@ -77,29 +86,22 @@ public class Main {
 	}
 
 	/**
-	 * Creates a new instance of Main
-	 */
-	private Main() {
-		super();
-	}
-
-	/**
 	 * Creates the GUI and shows it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
 	 */
 	private static void createAndShowGUI() {
-		Class<?> type = Program.class;
+		Class<?> typeClass = Program.class;
 		try {
 			try {
-				String language = Configuration.instance().getLanguage();
-				String className = "org.colombbus.tangara." + language + ".Program_" + language;
-				type = Class.forName(className);
+				String lang = Configuration.instance().getLanguage();
+				String className = "org.colombbus.tangara." + lang + ".Program_" + lang;
+				typeClass = Class.forName(className);
 			} catch (ClassNotFoundException e) {
 				// If the class in this language doesn't exist, we load the
 				// English version of Program.
-				type = Class.forName("org.colombbus.tangara.en.Program_en");
+				typeClass = Class.forName("org.colombbus.tangara.en.Program_en");
 			}
-			Program.INSTANCE = (Program) type.newInstance();
+			Program.INSTANCE = (Program) typeClass.newInstance();
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			exit();
@@ -126,7 +128,7 @@ public class Main {
 		String beanName = Messages.getString("Main.bean.program");
 		try {
 			// We declare the bean for Program.
-			Configuration.instance().getManager().declareBean(beanName, programme, type);
+			Configuration.instance().getManager().declareBean(beanName, programme, typeClass);
 		} catch (BSFException e) {
 			LOG.error(e.getMessage(), e);
 			exit();
@@ -148,7 +150,7 @@ public class Main {
 		// programMode is false for normal mode
 		if (!programMode) {
 			// Creates the frame
-			frame = new EditorFrame(conf);
+			frame = new EditorFrame(conf,helpEngine);
 			programme.setFrame(frame);
 			// binds the game area and sets in which language will be the
 			// GraphicsPane
@@ -180,14 +182,13 @@ public class Main {
 			programme.setBSFEngine(conf.getEngine());
 
 			executeProgram();
-			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
 					// allows to divide the main panel and makes the GUI ready
 					frame.afterInit();
 				}
 			});
-
 		}
 	}
 
@@ -253,6 +254,8 @@ public class Main {
 		LOG = Logger.getLogger(Main.class);
 		LOG.info("Configuration loaded");
 
+		initializeHelpEngine();
+
 		if (Configuration.instance().isExecutionMode()) {
 			mainTangaraFile = Configuration.instance().getProperty("main-program");
 			System.out.println("-> Copying files");
@@ -280,13 +283,24 @@ public class Main {
 		}
 
 		if (!programMode) {
-			if (checkForBase()) {
+			if (checkForBase())
 				launchGUI();
-			}
 		} else {
 			launchGUI();
 		}
 	}
+
+
+	private static void initializeHelpEngine() {
+		LOG.info("Initializing help engine");//$NON-NLS-1$
+
+		helpEngine = new DefaultHelpEngine();
+		helpEngine.setPort(HELP_SERVER_PORT);
+		helpEngine.startup();
+
+		LOG.info("Help engine initialized");//$NON-NLS-1$
+	}
+
 
 	public static void launchGUI() {
 		if (!programMode)
@@ -431,14 +445,15 @@ public class Main {
 
 	private static String loadScript(File sourceFile) throws IOException {
 		ScriptReader reader = new ScriptReader();
-		String script = reader.readScript(sourceFile);
-		return script;
+		return  reader.readScript(sourceFile);
 	}
 
 	/**
 	 * Enables to quit the program
 	 */
 	public static void exit() {
+		LOG.info("Shutdown help engine ");
+		helpEngine.shutdown();
 		LOG.info("Cleaning temp directories"); //$NON-NLS-1$
 		FileUtils.clean();
 		LOG.info("Exiting application"); //$NON-NLS-1$

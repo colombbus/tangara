@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings>
+	<settings	defaultResolver="local-repo"/>
+	<include url="${ivy.default.settings.dir}/ivysettings.xml"/>
+	<resolvers>
+		<filesystem name="downloads-repo">
+  			<ivy pattern="${repository.dir}/[organisation]/[module]/[revision]/[type]s/[artifact].[ext]"/>
+  			<artifact pattern="${repository.dir}/[organisation]/[module]/[revision]/[type]s/[artifact].[ext]"/>
+		</filesystem>
+			<filesystem name="local-repo">
+				<ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}"/>
+				<artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}"/>
+			</filesystem>
+	</resolvers>
+</ivysettings>

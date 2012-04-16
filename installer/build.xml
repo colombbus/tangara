@@ -1,0 +1,137 @@
+<project name="installer" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property name="artifact.module" value="installer" />
+	<property file="build-conf.properties" />
+	
+<!--
+	<property file="build-settings.properties" />
+	<import file="../build-main.xml"/>
+	<import file="../build-publication.xml" optional="true"/>
+-->
+
+
+	<property name="src.main.conf.dir" value="src/main/config" />
+	<property name="build-main.dir" value=".." />
+	<property name="lib.artifact.pattern" value="[artifact].[ext]" />
+	<property name="package.artifact.pattern" value="[artifact](-[classifier]).[ext]" />
+
+	<property name="dist.dir" value="dist" />
+	<property name="dist.common.dir" value="${dist.dir}/tangara"/>
+	<property name="dist.licences.dir" value="${dist.common.dir}/licences"/>
+	<property name="dist.modes.dir" value="${dist.common.dir}/modes"/>
+	<property name="dist.software.lib.dir" value="${dist.common.dir}/lib"/>
+	<property name="dist.software.objects.dir" value="${dist.common.dir}/objects"/>
+	<property name="dist.main.jar" value="${dist.common.dir}/tangara.jar"/>
+	<property name="dist.name" value="tangara-${artifact.version}-${artifact.status}"/>
+	<property name="dist.unix.tarbz2" value="${dist.dir}/${dist.name}.tar.bz2" />
+	
+	
+	<target name="clean" description="remove generated data">
+		<delete dir="${dist.dir}" />
+	</target>
+
+
+	<target name="assertConfigurationRequirement">
+		<fail message="The file 'build-conf.properties' is mssing. Create it in module directory from template file '../build-conf.properties.template'">
+			<condition>
+				<not>
+					<resourceexists>
+						<file file="build-conf.properties"/>
+					</resourceexists>
+				</not>
+			</condition>
+		</fail>
+		
+		<fail message="Property 'artifact.version' not defined" unless="artifact.version"/>
+		
+		<fail message="Property 'artifact.status' is invalid. Did you removed the unecessary white spaces">
+			<condition>
+				<not>
+					<or>
+						<equals arg1="${artifact.status}" arg2="integration"/>
+						<equals arg1="${artifact.status}" arg2="milestone"/>
+						<equals arg1="${artifact.status}" arg2="release"/>
+					</or>
+				</not>
+			</condition>
+		</fail>
+	</target>
+
+	<target name="init" depends="assertConfigurationRequirement">
+		<ivy:configure settingsId="default.ivysettings" file="${build-main.dir}/ivysettings.xml"/>
+	</target>
+	
+	
+	<target name="common-package" depends="init">
+		<mkdir dir="${dist.licences.dir}"/>
+		<copy todir="${dist.licences.dir}">
+			<fileset dir="${src.main.conf.dir}/licences" includes="*" />
+		</copy>
+
+		<mkdir dir="${dist.modes.dir}"/>
+		<copy todir="${dist.modes.dir}">
+			<fileset dir="${src.main.conf.dir}/modes" includes="*" />
+		</copy>
+
+		<ivy:retrieve conf="runtime,provided" pattern="${dist.software.lib.dir}/${lib.artifact.pattern}" type="jar,bundle" settingsRef="default.ivysettings" />
+		<move file="${dist.software.lib.dir}/software.jar" tofile="${dist.main.jar}"/>
+
+		<path id="software.lib.path">
+			<fileset dir="${dist.software.lib.dir}">
+				<filename name="*.jar" />
+			</fileset>
+		</path>
+		<manifestclasspath property="dist.software.cp" jarfile="${dist.main.jar}">
+			<classpath refid="software.lib.path" />
+		</manifestclasspath>
+		<jar destfile="${dist.main.jar}" update="true">
+			<manifest>
+				<attribute name="Built-By" value="Colombbus" />
+				<attribute name="Class-Path" value="${dist.software.cp}" />
+				<attribute name="Main-Class" value="org.colombbus.tangara.Main" />
+			</manifest>
+		</jar>
+
+		<ivy:retrieve conf="runtime" pattern="${dist.software.objects.dir}/${lib.artifact.pattern}" type="zip" settingsRef="default.ivysettings" />
+		<ivy:retrieve conf="runtime" organisation="org.colombbus.tangara" module="objects" pattern="${dist.software.objects.dir}/${lib.artifact.pattern}" type="zip,jar" settingsRef="default.ivysettings" />
+		<mkdir dir="${dist.software.objects.dir}/lib"/>
+		
+		
+		<move todir="${dist.software.objects.dir}/lib">
+			<fileset dir="${dist.software.objects.dir}" includes="*.jar"/>
+		</move>
+		
+		<unzip src="${dist.software.objects.dir}/objects.zip" dest="${dist.software.objects.dir}/"/>
+		<delete file="${dist.software.objects.dir}/objects.zip"/>
+		<move todir="${dist.software.objects.dir}">
+			<fileset dir="${dist.software.objects.dir}/jars" includes="*.jar"/>
+		</move>
+		<delete dir="${dist.software.objects.dir}/jars"/>
+	</target>
+	
+
+	<target name="retobjs" depends="init">
+		<mkdir dir="dist"/>
+		<ivy:retrieve conf="runtime" organisation="org.colombbus.tangara" module="objects" pattern="dist/${lib.artifact.pattern}" type="zip,jar" settingsRef="default.ivysettings" />
+	</target>
+	
+	<target name="unix-package" depends="common-package">
+		<tar destfile="${dist.unix.tarbz2}">
+			<tarfileset dir="${dist.common.dir}" prefix="${dist.name}/">
+				<include name="**/*"/>
+			</tarfileset>
+			<tarfileset dir="${src.main.conf.dir}" fullpath="${dist.name}/tangara.sh" mode="755">
+				<include name="tangara.sh"/>
+			</tarfileset>
+		</tar>
+	</target>
+	
+	
+	
+	<target name="windows-package" depends="common-package">
+	</target>
+	
+	<target name="package" depends="unix-package, windows-package" description="--> Create the final artifact(s)">
+		
+	</target>
+</project>

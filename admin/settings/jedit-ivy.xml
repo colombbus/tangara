@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:e="http://ant.apache.org/ivy/extra">
+    <info organisation="org.jedit" module="jedit" revision="4.3.1" status="release" publication="20100128000000"/>
+    <configurations>
+    	<conf name="default" visibility="public"/>
+    </configurations>
+    <publications>
+    	<artifact conf="default" name="jedit" ext="jar"/>
+    </publications>
+</ivy-module>

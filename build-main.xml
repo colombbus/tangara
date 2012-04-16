@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="build-main" xmlns:ivy="antlib:org.apache.ivy.ant">
 	
+	<property file="user-conf.properties" />
+	<property file="build-conf.properties" />
+
 	<property name="java.source" value="1.6"/>
 	<property name="java.target" value="1.6"/>
 	<property name="java.encoding" value="UTF-8"/>
 	
-	<property file="build-conf.properties" />
 	
 	<!-- set default values for optional properties in the build-conf.properties -->  
 	<property name="publication.local.overwrite" value="false"/>

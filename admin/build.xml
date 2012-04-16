@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="admin" xmlns:ivy="antlib:org.apache.ivy.ant">
+	
+	<description>
+This project aims to create the development environment.
+It provides targets to:
+- download and make Ivy compatible some external libraries:
+		- publish-jedit
+		- publish-java3d
+		- publish-java3dsloader
+- download the external tools and install them
+		- install-launch4j
+		- install-nsisant
+- verify the development environment status
+		- verify-env
+	</description>
+
+	<property name="tools.dir" value="../tools"/>
+	<property name="work.dir" value="work"/>
+	<property name="downloads.dir" value="${work.dir}/downloads"/>
+	<property name="repository.dir" value="${basedir}/${work.dir}/repository"/>
+	<property name="retrieve.dir" value="${work.dir}/retrieve-env-status"/>
+	<property name="settings.dir" value="${basedir}/settings"/>
+	
+	<property name="jedit.url" value="http://downloads.sourceforge.net/project/jedit/jedit/4.3.1/jedit4.3.1install.jar?r=&amp;ts=1332611411&amp;use_mirror=freefr"/>
+	<property name="jedit.installer.jar" value="${downloads.dir}/jedit4.3.1install.jar"/>
+	
+	<property name="java3d.url" value="http://download.java.net/media/java3d/builds/release/1.5.2/j3d-1_5_2-windows-i586.zip"/>
+	<property name="java3d.installer.zip" value="${downloads.dir}/j3d-1_5_2-windows-i586.zip"/>
+	
+	<property name="java3dsloader.url" value="http://downloads.sourceforge.net/project/java3dsloader/java3dsloader/1.2/Loader3DS1_2.jar?r=&amp;ts=1332789540&amp;use_mirror=freefr"/>
+	<property name="java3dsloader.jar" value="${downloads.dir}/Loader3DS1_2.jar"/>
+	
+	<property name="launch4j.url" value="http://downloads.sourceforge.net/project/launch4j/launch4j-3/3.0.2/launch4j-3.0.2-linux.tgz?r=&amp;ts=1334247879&amp;use_mirror=freefr"/>
+	<property name="launch4j.tgz" value="${downloads.dir}/launch4j-3.0.2-linux.tgz"/>
+	
+	<property name="nsisant.url" value="http://cloud.github.com/downloads/dreese/nsis-ant/nsisant-1.3.jar"/>
+	<property name="nsisant.jar" value="${downloads.dir}/nsisant-1.3.jar"/>
+
+	
+
+
+	<target name="clean" description="--> Remove the generated or downloaded data">
+		<delete dir="${work.dir}"/>
+	</target>
+
+
+
+	<target name="init">
+		<condition property="os.windows">
+			<os family="windows"/>
+		</condition>
+		<ivy:configure settingsId="admin.ivysettings" file="${settings.dir}/admin-ivysettings.xml"/>
+		<echo message="ivy pattern='${ivy.local.default.root}/${ivy.local.default.ivy.pattern}'"/>
+		<echo message="artifact pattern='${ivy.local.default.root}/${ivy.local.default.artifact.pattern}'"/>
+	</target>
+
+
+
+	<target name="download-jedit" depends="init">
+		<get src="${jedit.url}" dest="${jedit.installer.jar}"/>
+		<unjar src="${jedit.installer.jar}" dest="downloads" />
+		<untar src="downloads/installer/jedit-program.tar.bz2" dest="downloads" compression="bzip2" />
+	</target>
+
+	<target name="publish-jedit" depends="download-jedit">
+		<mkdir dir="${repository.dir}/org.jedit/jedit/4.3.1/jars" />
+		<mkdir dir="${repository.dir}/org.jedit/jedit/4.3.1/ivys" />
+		
+		<move file="downloads/jedit.jar"  tofile="${repository.dir}/org.jedit/jedit/4.3.1/jars/jedit.jar" />
+		<copy file="${settings.dir}/jedit-ivy.xml" tofile="${repository.dir}/org.jedit/jedit/4.3.1/ivys/ivy.xml" />
+		
+		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
+				organisation="org.jedit" module="jedit" revision="4.3.1" />
+	</target>
+
+
+
+	<target name="download-java3d" depends="init">
+		<get src="${java3d.url}" dest="${java3d.installer.zip}"/>
+		<unzip src="${java3d.installer.zip}" dest="downloads"/>
+		<unzip src="downloads/j3d-1_5_2-windows-i586/j3d-jre.zip" dest="downloads"/>
+	</target>
+    
+	<target name="publish-java3d" depends="download-java3d">
+		<mkdir dir="${repository.dir}/net.java.java3d/j3dcore/1.5.2/jars" />
+		<mkdir dir="${repository.dir}/net.java.java3d/j3dcore/1.5.2/ivys" />
+		<move file="downloads/lib/ext/j3dcore.jar" tofile="${repository.dir}/net.java.java3d/j3dcore/1.5.2/jars/j3dcore.jar"/>
+		<copy file="${settings.dir}/j3dcore-ivy.xml" tofile="${repository.dir}/net.java.java3d/j3dcore/1.5.2/ivys/ivy.xml" />
+		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
+				organisation="net.java.java3d" module="j3dcore" revision="1.5.2" />
+
+		<mkdir dir="${repository.dir}/net.java.java3d/j3dutils/1.5.2/jars" />
+		<mkdir dir="${repository.dir}/net.java.java3d/j3dutils/1.5.2/ivys" />
+		<move file="downloads/lib/ext/j3dutils.jar" tofile="${repository.dir}/net.java.java3d/j3dutils/1.5.2/jars/j3dutils.jar"/>
+		<copy file="${settings.dir}/j3dutils-ivy.xml" tofile="${repository.dir}/net.java.java3d/j3dutils/1.5.2/ivys/ivy.xml" />
+		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
+				organisation="net.java.java3d" module="j3dutils" revision="1.5.2" />
+
+		<mkdir dir="${repository.dir}/net.java.java3d/vecmath/1.5.2/jars" />
+		<mkdir dir="${repository.dir}/net.java.java3d/vecmath/1.5.2/ivys" />
+		<move file="downloads/lib/ext/vecmath.jar" tofile="${repository.dir}/net.java.java3d/vecmath/1.5.2/jars/vecmath.jar"/>
+		<copy file="${settings.dir}/vecmath-ivy.xml" tofile="${repository.dir}/net.java.java3d/vecmath/1.5.2/ivys/ivy.xml" />
+		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
+				organisation="net.java.java3d" module="vecmath" revision="1.5.2" />
+	</target>
+
+
+
+	<target name="download-java3dsloader" depends="init">
+		<get src="${java3dsloader.url}" dest="${java3dsloader.jar}"/>
+	</target>
+	
+	<target name="publish-java3dsloader" depends="download-java3dsloader">
+		<mkdir dir="${repository.dir}/net.sourceforge.java3dsloader/java3dsloader/1.2/jars" />
+		<mkdir dir="${repository.dir}/net.sourceforge.java3dsloader/java3dsloader/1.2/ivys" />
+		
+		<move file="${java3dsloader.jar}"  tofile="${repository.dir}/net.sourceforge.java3dsloader/java3dsloader/1.2/jars/java3dsloader.jar" />
+		<copy file="${settings.dir}/java3dsloader-ivy.xml" tofile="${repository.dir}/net.sourceforge.java3dsloader/java3dsloader/1.2/ivys/ivy.xml" />
+		
+		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
+				organisation="net.sourceforge.java3dsloader" module="java3dsloader" revision="1.2" />
+	</target>
+
+	
+	
+	<target name="install-launch4j" depends="init">
+		<get src="${launch4j.url}" dest="${launch4j.tgz}"/>
+		<mkdir dir="${tools.dir}"/>
+		<untar compression="gzip" src="${launch4j.tgz}" dest="${tools.dir}/"/>		
+	</target>
+	
+	
+	
+	<target name="install-nsisant" depends="init" if="os.windows">
+		<get src="${nsisant.url}" dest="${nsisant.jar}" />
+		<copy file="${nsisant.jar}" todir="${ant.library.dir}"/>
+	</target>
+	
+	
+	<target name="install-all" depends="publish-jedit,publish-java3d,publish-java3dsloader,install-launch4j,install-nsisant">
+	</target>
+	
+	
+	<target name="verify-local-repo">
+		<delete dir="${retrieve.dir}"/>
+		<mkdir dir="${retrieve.dir}"/>
+		<ivy:configure settingsId="default.ivysettings" file="../ivysettings.xml"/>		
+		<echo>Verify that extenal libraries are available in local repository ${ivy.local.default.root}</echo>
+		<ivy:retrieve conf="default" pattern="${retrieve.dir}/[artifact].[ext]" type="jar"/>
+		
+		<fail message="Library java3d not installed. Run 'ant publish-java3d'">
+			<condition>
+				<not>
+					<and>
+						<available file="${retrieve.dir}/j3dcore.jar"/>
+						<available file="${retrieve.dir}/j3dutils.jar"/>
+						<available file="${retrieve.dir}/vecmath.jar"/>
+					</and>
+				</not>
+			</condition>
+		</fail>
+		
+		<fail message="Library java3dsloader not installed. Run 'ant publish-java3dsloader'">
+			<condition>
+				<not>
+					<available file="${retrieve.dir}/java3dsloader.jar"/>
+				</not>
+			</condition>
+		</fail>
+		
+		<fail message="Library jedit not installed. Run 'ant publish-jedit'">
+			<condition>
+				<not>
+					<available file="${retrieve.dir}/jedit.jar"/>
+				</not>
+			</condition>
+		</fail>
+	</target>
+	
+	<target name="verify-ant">
+		<fail message="ANT extension 'object-packager' not installed. Run 'ant -f ../object-packager/build.xml publish-local'">
+			<condition>
+				<not>
+					<resourceexists>
+						<file file="${ant.library.dir}/object-packager.jar"/>
+					</resourceexists>
+				</not>
+			</condition>
+		</fail>
+		<fail message="ANT extension 'nsisant-1.3' not installed. Run 'ant install-nsisant'">
+			<condition>
+				<not>
+					<resourceexists>
+						<file file="${ant.library.dir}/nsisant-1.3.jar"/>
+					</resourceexists>
+				</not>
+			</condition>
+		</fail>
+	</target>
+	
+	<target name="verify-env" depends="verify-local-repo,verify-ant" description="--> Verify the development environment status">		
+		<echo>Development environment seems correct.</echo>
+	</target>
+
+</project>

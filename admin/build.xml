@@ -53,21 +53,23 @@ It provides targets to:
 		<ivy:configure settingsId="admin.ivysettings" file="${settings.dir}/admin-ivysettings.xml"/>
 		<echo message="ivy pattern='${ivy.local.default.root}/${ivy.local.default.ivy.pattern}'"/>
 		<echo message="artifact pattern='${ivy.local.default.root}/${ivy.local.default.artifact.pattern}'"/>
+		<mkdir dir="${downloads.dir}"/>
+		<mkdir dir="${repository.dir}"/>
 	</target>
 
 
 
 	<target name="download-jedit" depends="init">
 		<get src="${jedit.url}" dest="${jedit.installer.jar}"/>
-		<unjar src="${jedit.installer.jar}" dest="downloads" />
-		<untar src="downloads/installer/jedit-program.tar.bz2" dest="downloads" compression="bzip2" />
+		<unjar src="${jedit.installer.jar}" dest="${downloads.dir}" />
+		<untar src="${downloads.dir}/installer/jedit-program.tar.bz2" dest="${downloads.dir}" compression="bzip2" />
 	</target>
 
 	<target name="publish-jedit" depends="download-jedit">
 		<mkdir dir="${repository.dir}/org.jedit/jedit/4.3.1/jars" />
 		<mkdir dir="${repository.dir}/org.jedit/jedit/4.3.1/ivys" />
 		
-		<move file="downloads/jedit.jar"  tofile="${repository.dir}/org.jedit/jedit/4.3.1/jars/jedit.jar" />
+		<move file="${downloads.dir}/jedit.jar"  tofile="${repository.dir}/org.jedit/jedit/4.3.1/jars/jedit.jar" />
 		<copy file="${settings.dir}/jedit-ivy.xml" tofile="${repository.dir}/org.jedit/jedit/4.3.1/ivys/ivy.xml" />
 		
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
@@ -78,28 +80,28 @@ It provides targets to:
 
 	<target name="download-java3d" depends="init">
 		<get src="${java3d.url}" dest="${java3d.installer.zip}"/>
-		<unzip src="${java3d.installer.zip}" dest="downloads"/>
-		<unzip src="downloads/j3d-1_5_2-windows-i586/j3d-jre.zip" dest="downloads"/>
+		<unzip src="${java3d.installer.zip}" dest="${downloads.dir}"/>
+		<unzip src="${downloads.dir}/j3d-1_5_2-windows-i586/j3d-jre.zip" dest="${downloads.dir}"/>
 	</target>
     
 	<target name="publish-java3d" depends="download-java3d">
 		<mkdir dir="${repository.dir}/net.java.java3d/j3dcore/1.5.2/jars" />
 		<mkdir dir="${repository.dir}/net.java.java3d/j3dcore/1.5.2/ivys" />
-		<move file="downloads/lib/ext/j3dcore.jar" tofile="${repository.dir}/net.java.java3d/j3dcore/1.5.2/jars/j3dcore.jar"/>
+		<move file="${downloads.dir}/lib/ext/j3dcore.jar" tofile="${repository.dir}/net.java.java3d/j3dcore/1.5.2/jars/j3dcore.jar"/>
 		<copy file="${settings.dir}/j3dcore-ivy.xml" tofile="${repository.dir}/net.java.java3d/j3dcore/1.5.2/ivys/ivy.xml" />
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
 				organisation="net.java.java3d" module="j3dcore" revision="1.5.2" />
 
 		<mkdir dir="${repository.dir}/net.java.java3d/j3dutils/1.5.2/jars" />
 		<mkdir dir="${repository.dir}/net.java.java3d/j3dutils/1.5.2/ivys" />
-		<move file="downloads/lib/ext/j3dutils.jar" tofile="${repository.dir}/net.java.java3d/j3dutils/1.5.2/jars/j3dutils.jar"/>
+		<move file="${downloads.dir}/lib/ext/j3dutils.jar" tofile="${repository.dir}/net.java.java3d/j3dutils/1.5.2/jars/j3dutils.jar"/>
 		<copy file="${settings.dir}/j3dutils-ivy.xml" tofile="${repository.dir}/net.java.java3d/j3dutils/1.5.2/ivys/ivy.xml" />
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
 				organisation="net.java.java3d" module="j3dutils" revision="1.5.2" />
 
 		<mkdir dir="${repository.dir}/net.java.java3d/vecmath/1.5.2/jars" />
 		<mkdir dir="${repository.dir}/net.java.java3d/vecmath/1.5.2/ivys" />
-		<move file="downloads/lib/ext/vecmath.jar" tofile="${repository.dir}/net.java.java3d/vecmath/1.5.2/jars/vecmath.jar"/>
+		<move file="${downloads.dir}/lib/ext/vecmath.jar" tofile="${repository.dir}/net.java.java3d/vecmath/1.5.2/jars/vecmath.jar"/>
 		<copy file="${settings.dir}/vecmath-ivy.xml" tofile="${repository.dir}/net.java.java3d/vecmath/1.5.2/ivys/ivy.xml" />
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
 				organisation="net.java.java3d" module="vecmath" revision="1.5.2" />

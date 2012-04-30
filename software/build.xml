@@ -1,4 +1,4 @@
-<project name="translation" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="software" xmlns:ivy="antlib:org.apache.ivy.ant">
 	
 	<property file="build-conf.properties" />
 	<property name="artifact.module" value="software" />

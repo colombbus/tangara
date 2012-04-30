@@ -1,0 +1,29 @@
+<launch4jConfig>
+	<dontWrapJar>true</dontWrapJar>
+	<headerType>gui</headerType>
+	<jar></jar>
+	<outfile></outfile>
+	<errTitle></errTitle>
+	<cmdLine></cmdLine>
+	<chdir></chdir>
+	<priority>idle</priority>
+	<downloadUrl>http://java.com/download</downloadUrl>
+	<supportUrl></supportUrl>
+	<customProcName>true</customProcName>
+	<stayAlive>false</stayAlive>
+	<manifest></manifest>
+	<icon>../resources/tangara.ico</icon>
+	<jre>
+		<path></path>
+		<minVersion>1.6.0</minVersion>
+		<maxVersion></maxVersion>
+		<jdkPreference>preferJre</jdkPreference>
+	</jre>
+	<!--  Warning, do not use EOL in messages -->
+	<messages>
+		<startupErr>An error occurred while starting the application.</startupErr>
+		<bundledJreErr>This application was configured to use a bundled Java Runtime Environment but the runtime is missing or corrupted.</bundledJreErr>
+		<jreVersionErr>This application requires a Java Runtime Environment. You can download it on : http://java.com/download</jreVersionErr>
+		<launcherErr>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.</launcherErr>
+	</messages>
+</launch4jConfig>

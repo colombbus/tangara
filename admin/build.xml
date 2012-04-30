@@ -30,14 +30,18 @@ It provides targets to:
 	
 	<property name="java3dsloader.url" value="http://downloads.sourceforge.net/project/java3dsloader/java3dsloader/1.2/Loader3DS1_2.jar?r=&amp;ts=1332789540&amp;use_mirror=freefr"/>
 	<property name="java3dsloader.jar" value="${downloads.dir}/Loader3DS1_2.jar"/>
+
+	<property name="launch4j.url" value="http://downloads.sourceforge.net/project/launch4j/launch4j-3/3.0.2/launch4j-3.0.2-win32.zip?r=&amp;ts=1335791099&amp;use_mirror=freefr"/>
+	<property name="launch4j.zip" value="${downloads.dir}/launch4j-3.0.2-win32.zip"/>
 	
-	<property name="launch4j.url" value="http://downloads.sourceforge.net/project/launch4j/launch4j-3/3.0.2/launch4j-3.0.2-linux.tgz?r=&amp;ts=1334247879&amp;use_mirror=freefr"/>
-	<property name="launch4j.tgz" value="${downloads.dir}/launch4j-3.0.2-linux.tgz"/>
+	<property name="nsis.url" value="http://downloads.sourceforge.net/project/nsis/NSIS%202/2.46/nsis-2.46-setup.exe?r=&amp;ts=1335791099&amp;use_mirror=freefr"/>
 	
 	<property name="nsisant.url" value="http://cloud.github.com/downloads/dreese/nsis-ant/nsisant-1.3.jar"/>
 	<property name="nsisant.jar" value="${downloads.dir}/nsisant-1.3.jar"/>
 
+	<property name="ivy.local.default.root" value="c:/gwen/ivy-data/local"/>
 	
+
 
 
 	<target name="clean" description="--> Remove the generated or downloaded data">
@@ -50,6 +54,7 @@ It provides targets to:
 		<condition property="os.windows">
 			<os family="windows"/>
 		</condition>
+		
 		<ivy:configure settingsId="admin.ivysettings" file="${settings.dir}/admin-ivysettings.xml"/>
 		<echo message="ivy pattern='${ivy.local.default.root}/${ivy.local.default.ivy.pattern}'"/>
 		<echo message="artifact pattern='${ivy.local.default.root}/${ivy.local.default.artifact.pattern}'"/>
@@ -125,11 +130,14 @@ It provides targets to:
 	</target>
 
 	
+	<target name="download-launch4j" depends="init">
+		<get src="${launch4j.url}" dest="${launch4j.zip}"/>
+	</target>
 	
-	<target name="install-launch4j" depends="init">
-		<get src="${launch4j.url}" dest="${launch4j.tgz}"/>
+	<target name="install-launch4j" depends="download-launch4j" if="os.windows">
+		<get src="${launch4j.url}" dest="${launch4j.zip}"/>
 		<mkdir dir="${tools.dir}"/>
-		<untar compression="gzip" src="${launch4j.tgz}" dest="${tools.dir}/"/>		
+		<unzip src="${launch4j.zip}" dest="${tools.dir}/"/>
 	</target>
 	
 	

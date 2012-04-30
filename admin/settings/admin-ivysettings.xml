@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
-	<settings	defaultResolver="local-repo"/>
+	<settings defaultResolver="local-repo"/>
 	<include url="${ivy.default.settings.dir}/ivysettings.xml"/>
 	<resolvers>
 		<filesystem name="downloads-repo">

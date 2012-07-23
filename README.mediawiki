@@ -9,4 +9,4 @@ The current step contains the following task:
 * rebuild the build procedure
 * refactor the offline help engine (bye bye javahelp, welcome embedded jetty)
 
-Build procedure is described in [[https://github.com/colombbus/tangara/wiki/build-process| build-process page]].
+Build procedure is described in [[https://github.com/colombbus/tangara/wiki/Build-environment| build-process page]].

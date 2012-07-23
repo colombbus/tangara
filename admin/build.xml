@@ -34,10 +34,12 @@ It provides targets to:
 	<property name="launch4j.url" value="http://downloads.sourceforge.net/project/launch4j/launch4j-3/3.0.2/launch4j-3.0.2-win32.zip?r=&amp;ts=1335791099&amp;use_mirror=freefr"/>
 	<property name="launch4j.zip" value="${downloads.dir}/launch4j-3.0.2-win32.zip"/>
 	
-	<property name="nsis.url" value="http://downloads.sourceforge.net/project/nsis/NSIS%202/2.46/nsis-2.46-setup.exe?r=&amp;ts=1335791099&amp;use_mirror=freefr"/>
-	
 	<property name="nsisant.url" value="http://cloud.github.com/downloads/dreese/nsis-ant/nsisant-1.3.jar"/>
 	<property name="nsisant.jar" value="${downloads.dir}/nsisant-1.3.jar"/>
+	
+	<property name="nsis-installer.url" value="http://prdownloads.sourceforge.net/nsis/nsis-2.46-setup.exe?download"/>
+	<property name="nsis-installer.binary" value="${downloads.dir}/nsis-2.46-setup.exe"/>
+	<property name="nsis.install.dir" value="C:/Program Files/NSIS"/>
 
 	<property name="ivy.local.default.root" value="c:/gwen/ivy-data/local"/>
 	
@@ -53,6 +55,14 @@ It provides targets to:
 	<target name="init">
 		<condition property="os.windows">
 			<os family="windows"/>
+		</condition>
+		<condition property="nsis.not-installed">
+			<and>
+				<os family="windows"/>
+				<not>
+					<available file="${nsis.install.dir}"/>
+				</not>
+			</and>
 		</condition>
 		
 		<ivy:configure settingsId="admin.ivysettings" file="${settings.dir}/admin-ivysettings.xml"/>
@@ -141,14 +151,23 @@ It provides targets to:
 	</target>
 	
 	
-	
 	<target name="install-nsisant" depends="init" if="os.windows">
 		<get src="${nsisant.url}" dest="${nsisant.jar}" />
 		<copy file="${nsisant.jar}" todir="${ant.library.dir}"/>
 	</target>
 	
+	<target name="download-nsis" depends="init" if="nsis.not-installed">
+		<get src="${nsis-installer.url}" dest="${nsis-installer.binary}" />	
+	</target>
 	
-	<target name="install-all" depends="publish-jedit,publish-java3d,publish-java3dsloader,install-launch4j,install-nsisant">
+	<target name="install-nsis" depends="download-nsis">
+		<exec executable="${nsis-installer.binary}">
+			<arg value="/S"/> <!-- silent installation -->
+		</exec>
+		<echo message="NSIS installed in ${nsis.install.dir}"/>
+	</target>
+	
+	<target name="install-all" depends="publish-jedit,publish-java3d,publish-java3dsloader,install-launch4j,install-nsisant,install-nsis">
 	</target>
 	
 	
@@ -156,7 +175,7 @@ It provides targets to:
 		<delete dir="${retrieve.dir}"/>
 		<mkdir dir="${retrieve.dir}"/>
 		<ivy:configure settingsId="default.ivysettings" file="../ivysettings.xml"/>		
-		<echo>Verify that extenal libraries are available in local repository ${ivy.local.default.root}</echo>
+		<echo>Verify that external libraries are available in local repository ${ivy.local.default.root}</echo>
 		<ivy:retrieve conf="default" pattern="${retrieve.dir}/[artifact].[ext]" type="jar"/>
 		
 		<fail message="Library java3d not installed. Run 'ant publish-java3d'">
@@ -184,6 +203,17 @@ It provides targets to:
 				<not>
 					<available file="${retrieve.dir}/jedit.jar"/>
 				</not>
+			</condition>
+		</fail>
+		
+		<fail message="Program NSIS not installed. Run 'ant install-nsis'">
+			<condition>
+				<and>
+					<os family="windows"/>
+					<not>
+						<available file="${nsis.install.dir}"/>
+					</not>
+				</and>
 			</condition>
 		</fail>
 	</target>

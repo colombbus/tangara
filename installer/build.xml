@@ -29,7 +29,8 @@
 
 
 	<property name="launch4j.dir" value="${basedir}/../tools/launch4j"/>
-	<property name="nsis.install.dir" value="C:/Program Files/NSIS"/>
+	
+	<property file="../common-conf.properties"/>
 
 	<target name="clean" description="remove generated data">
 		<delete dir="${dist.dir}" />

@@ -39,7 +39,7 @@ It provides targets to:
 	
 	<property name="nsis-installer.url" value="http://prdownloads.sourceforge.net/nsis/nsis-2.46-setup.exe?download"/>
 	<property name="nsis-installer.binary" value="${downloads.dir}/nsis-2.46-setup.exe"/>
-	<property name="nsis.install.dir" value="C:/Program Files (x86)/NSIS"/>
+	<property file="../common-conf.properties"/>
 
 
 	<target name="clean" description="--> Remove the generated or downloaded data">

@@ -122,6 +122,7 @@
 
 	<target name="test" depends="test-compile" description="--> Run the unit tests">
 		<mkdir dir="${dist.test.reports.dir}" />
+<!--
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath>
 				<pathelement location="${dist.test.classes.dir}" />
@@ -131,7 +132,6 @@
 			</classpath>
 
 			<formatter type="plain" />
-
 			<batchtest fork="yes" todir="${dist.test.reports.dir}">
 				<fileset dir="${src.test.java.dir}">
 					<exclude name="**/*IntegTest.java" />
@@ -140,6 +140,7 @@
 				</fileset>
 			</batchtest>
 		</junit>
+-->
 	</target>
 
 

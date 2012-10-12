@@ -39,11 +39,7 @@ It provides targets to:
 	
 	<property name="nsis-installer.url" value="http://prdownloads.sourceforge.net/nsis/nsis-2.46-setup.exe?download"/>
 	<property name="nsis-installer.binary" value="${downloads.dir}/nsis-2.46-setup.exe"/>
-	<property name="nsis.install.dir" value="C:/Program Files/NSIS"/>
-
-	<property name="ivy.local.default.root" value="c:/gwen/ivy-data/local"/>
-	
-
+	<property name="nsis.install.dir" value="C:/Program Files (x86)/NSIS"/>
 
 
 	<target name="clean" description="--> Remove the generated or downloaded data">
@@ -175,6 +171,7 @@ It provides targets to:
 		<delete dir="${retrieve.dir}"/>
 		<mkdir dir="${retrieve.dir}"/>
 		<ivy:configure settingsId="default.ivysettings" file="../ivysettings.xml"/>		
+		<ivy:configure settingsId="admin.ivysettings" file="${settings.dir}/admin-ivysettings.xml"/>
 		<echo>Verify that external libraries are available in local repository ${ivy.local.default.root}</echo>
 		<ivy:retrieve conf="default" pattern="${retrieve.dir}/[artifact].[ext]" type="jar"/>
 		

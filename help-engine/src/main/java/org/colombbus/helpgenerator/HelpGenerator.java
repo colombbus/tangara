@@ -132,8 +132,9 @@ public class HelpGenerator {
 			HelpGenerator generator = new HelpGenerator();
 			generator.setGenerationPath(target);
 			generator.run();
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			System.err.println("Error during help generation "+ex.getMessage());
+			ex.printStackTrace();
 			printUsage();
 		}
 	}

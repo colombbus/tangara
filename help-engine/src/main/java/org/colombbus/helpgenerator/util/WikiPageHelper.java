@@ -2,12 +2,18 @@ package org.colombbus.helpgenerator.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.*;
 
 import org.apache.commons.lang3.Validate;
 import org.w3c.dom.*;
+import org.xml.sax.InputSource;
+
+import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
+
 import static org.colombbus.helpgenerator.util.HtmlUtils.*;
 
 public class WikiPageHelper {
@@ -32,11 +38,17 @@ public class WikiPageHelper {
 
 	public static Document toXmlDocument(String xmlCode) {
 		try {
-
+			
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
+
 			InputStream in = new ByteArrayInputStream(xmlCode.getBytes());
-			return builder.parse(in);
+			Reader reader = new InputStreamReader(in,"UTF-8");
+			 
+			InputSource is = new InputSource(reader);
+			is.setEncoding("UTF-8");
+			
+			return builder.parse(is);
 
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);

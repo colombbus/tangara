@@ -570,6 +570,9 @@ public abstract class Rider extends Sprite {
 						if (!pathFound)
 							setPath(previousPath);
 					}
+					// We initialize previousLocations
+					previousLocations = new Point[VECTOR_SIZE];
+					previousLocationIndex = 0;
 				}
 				
 				// 2nd look for new locations on the path

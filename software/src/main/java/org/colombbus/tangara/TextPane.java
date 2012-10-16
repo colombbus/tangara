@@ -369,7 +369,6 @@ class TextPane extends StandaloneTextArea implements Editable {
 	                Configuration configuration = Configuration.instance();
 	                if (m.find()) {
 	                    String className = m.group(1);
-	                    LOG.debug("On cherche :"+className);
 	                    className = StringUtils.removeAccents(className);
 	                    try {
 	                        URLClassLoader cl = configuration.getObjectsClassLoader();

@@ -39,7 +39,7 @@ Rectangle, ,Rectangle,Rectangulo
 Circle, ,Cercle,Circulo
 Curve, ,Courbe,Curva
 ArrayNode, ,NoeudTableau,NodoMatriz
-Array, ,Tableau,Matriz
+Array, ,Tableau, Matriz
 StringNode, ,NoeudTexte,NodoTexto
 Triangle, ,Triangle,Triangulo
 InputArea, ,ZoneSaisie,ZonaDeEntrada
@@ -64,3 +64,4 @@ Text3D, ,Texte3D,Texto3D
 Walker3D, ,Promeneur3D,Paseante3D
 Rider3D, ,Suiveur3D,Seguidor3D
 Location, ,Position,Posicion
+Table, ,AffichageTableau, VisualizacionTabla

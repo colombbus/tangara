@@ -42,18 +42,16 @@ import org.colombbus.tangara.TGraphicalObject;
  */
 @SuppressWarnings("serial")
 @Localize(value="Text",localizeParent=true)
-public abstract class Text  extends TGraphicalObject
-{
+public abstract class Text  extends TGraphicalObject {
 
 	private java.util.List<String> commands = new Vector<String>();
-	private String text;
+	private String[] text;
     private JLabel label;
 
 
     /** Creates a new instance of Texte */
     @Localize(value="Text")
-    public Text()
-    {
+    public Text() {
         setSize(50,20);
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -61,8 +59,7 @@ public abstract class Text  extends TGraphicalObject
         label.setSize(new Dimension(getObjectWidth(),getObjectHeight()));
         label.addMouseListener(new MouseAdapter(){
         	@Override
-			public void mousePressed(MouseEvent e)
-        	{
+			public void mousePressed(MouseEvent e) {
         		executeCommands();
         	}
         });
@@ -71,8 +68,7 @@ public abstract class Text  extends TGraphicalObject
     }
 
     @Localize(value="Text")
-    public Text(String text)
-    {
+    public Text(String text) {
         this();
         setText(text);
     }
@@ -82,34 +78,38 @@ public abstract class Text  extends TGraphicalObject
      * @param text
      */
     @Localize(value="Text.setText")
-    public void setText(String text)
-    {
-    	this.text = text;
+    public void setText(String text) {
+    	this.text = text.split("\n");
     	computeSize();
-		label.setText(Text.this.text);
+    	if (this.text.length>0) {
+    		String displayedText = "<html>"+this.text[0];
+    		for (int i=1; i<this.text.length;i++) {
+    			displayedText += "<br/>"+ this.text[i];
+    		}
+    		displayedText += "</html>";
+    		label.setText(displayedText);
+    	}
     }
     
     @Localize(value="Text.setText2")
-    public void setText(int text)
-    {
-    	this.text = String.valueOf(text);
-    	computeSize();
-		label.setText(Text.this.text);
+    public void setText(int text) {
+    	this.setText(String.valueOf(text));
     }
     
     @Localize(value="Text.setText3")
-    public void setText(double text)
-    {
-    	this.text = String.valueOf(text);
-    	computeSize();
-		label.setText(Text.this.text);
+    public void setText(double text) {
+    	this.setText(String.valueOf(text));
     }
 
-    private void computeSize()
-    {
+    private void computeSize() {
         FontMetrics fontMetrics = label.getFontMetrics(label.getFont());
-        int length = fontMetrics.stringWidth(text);
-        setSize(length+10,fontMetrics.getHeight());
+        int width = 0;
+        int height = 0;
+        for (String part:this.text) {
+            width = Math.max(width, fontMetrics.stringWidth(part));
+            height+=fontMetrics.getHeight();
+        }
+        setSize(width+10,height);
     }
     
     /**
@@ -117,9 +117,15 @@ public abstract class Text  extends TGraphicalObject
      * @return the text
      */
     @Localize(value="Text.getText")
-    public String getText()
-    {
-    	return label.getText();
+    public String getText() {
+    	String returnedText = "";
+    	if (this.text.length>0) {
+    		returnedText = this.text[0];
+    		for (int i=1; i<this.text.length;i++) {
+    			returnedText += "\n"+ this.text[i];
+    		}
+    	}
+    	return returnedText;
     }
 
     /**
@@ -127,8 +133,7 @@ public abstract class Text  extends TGraphicalObject
      * @param colorName
      */
     @Localize(value="common.setColor")
-    public void setColor(String colorName)
-    {
+    public void setColor(String colorName) {
 		Color c = TColor.translateColor(colorName, Color.black);
 		label.setForeground(c);
    }
@@ -138,8 +143,7 @@ public abstract class Text  extends TGraphicalObject
      * @param cmd
      */
     @Localize(value="common.addCommand")
-    public void addCommand(String cmd)
-    {
+    public void addCommand(String cmd) {
     	commands.add(cmd);
     }
 
@@ -147,18 +151,15 @@ public abstract class Text  extends TGraphicalObject
      * Clears the command list.
      */
     @Localize(value="common.removeCommands")
-    public void removeCommands()
-    {
+    public void removeCommands() {
     	commands.clear();
     }
 
     /**
      * Executes all the commands of the command list.
      */
-    private void executeCommands()
-    {
-        for (String command:commands)
-        {
+    private void executeCommands() {
+        for (String command:commands) {
             Program.instance().executeScript(command,getGraphicsPane());
         }
     }
@@ -168,14 +169,10 @@ public abstract class Text  extends TGraphicalObject
      * @param cursorName
      */
     @Localize(value="Text.setCursor")
-    public void setCursor(String cursorName)
-    {
-    	if (cursorName.equals(getMessage("cursor.hand"))) //$NON-NLS-1$
-    	{
+    public void setCursor(String cursorName) {
+    	if (cursorName.equals(getMessage("cursor.hand"))) {
     		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    	}
-    	else
-    	{
+    	} else {
     		label.setCursor(Cursor.getDefaultCursor());
     	}
     }
@@ -185,8 +182,7 @@ public abstract class Text  extends TGraphicalObject
      * @param sizeValue
      */
     @Localize(value="Text.setTextSize")
-    public void setTextSize(int value) 
-    {
+    public void setTextSize(int value) {
         Font currentFont = label.getFont();
         label.setFont(new Font(currentFont.getFontName(), currentFont.getStyle(), value));
         if(text != null)

@@ -3,7 +3,7 @@
 	<settings defaultResolver="localTangara"/>
 	<include url="${ivy.default.settings.dir}/ivysettings.xml"/>
 	<resolvers>
-		<chain name="localTangara" returnFirst="true">
+		<chain name="localTangara" returnFirst="true" checkmodified="true">
 			<filesystem name="localRepo">
 				<ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}"/>
 				<artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}"/>
@@ -12,5 +12,5 @@
 		</chain>
 		<!-- Add here other repositories where external dependencies are located -->
 	</resolvers>
-
+	<caches useOrigin="true" />
 </ivysettings>

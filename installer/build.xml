@@ -63,7 +63,7 @@
 		</fail>
 	</target>
 
-	<target name="init" depends="assertConfigurationRequirement">
+	<target name="init" depends="clean, assertConfigurationRequirement">
 		<ivy:configure settingsId="default.ivysettings" file="${build-main.dir}/ivysettings.xml" />
 	</target>
 

@@ -20,8 +20,12 @@
     </publications>
     
 	<dependencies>
-		<dependency org="org.colombbus.tangara" name="translation" rev="1.6.7" conf="provided->compile(*),master(*)"/>
-		<dependency org="org.colombbus.tangara" name="software" rev="1.6.7" conf="provided->compile(*),master(*)"/>
+		<dependency org="org.colombbus.tangara" name="translation"
+			rev="latest.integration" conf="provided->compile(*),master(*)"
+			changing="true" />
+		<dependency org="org.colombbus.tangara" name="software"
+			rev="latest.integration" conf="provided->compile(*),master(*)"
+			changing="true" />
 
 		<dependency org="log4j" name="log4j" rev="1.2.16" conf="provided->compile(*),master(*)"/>
 		

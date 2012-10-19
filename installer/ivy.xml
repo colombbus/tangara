@@ -25,7 +25,10 @@
 	</publications>
 
 	<dependencies>
-		<dependency org="org.colombbus.tangara" name="objects" rev="1.6.7" conf="runtime->master"/>
-		<dependency org="org.colombbus.tangara" name="software" rev="1.6.7" conf="master,runtime->runtime(*),master(*)"/>
+		<dependency org="org.colombbus.tangara" name="objects"
+			rev="latest.integration" conf="runtime->master" changing="true" />
+		<dependency org="org.colombbus.tangara" name="software"
+			rev="latest.integration" conf="master,runtime->runtime(*),master(*)"
+			changing="true" />
 	</dependencies>
 </ivy-module>

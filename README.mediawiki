@@ -1,6 +1,6 @@
 == Welcome on the next development site of Tangara ==
 
-
+==Bonjour les gens==
 Please have a look on the project page at http://tangara.colombbus.org to get more information about this educational IDE.
 
 The current step contains the following task:
@@ -8,5 +8,5 @@ The current step contains the following task:
 * remove hardcoded and commited dependencies,
 * rebuild the build procedure
 * refactor the offline help engine (bye bye javahelp, welcome embedded jetty)
-
+==build procedure==
 Build procedure is described in [[https://github.com/colombbus/tangara/wiki/Build-environment| build environment page]].

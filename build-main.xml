@@ -12,7 +12,7 @@
 	<!-- set default values for optional properties in the build-conf.properties -->  
 	<property name="publication.local.overwrite" value="true"/>
 	
-	<!-- du con -->	
+	<!-- du con il faut vraiment faire un patch-->	
 	<dirname property="build-main.dir" file="${ant.file.build-main}"/>
 
 	<property name="src.main.java.dir" value="src/main/java" />

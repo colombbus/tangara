@@ -14,7 +14,7 @@ It provides targets to:
 - verify the development environment status
 		- verify-env
 	</description>
-
+<!-- commentaires -->
 	<property name="tools.dir" value="../tools"/>
 	<property name="work.dir" value="work"/>
 	<property name="downloads.dir" value="${work.dir}/downloads"/>

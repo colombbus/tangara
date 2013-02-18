@@ -13,3 +13,4 @@
 */*.log
 # tools directory
 tools
+compil.sh

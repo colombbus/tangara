@@ -1,6 +1,5 @@
 == Welcome on the next development site of Tangara ==
 
-==Bonjour les gens==
 Please have a look on the project page at http://tangara.colombbus.org to get more information about this educational IDE.
 
 The current step contains the following task:

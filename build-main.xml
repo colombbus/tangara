@@ -12,28 +12,27 @@
 	<!-- set default values for optional properties in the build-conf.properties -->  
 	<property name="publication.local.overwrite" value="true"/>
 	
-	<!-- du con il faut vraiment faire un patch-->	
 	<dirname property="build-main.dir" file="${ant.file.build-main}"/>
 
-	<property name="src.main.java.dir" value="src/main/java" />
-	<property name="src.main.res.dir" value="src/main/resources" />
-	<property name="src.main.conf.dir" value="src/main/config" />
-	<property name="src.test.java.dir" value="src/test/java" />
-	<property name="src.test.res.dir" value="src/test/resources" />
+	<property name="src.main.java.dir" location="src/main/java" />
+	<property name="src.main.res.dir" location="src/main/resources" />
+	<property name="src.main.conf.dir" location="src/main/config" />
+	<property name="src.test.java.dir" location="src/test/java" />
+	<property name="src.test.res.dir" location="src/test/resources" />
 
-	<property name="dist.dir" value="dist" />
+	<property name="dist.dir" location="dist" />
 
-	<property name="dist.main.classes.dir" value="${dist.dir}/main-classes" />
-	<property name="dist.test.classes.dir" value="${dist.dir}/test-classes" />
-	<property name="dist.test.reports.dir" value="${dist.dir}/test-reports" />
-	<property name="dist.package.dir" value="${dist.dir}/package" />
+	<property name="dist.main.classes.dir" location="${dist.dir}/main-classes" />
+	<property name="dist.test.classes.dir" location="${dist.dir}/test-classes" />
+	<property name="dist.test.reports.dir" location="${dist.dir}/test-reports" />
+	<property name="dist.package.dir" location="${dist.dir}/package" />
 
-	<property name="dist.package.jar" value="${dist.package.dir}/${artifact.module}.jar" />
-	<property name="dist.package.source.jar" value="${dist.package.dir}/${artifact.module}-source.jar" />
-	<property name="dist.package.javadoc.jar" value="${dist.package.dir}/${artifact.module}-javadoc.jar" />
+	<property name="dist.package.jar" location="${dist.package.dir}/${artifact.module}.jar" />
+	<property name="dist.package.source.jar" location="${dist.package.dir}/${artifact.module}-source.jar" />
+	<property name="dist.package.javadoc.jar" location="${dist.package.dir}/${artifact.module}-javadoc.jar" />
 
-	<property name="dist.main.lib.dir" value="${dist.dir}/lib-main" />
-	<property name="dist.test.lib.dir" value="${dist.dir}/lib-test" />
+	<property name="dist.main.lib.dir" location="${dist.dir}/lib-main" />
+	<property name="dist.test.lib.dir" location="${dist.dir}/lib-test" />
 
 	<property name="lib.artifact.pattern" value="[artifact].[ext]" />
 	<property name="package.artifact.pattern" value="[artifact](-[classifier]).[ext]" />

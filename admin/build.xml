@@ -38,7 +38,7 @@ It provides targets to:
 	<property name="nsisant.jar" value="${downloads.dir}/nsisant-1.3.jar"/>
 	
 	<property name="nsis-installer.url" value="http://prdownloads.sourceforge.net/nsis/nsis-2.46-setup.exe?download"/>
-	<property name="nsis-installer.binary" value="${downloads.dir}/nsis-2.46-setup.exe"/>
+	<property name="nsis-installer.binary" location="${downloads.dir}/nsis-2.46-setup.exe"/>
 	<property file="../common-conf.properties"/>
 
 

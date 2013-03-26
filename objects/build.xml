@@ -6,11 +6,11 @@
 	<import file="../build-main.xml"/>
 	<import file="../build-publication.xml" optional="true"/>
 
-	<property name="dist.apt.generated.dir" value="${dist.dir}/.apt_generated"/>
-	<property name="src.main.conf.translation.dir" value="${src.main.conf.dir}/translation" />
-	<property name="summary.objects.file" value="${src.main.conf.translation.dir}/objects-summary.txt" />
-	<property name="dist.objects.dir" value="${dist.dir}/objects"/>
-	<property name="dist.package.zip" value="${dist.package.dir}/${artifact.module}.zip" />
+	<property name="dist.apt.generated.dir" location="${dist.dir}/.apt_generated"/>
+	<property name="src.main.conf.translation.dir" location="${src.main.conf.dir}/translation" />
+	<property name="summary.objects.file" location="${src.main.conf.translation.dir}/objects-summary.txt" />
+	<property name="dist.objects.dir" location="${dist.dir}/objects"/>
+	<property name="dist.package.zip" location="${dist.package.dir}/${artifact.module}.zip" />
 	
 	<target name="compile" depends="pre-compile" description="--> Compile the main source code">
 		<mkdir dir="${dist.apt.generated.dir}"/>

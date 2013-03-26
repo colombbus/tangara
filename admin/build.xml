@@ -46,8 +46,6 @@ It provides targets to:
 		<delete dir="${work.dir}"/>
 	</target>
 
-
-
 	<target name="init">
 		<condition property="os.windows">
 			<os family="windows"/>
@@ -84,7 +82,7 @@ It provides targets to:
 		<copy file="${settings.dir}/jedit-ivy.xml" tofile="${repository.dir}/org.jedit/jedit/4.3.1/ivys/ivy.xml" />
 		
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
-				organisation="org.jedit" module="jedit" revision="4.3.1" />
+				organisation="org.jedit" module="jedit" revision="4.3.1" overwrite="true" />
 	</target>
 
 
@@ -101,21 +99,21 @@ It provides targets to:
 		<move file="${downloads.dir}/lib/ext/j3dcore.jar" tofile="${repository.dir}/net.java.java3d/j3dcore/1.5.2/jars/j3dcore.jar"/>
 		<copy file="${settings.dir}/j3dcore-ivy.xml" tofile="${repository.dir}/net.java.java3d/j3dcore/1.5.2/ivys/ivy.xml" />
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
-				organisation="net.java.java3d" module="j3dcore" revision="1.5.2" />
+				organisation="net.java.java3d" module="j3dcore" revision="1.5.2" overwrite="true" />
 
 		<mkdir dir="${repository.dir}/net.java.java3d/j3dutils/1.5.2/jars" />
 		<mkdir dir="${repository.dir}/net.java.java3d/j3dutils/1.5.2/ivys" />
 		<move file="${downloads.dir}/lib/ext/j3dutils.jar" tofile="${repository.dir}/net.java.java3d/j3dutils/1.5.2/jars/j3dutils.jar"/>
 		<copy file="${settings.dir}/j3dutils-ivy.xml" tofile="${repository.dir}/net.java.java3d/j3dutils/1.5.2/ivys/ivy.xml" />
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
-				organisation="net.java.java3d" module="j3dutils" revision="1.5.2" />
+				organisation="net.java.java3d" module="j3dutils" revision="1.5.2" overwrite="true" />
 
 		<mkdir dir="${repository.dir}/net.java.java3d/vecmath/1.5.2/jars" />
 		<mkdir dir="${repository.dir}/net.java.java3d/vecmath/1.5.2/ivys" />
 		<move file="${downloads.dir}/lib/ext/vecmath.jar" tofile="${repository.dir}/net.java.java3d/vecmath/1.5.2/jars/vecmath.jar"/>
 		<copy file="${settings.dir}/vecmath-ivy.xml" tofile="${repository.dir}/net.java.java3d/vecmath/1.5.2/ivys/ivy.xml" />
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
-				organisation="net.java.java3d" module="vecmath" revision="1.5.2" />
+				organisation="net.java.java3d" module="vecmath" revision="1.5.2" overwrite="true" />
 	</target>
 
 
@@ -132,7 +130,7 @@ It provides targets to:
 		<copy file="${settings.dir}/java3dsloader-ivy.xml" tofile="${repository.dir}/net.sourceforge.java3dsloader/java3dsloader/1.2/ivys/ivy.xml" />
 		
 		<ivy:install settingsRef="admin.ivysettings" from="downloads-repo" to="local-repo" 
-				organisation="net.sourceforge.java3dsloader" module="java3dsloader" revision="1.2" />
+				organisation="net.sourceforge.java3dsloader" module="java3dsloader" revision="1.2" overwrite="true"/>
 	</target>
 
 	

@@ -35,14 +35,10 @@ public class ObjectPageDumper extends AbstractPageDumper {
 	}
 
 	private boolean extractTitle(Element h1) {
-		NodeList anchorList = h1.getElementsByTagName(ANCHOR_E);
-		for( int anchorIdx = 0; anchorIdx < anchorList.getLength(); anchorIdx++) {
-			Element anchor = (Element)anchorList.item(anchorIdx);
-			String textContent = anchor.getTextContent();
-			if( textContent !=null && textContent.length()>0) {
-				title = "Objet "+textContent;
-				return true;
-			}
+		String textContent = h1.getTextContent();
+		if( textContent !=null && textContent.length()>0) {
+			title = "Objet "+textContent;
+			return true;
 		}
 		return false;
 	}

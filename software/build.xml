@@ -6,8 +6,8 @@
 	<import file="../build-main.xml"/>
 	<import file="../build-publication.xml" optional="true"/>
 
-	<property name="dist.apt.generated.dir" value="${dist.dir}/.apt_generated"/>
-	<property name="src.main.conf.translation.dir" value="${src.main.conf.dir}/translation" />
+	<property name="dist.apt.generated.dir" location="${dist.dir}/.apt_generated"/>
+	<property name="src.main.conf.translation.dir" location="${src.main.conf.dir}/translation" />
 	
 	<target name="compile" depends="pre-compile" description="--> Compile the main source code">
 		<mkdir dir="${dist.apt.generated.dir}"/>

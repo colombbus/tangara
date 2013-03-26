@@ -32,6 +32,11 @@
 	
 	<property file="../common-conf.properties"/>
 
+	<!-- CHECK FOR WINDOWS FAMILY OS -->
+	<condition property="is_windows">
+	    <os family="windows"/>
+	</condition>
+	
 	<target name="clean" description="remove generated data">
 		<delete dir="${dist.dir}" />
 	</target>
@@ -134,7 +139,7 @@
 
 
 
-	<target name="windows-package" depends="common-package" if="os.windows">
+	<target name="windows-package" depends="common-package" if="is_windows">
 		<taskdef name="launch4j" classname="net.sf.launch4j.ant.Launch4jTask" classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar" />
 		<launch4j configFile="${src.main.launch4j.dir}/launch4j.xml" jar="${dist.common.dir}/tangara.jar" jarPath="tangara.jar" outfile="${dist.common.dir}/tangara.exe" />
 

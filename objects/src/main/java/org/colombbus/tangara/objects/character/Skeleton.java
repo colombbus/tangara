@@ -87,7 +87,7 @@ public class Skeleton
     {
     }
     
-    
+  
  
     public void addElement(String name, URL resourcePath, String image, int x,
 			int y) throws Exception {

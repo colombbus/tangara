@@ -16,17 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+
 package org.colombbus.tangara.objects.character;
 
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import java.util.List;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.colombbus.tangara.objects.Character;
+import org.colombbus.tangara.objects.MotorA;
 import org.colombbus.tangara.objects.ToCarry;
 
 
@@ -39,6 +45,7 @@ public class Movement implements ActionListener{
 
     private Character character;
     private Skeleton skeleton;
+    private MotorA motorA;
     private int chestShift=0;
     private boolean chestUp=true;
     private boolean leftArmRotation=false;
@@ -103,6 +110,11 @@ public class Movement implements ActionListener{
     public void setCharacter(Character aCharacter)
     {
         character = aCharacter;
+    }
+    
+    public void setMotor(MotorA aMotorA)
+    {
+    	motorA = aMotorA;
     }
 
    /**
@@ -193,6 +205,7 @@ public class Movement implements ActionListener{
         handleRightArmMovement();
         handleCharacterMovement();
         handleBreathing();
+        motorA.turnAction();
         for (ToCarry object:followers)
           	object.follow();
     }

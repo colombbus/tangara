@@ -38,10 +38,8 @@ public abstract class MotorA extends TGraphicalObject
   private BufferedImage monImage;
   private Movement movement;
   private Timer timer;
-  private Point destination=new Point(0,0);
+  private Point destination;
   private int motorId;
-  private int xCoordinate=0;
-  private int yCoordinate=0;
   
   private final Dimension shift = new Dimension();
 	
@@ -55,6 +53,7 @@ public abstract class MotorA extends TGraphicalObject
 	public void initialize()
     {
 		motorId=1;
+		destination = new Point(0,0);
 		movement = new Movement();
 		movement.setMotor(this);
 		try
@@ -88,68 +87,96 @@ public abstract class MotorA extends TGraphicalObject
 			return null;
     }
     
-	
+	@Override
     public void paintComponent(Graphics g)
     {
-    	int xImage = (int) (xCoordinate + destination.x + shift.getWidth());
-		int yImage = (int) (yCoordinate + destination.y + shift.getHeight());
+    	int xImage = (int) (destination.x + shift.getWidth());
+		int yImage = (int) (destination.y + shift.getHeight());
     	g.drawImage(monImage, xImage, yImage, null);
     }
-	
-	/*
-	public void paintElement(Graphics g, int origineX, int origineY)
-    {
-		int xImage = (int) (0 + origineX + shift.getWidth());
-		int yImage = (int) (0 + origineY + shift.getHeight());
-		g.drawImage(monImage, xImage, yImage, null);
-    }*/
     
-	public void turnAction() {
-		Point position = getObjectLocation();
-		this.setObjectLocation(position);
-		xCoordinate=position.x;
-		yCoordinate=position.y;
-		//destination.x=position.x;
-		//destination.y=position.y;
-		
+    @Localize(value="MotorA.reverseAction")
+    public void reverseAction()
+    {
+        movement.reverseMove();
+    }
+    
+    @Localize(value="MotorA.slowAction")
+    public void slowAction(int value)
+    {
+    	int a = timer.getDelay();
+    	timer.setDelay(a*value);
+    }
+    
+    @Localize(value="MotorA.fastAction")
+    public void fastAction(int value)
+    {
+    	int a = timer.getDelay();
+    	timer.setDelay(a/value);
+    }
+    
+    @Override
+   	public void deleteObject()
+    {
+    	timer.stop();
+    	movement = null;
+    	super.deleteObject();
+    }
+    
+	public void turnAction(boolean mode) {
+		timer.stop();
+		Point position = this.getObjectLocation();
+		super.setObjectLocation(position);
+		movement.move(new Dimension(position.x, position.y));
+		movement.setLocation(position.x, position.y);
+		//shift = new Dimension(position.x, position.y);
+		//destination = new Point(position.x, position.y);
+		timer.restart();
 		LOG.debug("Turn action " + motorId);
-		try {
-			Thread.sleep(25);
-		}
-		catch(InterruptedException e) {
-			e.printStackTrace();
-		}
 		if(motorId==0)
 		{
 			monImage = loadPicture("moteur1.png");
-			//movement.setLocation((int)xCoordinate, (int)yCoordinate);
-			//setObjectLocation(xCoordinate,yCoordinate);
 			setSize(615,259);
-			motorId++;
+			if(mode)
+				motorId = 4;
+			else
+				motorId++;
 		}
 		else if(motorId==1)
 		{
 			monImage = loadPicture("moteur2.png");
 			setSize(615,259);
-			motorId++;
+			if(mode)
+				motorId--;
+			else
+				motorId++;
 		}
 		else if(motorId==2)
 		{
 			monImage = loadPicture("moteur3.png");
 			setSize(615,259);
-			motorId++;
+			if(mode)
+				motorId--;
+			else
+				motorId++;
 		}
 		else if(motorId==3)
 		{
 			monImage = loadPicture("moteur4.png");
 			setSize(615,259);
-			motorId++;
+			if(mode)
+				motorId--;
+			else
+				motorId++;
 		}
 		else
 		{
 			monImage = loadPicture("moteur5.png");
 			setSize(615,259);
-			motorId=0;
+			if(mode)
+				motorId--;
+			else
+				motorId=0;
 		}
 		displayObject();
 	}

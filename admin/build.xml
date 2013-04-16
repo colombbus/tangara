@@ -238,4 +238,31 @@ It provides targets to:
 		<echo>Development environment seems correct.</echo>
 	</target>
 
+	<target name="all" depends="help-engine, translation, object-packager, objects, software, installer" />
+	<target name="all-objects" depends="objects, software, installer" />
+
+	<target name="help-engine" >
+		<ant dir="../help-engine" antfile="build.xml" target="publish-local" />
+	</target>
+	
+	<target name="translation" >
+		<ant dir="../translation" antfile="build.xml" target="publish-local" />
+	</target>
+
+	<target name="object-packager" >
+		<ant dir="../object-packager" antfile="build.xml" target="publish-local" />
+	</target>	
+	
+	<target name="objects" >
+		<ant dir="../objects" antfile="build.xml" target="publish-local" />
+	</target>
+	
+	<target name="software" >
+		<ant dir="../software" antfile="build.xml" target="publish-local" />
+	</target>
+
+	<target name="installer">
+	    <ant dir="../installer" antfile="build.xml" target="package" />
+	</target>
+
 </project>

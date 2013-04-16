@@ -239,7 +239,7 @@ It provides targets to:
 	</target>
 
 	<target name="all" depends="help-engine, translation, object-packager, objects, software, installer" />
-	<target name="all-objects" depends="objects, software, installer" />
+	<target name="all-objects" depends="translation, objects, software, installer" />
 
 	<target name="help-engine" >
 		<ant dir="../help-engine" antfile="build.xml" target="publish-local" />

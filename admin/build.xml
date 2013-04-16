@@ -13,6 +13,9 @@ It provides targets to:
 		- install-nsisant
 - verify the development environment status
 		- verify-env
+- Compilations
+		- all
+		- all-objects
 	</description>
 <!-- commentaires -->
 	<property name="tools.dir" value="../tools"/>

@@ -1,47 +1,33 @@
 package org.colombbus.tangara.objects;
 
 
-import java.awt.Color;
-
-import java.awt.Image;
-
-import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.MessageFormat;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.AlphaComposite;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriter;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-import org.apache.log4j.Logger;
 import org.colombbus.build.Localize;
-import org.colombbus.tangara.FileUtils;
 import org.colombbus.tangara.Program;
-import org.colombbus.tangara.TColor;
 import org.colombbus.tangara.TGraphicalObject;
-import org.colombbus.tangara.objects.character.Movement;
+//import org.colombbus.tangara.objects.character.Movement;
 
 
 @SuppressWarnings("serial")
 @Localize(value="MotorA",localizeParent=true)
-public abstract class MotorA extends TGraphicalObject
+public abstract class MotorA extends TGraphicalObject implements ActionListener
 {
   private BufferedImage monImage;
-  private Movement movement;
-  private Timer timer;
-  private Point destination;
+  private boolean reverseMode = false;
+  //private Movement movement = new Movement();
+  private Timer t;
   private int motorId;
-  
-  private final Dimension shift = new Dimension();
 	
 	@Localize(value="MotorA")
     public MotorA()
@@ -52,19 +38,15 @@ public abstract class MotorA extends TGraphicalObject
 	
 	public void initialize()
     {
-		motorId=1;
-		destination = new Point(0,0);
-		movement = new Movement();
-		movement.setMotor(this);
-		try
-		{
-			monImage = loadPicture("moteur1.png");
+		motorId = 4;
+		//movement.setMotor(this);
+		try	{
+			monImage = loadPicture("moteur4.png");
 			setSize(615,259);
-			timer = new Timer(50, movement);
-			timer.start();
+			t = new Timer(50, this);
+			t.start();
 		}
-		catch(Exception e)
-		{
+		catch(Exception e) {
 			LOG.error("Picture display error", e);
 		}
 		displayObject();
@@ -74,64 +56,105 @@ public abstract class MotorA extends TGraphicalObject
     {
 		URI file = getResource(fileName);
 		try {
-			if (file == null) {
+			if (file == null)
 				throw new Exception("file not found");
-			} else {
-					BufferedImage newImage = ImageIO.read(new File(file));
-					return newImage;
+			else {
+				BufferedImage newImage = ImageIO.read(new File(file));
+				return newImage;
 	    	} 
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
             String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", "red.png");
             Program.instance().writeMessage(message);
 		}
-			return null;
+		return null;
     }
     
-	@Override
+	//@Override
     public void paintComponent(Graphics g)
     {
-    	int xImage = (int) (destination.x + shift.getWidth());
-		int yImage = (int) (destination.y + shift.getHeight());
-    	g.drawImage(monImage, xImage, yImage, null);
+    	g.drawImage(monImage, 0, 0, null);
     }
     
+	
     @Localize(value="MotorA.reverseAction")
     public void reverseAction()
     {
-        movement.reverseMove();
+        if(reverseMode)
+        	reverseMode = false;
+        else
+        	reverseMode = true;
     }
     
     @Localize(value="MotorA.slowAction")
     public void slowAction(int value)
     {
-    	int a = timer.getDelay();
-    	timer.setDelay(a*value);
+    	int a = t.getDelay();
+    	t.setDelay(a*value);
     }
     
     @Localize(value="MotorA.fastAction")
     public void fastAction(int value)
     {
-    	int a = timer.getDelay();
-    	timer.setDelay(a/value);
+    	int a = t.getDelay();
+    	t.setDelay(a/value);
+    }
+       
+    /**
+     * Moves forward this character of <code>value</code>.
+     * @param value
+     * 		Represents the value of the forward step according to the x-axis.
+     */
+	@Override
+	@Localize(value="common.moveForward")
+    public void moveForward(int value)
+    {
+		super.moveForward(value);		
+    }
+
+	/**
+     * Moves backward this character of <code>value</code>.
+     * @param value
+     * 		Represents the value of the backward step according to the x-axis.
+     */
+	@Override
+	@Localize(value="common.moveBackward")
+    public void moveBackward(int value)
+    {
+		super.moveBackward(value);
+    }
+
+	/**
+     * Moves up this character of <code>value</code>.
+     * @param value
+     * 		Represents the value of the forward step according to the y-axis.
+     */
+	@Override
+	@Localize(value="common.moveUp")
+    public void moveUp(int value)
+    {
+		super.moveUp(value);
+    }
+
+	 /**
+     * Moves back this character of <code>value</code>.
+     * @param value
+     * 		Represents the value of the backward step according to the y-axis.
+     */
+	@Override
+	@Localize(value="common.moveDown")
+    public void moveDown(int value)
+    {
+		super.moveDown(value);
     }
     
     @Override
    	public void deleteObject()
     {
-    	timer.stop();
-    	movement = null;
     	super.deleteObject();
     }
     
 	public void turnAction(boolean mode) {
-		timer.stop();
-		Point position = this.getObjectLocation();
-		super.setObjectLocation(position);
-		movement.move(new Dimension(position.x, position.y));
-		movement.setLocation(position.x, position.y);
-		//shift = new Dimension(position.x, position.y);
-		//destination = new Point(position.x, position.y);
-		timer.restart();
 		LOG.debug("Turn action " + motorId);
 		if(motorId==0)
 		{
@@ -178,7 +201,12 @@ public abstract class MotorA extends TGraphicalObject
 			else
 				motorId=0;
 		}
-		displayObject();
+		repaint();
+	}
+	
+	public void actionPerformed(ActionEvent e1)
+	{
+		turnAction(reverseMode);
 	}
      
 }

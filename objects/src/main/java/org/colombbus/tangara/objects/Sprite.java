@@ -513,7 +513,23 @@ public abstract class Sprite extends TGraphicalObject
 				collisionManager.drawCollisionArea(g);
 			}
 		}
-	}	
+	}
+	
+	public void paintComponent(Graphics g, int x, int y)
+	{
+		if (!hide)
+		{
+			super.paintComponent(g);
+			if (currentImage!=null)
+			{
+				g.drawImage(currentImage, x, y, null);
+			}
+			if (displayCollisionArea)
+			{
+				collisionManager.drawCollisionArea(g);
+			}
+		}
+	}
 	
 	/**
 	 * Sets the current speed
@@ -595,7 +611,7 @@ public abstract class Sprite extends TGraphicalObject
      * @return
      * @throws Exception
      */
-	private BufferedImage loadFile(String fileName) throws Exception
+	protected BufferedImage loadFile(String fileName) throws Exception
     {
 		File file = FileUtils.findFile(fileName, DEFAULT_EXTENSIONS);
     	if (file == null)

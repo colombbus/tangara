@@ -45,8 +45,7 @@ public class Movement implements ActionListener{
 
     private Character character;
     private Skeleton skeleton;
-    private MotorA motorA;
-    private boolean reverseMode = false;
+    //private MotorA motorA;
     private int chestShift=0;
     private boolean chestUp=true;
     private boolean leftArmRotation=false;
@@ -113,17 +112,11 @@ public class Movement implements ActionListener{
         character = aCharacter;
     }
     
+    /*
     public void setMotor(MotorA aMotorA)
     {
     	motorA = aMotorA;
-    }
-    
-    public void reverseMove() {
-    	if(reverseMode)
-    		reverseMode = false;
-    	else
-    		reverseMode = true;
-    }
+    }*/
 
    /**
      * Changes the aimed angle of left arm.
@@ -213,7 +206,6 @@ public class Movement implements ActionListener{
         handleRightArmMovement();
         handleCharacterMovement();
         handleBreathing();
-        motorA.turnAction(reverseMode);
         for (ToCarry object:followers)
           	object.follow();
     }

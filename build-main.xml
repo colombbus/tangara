@@ -200,15 +200,12 @@
 
 
 	<target name="publish-local" depends="package" description="--> Publish the artifact(s)  to the local repository">
-		<tstamp>
-			<format property="now" pattern="yyyy-MM-dd HH-mm-ss"/>
-		</tstamp>
 		<ivy:resolve conf="runtime" settingsRef="default.ivysettings"/>
 		<echo>Pattern = ${package.artifact.pattern}</echo>
 		<ivy:publish 	resolver="local" 
 					settingsref="default.ivysettings" 
 					pubrevision="${artifact.version}" 
-					pubdate="${now}"
+					pubdate="now"
 					status="${artifact.status}"
 					forcedeliver="true"
 					overwrite="${publication.local.overwrite}">

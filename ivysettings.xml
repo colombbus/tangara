@@ -4,7 +4,7 @@
 	<include url="${ivy.default.settings.dir}/ivysettings.xml"/>
 	<resolvers>
 		<chain name="localTangara" returnFirst="true">
-			<filesystem name="localRepo">
+			<filesystem name="localRepo" checkmodified="true">
 				<ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}"/>
 				<artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}"/>
 			</filesystem>

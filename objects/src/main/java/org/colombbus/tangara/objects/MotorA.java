@@ -16,7 +16,6 @@ import javax.swing.Timer;
 import org.colombbus.build.Localize;
 import org.colombbus.tangara.Program;
 import org.colombbus.tangara.TGraphicalObject;
-//import org.colombbus.tangara.objects.character.Movement;
 
 
 @SuppressWarnings("serial")
@@ -25,7 +24,6 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 {
   private BufferedImage monImage;
   private boolean reverseMode = false;
-  //private Movement movement = new Movement();
   private Timer t;
   private int motorId;
 	
@@ -38,10 +36,9 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 	
 	public void initialize()
     {
-		motorId = 4;
-		//movement.setMotor(this);
+		motorId = 1;
 		try	{
-			monImage = loadPicture("moteur4.png");
+			monImage = loadPicture("moteur1.png");
 			setSize(615,259);
 			t = new Timer(50, this);
 			t.start();
@@ -52,7 +49,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		displayObject();
     }
 	
-	public BufferedImage loadPicture(String fileName)
+	/*public BufferedImage loadPicture(String fileName)
     {
 		URI file = getResource(fileName);
 		try {
@@ -64,11 +61,11 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 	    	} 
 		}
 		catch (Exception e) {
-            String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", "red.png");
+            String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", fileName);
             Program.instance().writeMessage(message);
 		}
 		return null;
-    }
+    }*/
     
 	//@Override
     public void paintComponent(Graphics g)

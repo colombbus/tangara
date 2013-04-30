@@ -8,5 +8,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/software"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/translation"/>
 	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=objects&amp;ivyXmlPath=ivy.xml&amp;confs=*&amp;ivySettingsPath=&amp;loadSettingsOnDemand=false&amp;propertyFiles="/>
+	<classpathentry kind="lib" path="/Users/daphnenougier/DAMIEN/FAC/STAGE/arduino/javaxcomm/comm.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

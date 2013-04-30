@@ -30,6 +30,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
 import java.text.MessageFormat;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -285,6 +287,24 @@ public abstract class TGraphicalObject extends JPanel
     }
 
 
+   protected BufferedImage loadPicture(String fileName)
+    {
+		URI file = getResource(fileName);
+		try {
+			if (file == null)
+				throw new Exception("file not found");
+			else {
+				BufferedImage newImage = ImageIO.read(new File(file));
+				return newImage;
+	    	} 
+		}
+		catch (Exception e) {
+            String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", fileName);
+            Program.instance().writeMessage(message);
+		}
+		return null;
+    }
+    
     /**
      * Gets a message from the message_language.properties of the object's resources.
      * @param key

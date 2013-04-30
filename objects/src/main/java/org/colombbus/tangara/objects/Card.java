@@ -53,23 +53,7 @@ public abstract class Card extends TGraphicalObject
     	displayObject();
 	}
 	
-	/*public BufferedImage loadPicture()
-    {
-		URI file = getResource("red.png");
-		try {
-			if (file == null) {
-				throw new Exception("file not found");
-			} else {
-					BufferedImage newImage = ImageIO.read(new File(file));
-					return newImage;
-	    	} 
-		} catch (Exception e) {
-            String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", "red.png");
-            Program.instance().writeMessage(message);
-		}
-			return null;
-    }*/
-    
+	   
     public void paintComponent(Graphics g) {
     	g.drawImage(monImage,0,0,null);
     }

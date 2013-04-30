@@ -38,8 +38,9 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
     {
 		motorId = 1;
 		try	{
-			monImage = loadPicture("moteur1.png");
-			setSize(615,259);
+			monImage = loadPicture("moteur4.png");
+			setSize(214,135);
+
 			t = new Timer(50, this);
 			t.start();
 		}
@@ -49,24 +50,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		displayObject();
     }
 	
-	/*public BufferedImage loadPicture(String fileName)
-    {
-		URI file = getResource(fileName);
-		try {
-			if (file == null)
-				throw new Exception("file not found");
-			else {
-				BufferedImage newImage = ImageIO.read(new File(file));
-				return newImage;
-	    	} 
-		}
-		catch (Exception e) {
-            String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", fileName);
-            Program.instance().writeMessage(message);
-		}
-		return null;
-    }*/
-    
+   
 	//@Override
     public void paintComponent(Graphics g)
     {
@@ -156,7 +140,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		if(motorId==0)
 		{
 			monImage = loadPicture("moteur1.png");
-			setSize(615,259);
+			setSize(214,135);
 			if(mode)
 				motorId = 4;
 			else
@@ -165,7 +149,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		else if(motorId==1)
 		{
 			monImage = loadPicture("moteur2.png");
-			setSize(615,259);
+			setSize(214,135);
 			if(mode)
 				motorId--;
 			else
@@ -174,7 +158,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		else if(motorId==2)
 		{
 			monImage = loadPicture("moteur3.png");
-			setSize(615,259);
+			setSize(214,135);
 			if(mode)
 				motorId--;
 			else
@@ -183,7 +167,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		else if(motorId==3)
 		{
 			monImage = loadPicture("moteur4.png");
-			setSize(615,259);
+			setSize(214,135);
 			if(mode)
 				motorId--;
 			else
@@ -192,7 +176,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		else
 		{
 			monImage = loadPicture("moteur5.png");
-			setSize(615,259);
+			setSize(214,135);
 			if(mode)
 				motorId--;
 			else

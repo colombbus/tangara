@@ -19,16 +19,16 @@ import org.colombbus.tangara.TGraphicalObject;
 
 
 @SuppressWarnings("serial")
-@Localize(value="MotorA",localizeParent=true)
-public abstract class MotorA extends TGraphicalObject implements ActionListener
+@Localize(value="MotorT",localizeParent=true)
+public abstract class MotorT extends TGraphicalObject implements ActionListener
 {
   private BufferedImage monImage;
   private boolean reverseMode = false;
   private Timer t;
   private int motorId;
 	
-	@Localize(value="MotorA")
-    public MotorA()
+	@Localize(value="MotorT")
+    public MotorT()
     {
 		super();
 		initialize();
@@ -38,7 +38,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
     {
 		motorId = 1;
 		try	{
-			monImage = loadPicture("moteur4.png");
+			monImage = loadPicture("moteur1.png");
 			setSize(214,135);
 
 			t = new Timer(50, this);
@@ -58,7 +58,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
     }
     
 	
-    @Localize(value="MotorA.reverseAction")
+    @Localize(value="MotorT.reverseAction")
     public void reverseAction()
     {
         if(reverseMode)
@@ -67,14 +67,14 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
         	reverseMode = true;
     }
     
-    @Localize(value="MotorA.slowAction")
+    @Localize(value="MotorT.slowAction")
     public void slowAction(int value)
     {
     	int a = t.getDelay();
     	t.setDelay(a*value);
     }
     
-    @Localize(value="MotorA.fastAction")
+    @Localize(value="MotorT.fastAction")
     public void fastAction(int value)
     {
     	int a = t.getDelay();

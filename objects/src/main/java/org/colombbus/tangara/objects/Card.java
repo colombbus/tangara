@@ -47,7 +47,7 @@ public abstract class Card extends TGraphicalObject
     public Card()
     {
 		super();
-    	monImage = loadPicture("red.png");
+    	monImage = loadPicture("mega.png");
     	this.setSize(383,185);
     	cardTab = new Tableau();
     	initializeTab(cardTab,82);

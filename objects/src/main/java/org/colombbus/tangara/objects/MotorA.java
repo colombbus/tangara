@@ -17,6 +17,7 @@ import org.colombbus.build.Localize;
 import org.colombbus.tangara.Program;
 import org.colombbus.tangara.TGraphicalObject;
 
+//Pour l'instant, la classe MotorA n'est qu'une copie de MotorT
 
 @SuppressWarnings("serial")
 @Localize(value="MotorA",localizeParent=true)

@@ -1,54 +1,41 @@
 package org.colombbus.tangara.objects;
 
 
-import java.awt.Color;
-
-import java.awt.Image;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.MessageFormat;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.AlphaComposite;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriter;
-import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 import org.colombbus.build.Localize;
-import org.colombbus.tangara.FileUtils;
 import org.colombbus.tangara.Program;
-import org.colombbus.tangara.TColor;
 import org.colombbus.tangara.TGraphicalObject;
-
 
 
 @SuppressWarnings("serial")
 @Localize(value="MotorT",localizeParent=true)
-<<<<<<< HEAD
 public abstract class MotorT extends TGraphicalObject implements ActionListener
-=======
-public abstract class MotorT extends TGraphicalObject
->>>>>>> 4162bf47f128e3d6e70ad8a2e690920ccdd405b3
 {
-		private BufferedImage monImage;
+  private BufferedImage monImage;
+  private boolean reverseMode = false;
+  private Timer t;
+  private int motorId;
 	
 	@Localize(value="MotorT")
     public MotorT()
     {
-			super();
-    	monImage = loadPicture();
-    	setSize(60,60);
-    	displayObject();
-			}
+		super();
+		initialize();
+	}
 	
-	public BufferedImage loadPicture()
+	public void initialize()
     {
-<<<<<<< HEAD
 		motorId = 1;
 		try	{
 			monImage = loadPicture("moteur1.png");
@@ -59,24 +46,17 @@ public abstract class MotorT extends TGraphicalObject
 		}
 		catch(Exception e) {
 			LOG.error("Picture display error", e);
-=======
-		URI file = getResource("red.png");
-		try {
-			if (file == null) {
-				throw new Exception("file not found");
-			} else {
-					BufferedImage newImage = ImageIO.read(new File(file));
-					return newImage;
-	    	} 
-		} catch (Exception e) {
-            String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", "red.png");
-            Program.instance().writeMessage(message);
->>>>>>> 4162bf47f128e3d6e70ad8a2e690920ccdd405b3
 		}
-			return null;
+		displayObject();
+    }
+	
+   
+	//@Override
+    public void paintComponent(Graphics g)
+    {
+    	g.drawImage(monImage,0,0,null);
     }
     
-<<<<<<< HEAD
 	
     @Localize(value="MotorT.reverseAction")
     public void reverseAction()
@@ -209,10 +189,6 @@ public abstract class MotorT extends TGraphicalObject
 	{
 		turnAction(reverseMode);
 	}
-=======
-    public void paintComponent(Graphics g) {
-    	g.drawImage(monImage,0,0,null);
-    }
->>>>>>> 4162bf47f128e3d6e70ad8a2e690920ccdd405b3
      
 }
+

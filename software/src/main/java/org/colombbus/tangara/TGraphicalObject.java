@@ -287,7 +287,7 @@ public abstract class TGraphicalObject extends JPanel
     }
 
 
-   protected BufferedImage loadPicture(String fileName)
+   public BufferedImage loadPicture(String fileName)
     {
 		URI file = getResource(fileName);
 		try {

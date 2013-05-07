@@ -31,7 +31,7 @@ import org.colombbus.tangara.TGraphicalObject;
 public abstract class Card extends TGraphicalObject
 {	
 	//Classe interne permettant de referencer les ports d'une carte Arduino Mega
-	class Tableau extends Card {
+	class Tableau {
 		int[] numeroPort;
 		String[] nomPort;	
 		int[] xPort;		
@@ -58,12 +58,12 @@ public abstract class Card extends TGraphicalObject
     	g.drawImage(monImage,0,0,null);
     }
     
-    @Localize(value="Card.afficherListe")
+   /* @Localize(value="Card.afficherListe")
     public void afficheTab() {
     	monImagebis = loadPicture("tabMegaBlack.png");
     	cardTab.setSize(255,516);
     	cardTab.displayObject();
-    }
+    }*/
     
     private void initializeTab(Tableau tab, int x) {
     	int i, ref=13, ref2=3, ref3=0, cX=6, cY=105;

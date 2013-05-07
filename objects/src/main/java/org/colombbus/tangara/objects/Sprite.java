@@ -971,6 +971,29 @@ public abstract class Sprite extends TGraphicalObject
 	{
 		super.setObjectHeight(value);
 	}
+	
+	/**
+	 * Doing a rotation 
+	 * @return
+	 * 	a string
+	 */
+	@Localize(value="common.setRotation")
+	public void setRotation(float angle, BufferedImage img)
+	{	
+		
+	}
+	
+	/**
+	 * Returns the current direction in the spoken language
+	 * @return
+	 * 	a string
+	 */
+	@Localize(value="Sprite.setScale")
+	public void setScale(float scale, BufferedImage img)
+	{
+		/*BufferedImage modif = scale(img, value);
+		Graphics g = picture */
+	}
 
 	/**
 	 * Returns the current direction in the spoken language
@@ -1060,7 +1083,12 @@ public abstract class Sprite extends TGraphicalObject
 		if (wasMoving)
 			stop();
 	}
-	
+
+	/**
+	 * Returns the current direction in the spoken language
+	 * @return
+	 * 	a string
+	 */	
 	@Override
 	@Localize(value="common.setObjectXCoordinate")
 	public void setObjectXCoordinate(int x)

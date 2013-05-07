@@ -115,7 +115,7 @@ public abstract class Picture extends TGraphicalObject
 	/**
 	 * Loads an image from a file.
 	 * @param fileName
-	 */
+	 
 	@Localize(value="Picture.loadPicture")
     public void loadPicture(String fileName)
     {
@@ -132,7 +132,7 @@ public abstract class Picture extends TGraphicalObject
             String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", fileName);
             Program.instance().writeMessage(message);
 		}
-    }
+    }/*
 
 
 	/**

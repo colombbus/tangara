@@ -140,23 +140,14 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 		LOG.debug("Turn action " + motorId);
 		if(motorId==0)
 		{
-			monImage = loadPicture("moteur1.png");
+			monImage = loadPicture("moteur2.png");
 			setSize(214,135);
 			if(mode)
-				motorId = 4;
+				motorId = 3;
 			else
 				motorId++;
 		}
 		else if(motorId==1)
-		{
-			monImage = loadPicture("moteur2.png");
-			setSize(214,135);
-			if(mode)
-				motorId--;
-			else
-				motorId++;
-		}
-		else if(motorId==2)
 		{
 			monImage = loadPicture("moteur3.png");
 			setSize(214,135);
@@ -165,7 +156,7 @@ public abstract class MotorA extends TGraphicalObject implements ActionListener
 			else
 				motorId++;
 		}
-		else if(motorId==3)
+		else if(motorId==2)
 		{
 			monImage = loadPicture("moteur4.png");
 			setSize(214,135);

@@ -24,24 +24,17 @@ import org.colombbus.tangara.FileUtils;
 import org.colombbus.tangara.Program;
 import org.colombbus.tangara.TColor;
 import org.colombbus.tangara.TGraphicalObject;
+import org.colombbus.tangara.objects.Description;
 
 
 @SuppressWarnings("serial")
 @Localize(value="Card",localizeParent=true)
 public abstract class Card extends TGraphicalObject
 {	
-	//Classe interne permettant de referencer les ports d'une carte Arduino Mega
-	class Tableau {
-		int[] numeroPort;
-		String[] nomPort;	
-		int[] xPort;		
-		int[] yPort;		
-		boolean[] usedPort;	
-	}
 	
 	private BufferedImage monImage;
 	private BufferedImage monImagebis;
-	private Tableau cardTab;
+	private Description cardDesc;
 		
 	@Localize(value="Card")
     public Card()
@@ -49,8 +42,6 @@ public abstract class Card extends TGraphicalObject
 		super();
     	monImage = loadPicture("mega.png");
     	this.setSize(383,185);
-    	cardTab = new Tableau();
-    	initializeTab(cardTab,82);
     	displayObject();
 	}
 	   
@@ -58,13 +49,18 @@ public abstract class Card extends TGraphicalObject
     	g.drawImage(monImage,0,0,null);
     }
     
-   /* @Localize(value="Card.afficherListe")
-    public void afficheTab() {
+    @Localize(value="Card.afficheDesc")
+    public void afficheDesc() {
     	monImagebis = loadPicture("tabMegaBlack.png");
-    	cardTab.setSize(255,516);
-    	cardTab.displayObject();
-    }*/
+    	cardDesc = new Description(monImagebis);
+    	initializeDesc();
+    }
     
+    private void initializeDesc() {
+    	cardDesc.initializeDesc();
+    }
+    
+    /*
     private void initializeTab(Tableau tab, int x) {
     	int i, ref=13, ref2=3, ref3=0, cX=6, cY=105;
     	tab.numeroPort = new int[x];
@@ -217,6 +213,6 @@ public abstract class Card extends TGraphicalObject
     			ref3++;
     		}
     	}
-    }
+    }*/
      
 }

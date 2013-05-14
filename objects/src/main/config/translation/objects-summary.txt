@@ -68,3 +68,4 @@ Table, ,AffichageTableau, VisualizacionTabla
 Card, ,Carte,Carta
 MotorA, ,MoteurA,MotoroA
 MotorT, ,MoteurT,MotoroT
+Description, ,Description,Descripcion

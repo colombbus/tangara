@@ -69,3 +69,4 @@ Card, ,Carte,Carta
 MotorA, ,MoteurA,MotoroA
 MotorT, ,MoteurT,MotoroT
 Description, ,Description,Descripcion
+SerialLink, ,LienSerie,ConexionSerie

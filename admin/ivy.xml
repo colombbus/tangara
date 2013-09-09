@@ -26,5 +26,6 @@
     	<dependency org="net.java.java3d" name="vecmath" rev="1.5.2" />
 	    <dependency org="net.sourceforge.java3dsloader" name="java3dsloader" rev="1.2" />
 	    <dependency org="org.jedit" name="jedit" rev="4.3.1" />	    
+	    <!-- <dependency org="org.rxtx" name="rxtx" rev="2.1.7" /> -->
     </dependencies>
 </ivy-module>

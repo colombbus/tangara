@@ -287,24 +287,6 @@ public abstract class TGraphicalObject extends JPanel
     }
 
 
-   public BufferedImage loadPicture(String fileName)
-    {
-		URI file = getResource(fileName);
-		try {
-			if (file == null)
-				throw new Exception("file not found");
-			else {
-				BufferedImage newImage = ImageIO.read(new File(file));
-				return newImage;
-	    	} 
-		}
-		catch (Exception e) {
-            String message = MessageFormat.format(getMessage("load.error")+" ("+e.getMessage()+")", fileName);
-            Program.instance().writeMessage(message);
-		}
-		return null;
-    }
-    
     /**
      * Gets a message from the message_language.properties of the object's resources.
      * @param key

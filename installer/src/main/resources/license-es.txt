@@ -1,6 +1,6 @@
-Tangara es un software desarrollado por la asociación Colombbus (www.colombbus.org).
+Tangara es un software desarrollado por la asociaciÃ³n Colombbus (www.colombbus.org).
 
-Este software se distribuye bajo la licencia GPL versión 3
+Este software se distribuye bajo la licencia GPL versiÃ³n 3
 
 ---------------------------------------------------------------------------------------------------------
 

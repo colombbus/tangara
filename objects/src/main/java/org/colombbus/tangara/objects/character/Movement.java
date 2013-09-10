@@ -32,7 +32,6 @@ import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.colombbus.tangara.objects.Character;
-import org.colombbus.tangara.objects.MotorA;
 import org.colombbus.tangara.objects.ToCarry;
 
 

@@ -68,26 +68,26 @@ LicenseLangString LICENSE_TEXT ${LANG_SPANISH} "${RESOURCES_DIR}\license-es.txt"
 
 # Texts
 LangString FINISH_TITLE ${LANG_ENGLISH} "Setup completed"
-LangString FINISH_TITLE ${LANG_FRENCH} "Installation termin�e"
-LangString FINISH_TITLE ${LANG_SPANISH} "Instalaci�n finalizada"
+LangString FINISH_TITLE ${LANG_FRENCH} "Installation terminée"
+LangString FINISH_TITLE ${LANG_SPANISH} "Instalación finalizada"
 LangString UNINSTALL_LINK ${LANG_ENGLISH} "Uninstall Tangara"
-LangString UNINSTALL_LINK ${LANG_FRENCH} "D�sinstaller Tangara"
+LangString UNINSTALL_LINK ${LANG_FRENCH} "Désinstaller Tangara"
 LangString UNINSTALL_LINK ${LANG_SPANISH} "Desinstalar Tangara"
 LangString FINISH_CONTENT ${LANG_ENGLISH} "To start Tangara, click on the Start menu -> Tangara.$\r$\nYou can also click on the shortcut Tangara on the desktop.$\r$\nFor more information, you can go on our website : http://tangara.colombbus.org"
-LangString FINISH_CONTENT ${LANG_FRENCH} "Pour lancer Tangara, cliquez sur Tangara dans le menu D�marrer -> Tangara.$\r$\nVous pouvez aussi cliquer sur le raccourci Tangara sur le bureau.$\r$\nPour d'autres informations, vous pouvez aller sur notre site http://tangara.colombbus.org"
-LangString FINISH_CONTENT ${LANG_SPANISH} "Para iniciar Tangara, clic en el men� Inicio -> Tangara.$\r$\nUsted tambi�n puede hacer clic en el atajo Tangara en el escritorio.$\r$\nSi desea obtener m�s informaciones, usted puede ir a nuestro sitio web http://tangara.colombbus.org"
+LangString FINISH_CONTENT ${LANG_FRENCH} "Pour lancer Tangara, cliquez sur Tangara dans le menu Démarrer -> Tangara.$\r$\nVous pouvez aussi cliquer sur le raccourci Tangara sur le bureau.$\r$\nPour d'autres informations, vous pouvez aller sur notre site http://tangara.colombbus.org"
+LangString FINISH_CONTENT ${LANG_SPANISH} "Para iniciar Tangara, clic en el menú Inicio -> Tangara.$\r$\nUsted tambi�n puede hacer clic en el atajo Tangara en el escritorio.$\r$\nSi desea obtener más informaciones, usted puede ir a nuestro sitio web http://tangara.colombbus.org"
 LangString FINISH_BUTTON ${LANG_ENGLISH} "Finish"
 LangString FINISH_BUTTON ${LANG_FRENCH} "Terminer"
 LangString FINISH_BUTTON ${LANG_SPANISH} "Terminar"
 LangString BRANDING_TEXT ${LANG_ENGLISH} "Tangara Setup"
 LangString BRANDING_TEXT ${LANG_FRENCH} "Installation de Tangara"
-LangString BRANDING_TEXT ${LANG_SPANISH} "Instalaci�n de Tangara"
+LangString BRANDING_TEXT ${LANG_SPANISH} "Instalación de Tangara"
 LangString LICENSE_TOP ${LANG_ENGLISH} "Please read and accept the following license:"
 LangString LICENSE_TOP ${LANG_FRENCH} "Merci de lire et d'accepter le texte ci-dessous :"
 LangString LICENSE_TOP ${LANG_SPANISH} "Para instalar Tangara, debe leer y aceptar las condiciones de la licencia:"
 LangString START_MENU_TOP ${LANG_ENGLISH} "Select the Start Menu folder in which you would like to create the program's shortcuts:"
-LangString START_MENU_TOP ${LANG_FRENCH} "Choisissez le r�pertoire du Menu D�marrer dans lequel vous souhaitez mettre le programme :"
-LangString START_MENU_TOP ${LANG_SPANISH} "Seleccione la carpeta del men� Inicio en el que desea poner el programa:"
+LangString START_MENU_TOP ${LANG_FRENCH} "Choisissez le répertoire du Menu Démarrer dans lequel vous souhaitez mettre le programme :"
+LangString START_MENU_TOP ${LANG_SPANISH} "Seleccione la carpeta del menú Inicio en el que desea poner el programa:"
 
 !define MUI_FINISHPAGE_TITLE "$(FINISH_TITLE)"
 !define MUI_FINISHPAGE_TEXT "$(FINISH_CONTENT)"
@@ -130,18 +130,18 @@ ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$1" "JavaHome"
          ${Break}
          ${Case} ${LANG_SPANISH}
           IfErrors 0 NoAbortEs
-          MessageBox MB_YESNO|MB_ICONQUESTION "No se ha podido encontrar un kit de desarrollo de Java instalada. Antes de instalar debe instalar el entorno Java: www.java.com Ver. �Desea continuar?" IDYES +5
+          MessageBox MB_YESNO|MB_ICONQUESTION "No se ha podido encontrar un kit de desarrollo de Java instalada. Antes de instalar debe instalar el entorno Java: www.java.com Ver. ¿Desea continuar?" IDYES +5
           Abort
           NoAbortEs:
-          MessageBox MB_YESNO|MB_ICONQUESTION "Con esta acci�n se instalar� $(^Name). �Desea continuar?" IDYES +2
+          MessageBox MB_YESNO|MB_ICONQUESTION "Con esta acción se instalará $(^Name). ¿Desea continuar?" IDYES +2
           Abort
          ${Break}
          ${Case} ${LANG_FRENCH}
          IfErrors 0 NoAbortFr
-         MessageBox MB_YESNO|MB_ICONQUESTION "Il n'y a aucun environnement JAVA sur votre ordinateur. Avant d'installer Tangara, il est recommand� d'en installer un (que vous pouvez trouver sur www.java.com). Etes vous s�r de vouloir continuer?" IDYES +5
+         MessageBox MB_YESNO|MB_ICONQUESTION "Il n'y a aucun environnement JAVA sur votre ordinateur. Avant d'installer Tangara, il est recommandé d'en installer un (que vous pouvez trouver sur www.java.com). Etes vous sûr de vouloir continuer ?" IDYES +5
          Abort
          NoAbortFr:
-         MessageBox MB_YESNO|MB_ICONQUESTION "Ceci installera $(^Name). Voulez vous continuer?" IDYES +2
+         MessageBox MB_YESNO|MB_ICONQUESTION "Ceci installera $(^Name). Voulez-vous continuer ?" IDYES +2
          Abort
          ${Break}
          ${EndSwitch}
@@ -162,11 +162,11 @@ Function un.onInit
             Abort
         ${Break}
         ${Case} ${LANG_SPANISH}
-            MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "�Est�s seguro de querer eliminar completamente d�lares $(^Name) y todos sus componentes?" IDYES +2
+            MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "¿Estás seguro de querer eliminar completamente $(^Name) y todos sus componentes?" IDYES +2
             Abort
         ${Break}
         ${Case} ${LANG_FRENCH}
-            MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "Etes-vous s�r de vouloir d�sinstaller completement $(^Name) et tous ses composants?" IDYES +2
+            MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "Etes-vous sûr de vouloir désinstaller complètement $(^Name) et tous ses composants?" IDYES +2
             Abort
         ${Break}
     ${EndSwitch}
@@ -182,7 +182,7 @@ Function un.onUninstSuccess
          MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) se ha eliminado de su ordenador."
          ${Break}
          ${Case} ${LANG_FRENCH}
-         MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) a �t� enlev� de votre ordinateur avec succ�s."
+         MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) a été enlevé de votre ordinateur avec succès."
          ${Break}
          ${EndSwitch}
 FunctionEnd

@@ -31,10 +31,7 @@
 		
 		<dependency org="javax.media" name="jmf" rev="2.1.1e" conf="compile->compile(*),master(*);optional->default"/>
 		<dependency org="net.sourceforge.java3dsloader" name="java3dsloader" rev="1.2" conf="compile->compile(*),master(*);optional->default"/>
-        <dependency org="net.java.java3d" name="j3dcore" rev="1.5.2" conf="compile->compile(*),master(*);optional->default" />
-		<dependency org="net.java.java3d" name="j3dutils" rev="1.5.2" conf="compile->compile(*),master(*);optional->default" />
-		<dependency org="net.java.java3d" name="vecmath" rev="1.5.2" conf="compile->compile(*),master(*);optional->default" />
-
+        
 		<dependency org="junit" name="junit" rev="4.10" conf="test->runtime(*),master(*)"/>
 	</dependencies>
 </ivy-module>

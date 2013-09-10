@@ -1,6 +1,6 @@
 Tangara est un logiciel de l'association Colombbus (www.colombbus.org)
 
-Il est distribué sous licence GPL version 3
+Il est distribuÃ© sous licence GPL version 3
 
 -----------------------------------------------------------------------------------------		
 

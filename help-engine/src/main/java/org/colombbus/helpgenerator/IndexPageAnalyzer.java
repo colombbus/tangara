@@ -9,6 +9,7 @@ import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 import org.slf4j.*;
+import org.xml.sax.InputSource;
 
 import static org.colombbus.helpgenerator.util.WikiPageHelper.*;
 import static org.colombbus.helpgenerator.util.HtmlUtils.*;
@@ -71,11 +72,14 @@ public class IndexPageAnalyzer {
 	private void buildDocument() throws JDOMException, IOException {
 		String pageBody = extractPageBody(remoteHtml);
 		String xmlText = String.format("<?xml version=\"1.0\"?>\n<document>\n%s\n</document>", pageBody); //$NON-NLS-1$
-		// System.out.println("[[[\n" + xmlText + "\n]]]");
 
+		InputStream in = new ByteArrayInputStream(xmlText.getBytes());
+		Reader reader = new InputStreamReader(in,"UTF-8");
+		InputSource is = new InputSource(reader);
+		is.setEncoding("UTF-8");
+		
 		SAXBuilder builder = new SAXBuilder();
-		StringReader xmlTextReader = new StringReader(xmlText);
-		document = builder.build(xmlTextReader);
+		document = builder.build(is);
 	}
 
 	private void collectObjectIdList() throws JDOMException {
@@ -144,8 +148,8 @@ public class IndexPageAnalyzer {
 	private void createLevel1(Element h1) {
 		currentLevel1 = new TocLevel1();
 
-		String title = h1.getChildText(ANCHOR_E);
-		currentLevel1.setTitle(title);
+		//String title = h1.getText()  getChildText(ANCHOR_E);
+		currentLevel1.setTitle(h1.getText());
 
 		String header = getLevel1Header(h1);
 		currentLevel1.setHeader(header);
@@ -205,9 +209,9 @@ public class IndexPageAnalyzer {
 	}
 
 	private void createLevel2(Element h2) {
-		String title = h2.getChildText(ANCHOR_E);
+		//String title = h2.getChildText(ANCHOR_E);
 		currentLevel2 = new TocLevel2();
-		currentLevel2.setTitle(title);
+		currentLevel2.setTitle(h2.getText());
 		currentLevel1.addLevel2(currentLevel2);
 	}
 

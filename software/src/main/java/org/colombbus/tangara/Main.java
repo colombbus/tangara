@@ -254,7 +254,6 @@ public class Main {
 		LOG = Logger.getLogger(Main.class);
 		LOG.info("Configuration loaded");
 
-		initializeHelpEngine();
 
 		if (Configuration.instance().isExecutionMode()) {
 			mainTangaraFile = Configuration.instance().getProperty("main-program");
@@ -263,6 +262,8 @@ public class Main {
 			programMode = true;
 			programName = (new File(tempDirectory, mainTangaraFile)).getAbsolutePath();
 		} else {
+			initializeHelpEngine();
+
 			programMode = false;
 			if (args.length == 1) {
 				File path = new File(args[0]);
@@ -452,8 +453,10 @@ public class Main {
 	 * Enables to quit the program
 	 */
 	public static void exit() {
-		LOG.info("Shutdown help engine ");
-		helpEngine.shutdown();
+		if (!programMode) {
+			LOG.info("Shutdown help engine ");
+			helpEngine.shutdown();
+		}
 		LOG.info("Cleaning temp directories"); //$NON-NLS-1$
 		FileUtils.clean();
 		LOG.info("Exiting application"); //$NON-NLS-1$

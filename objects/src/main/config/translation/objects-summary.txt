@@ -65,8 +65,4 @@ Walker3D, ,Promeneur3D,Paseante3D
 Rider3D, ,Suiveur3D,Seguidor3D
 Location, ,Position,Posicion
 Table, ,AffichageTableau, VisualizacionTabla
-Card, ,Carte,Carta
-MotorA, ,MoteurA,MotoroA
-MotorT, ,MoteurT,MotoroT
 Description, ,Description,Descripcion
-SerialLink, ,LienSerie,ConexionSerie

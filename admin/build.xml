@@ -162,6 +162,8 @@ It provides targets to:
 			<arg value="/S"/> <!-- silent installation -->
 		</exec>
 		<echo message="NSIS installed in ${nsis.install.dir}"/>
+		<echo message="DO NOT FORGET TO CHECK common-conf.properties PATH FOR NSIS"/>
+		<echo message="INSTALLED IN PROGRAM FILES"/>
 	</target>
 	
 	<target name="install-all" depends="publish-jedit,publish-java3d,publish-java3dsloader,install-launch4j,install-nsisant,install-nsis">

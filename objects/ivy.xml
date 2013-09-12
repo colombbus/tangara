@@ -33,5 +33,9 @@
 		<dependency org="net.sourceforge.java3dsloader" name="java3dsloader" rev="1.2" conf="compile->compile(*),master(*);optional->default"/>
         
 		<dependency org="junit" name="junit" rev="4.10" conf="test->runtime(*),master(*)"/>
+		<dependency org="org.rxtx" name="rxtx" rev="2.1.7"/>
+		<!-- 
+		<dependency org="javax.comm" name="comm" rev="3.0-u1"/> 
+		-->
 	</dependencies>
 </ivy-module>

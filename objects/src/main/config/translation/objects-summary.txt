@@ -40,6 +40,7 @@ Circle, ,Cercle,Circulo
 Curve, ,Courbe,Curva
 ArrayNode, ,NoeudTableau,NodoMatriz
 Array, ,Tableau, Matriz
+SerialLink, ,LienSerie, SerieConexion
 StringNode, ,NoeudTexte,NodoTexto
 Triangle, ,Triangle,Triangulo
 InputArea, ,ZoneSaisie,ZonaDeEntrada

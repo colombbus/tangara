@@ -1,28 +1,25 @@
 
 package org.colombbus.tangara.objects;
 
-import java.awt.Color;
-
+/*import java.awt.Color;
 import java.awt.Image;
-
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.MessageFormat;
-
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
-
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.swing.JOptionPane;
-
 import org.colombbus.build.Localize;
 import org.colombbus.tangara.FileUtils;
 import org.colombbus.tangara.Program;
 import org.colombbus.tangara.TColor;
+*/
+
+import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 import org.colombbus.tangara.TGraphicalObject;
 
 public class Description extends TGraphicalObject

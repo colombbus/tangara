@@ -158,8 +158,8 @@ It provides targets to:
 	</target>
 	
 	<target name="install-nsis" depends="download-nsis" if="os.windows">
-		<exec executable="${nsis-installer.binary}">
-			<arg value="/S"/> <!-- silent installation -->
+		<exec executable="cmd">
+			<arg value="/C ${nsis-installer.binary}" /> <!-- silent installation -->
 		</exec>
 		<echo message="NSIS installed in ${nsis.install.dir}"/>
 		<echo message="DO NOT FORGET TO CHECK common-conf.properties PATH FOR NSIS"/>

@@ -251,23 +251,23 @@ It provides targets to:
 	</target>
 	
 	<target name="translation" >
-		<ant dir="../translation" antfile="build.xml" target="publish-local" />
+		<ant dir="translation" antfile="build.xml" target="publish-local" />
 	</target>
 
 	<target name="object-packager" >
-		<ant dir="../object-packager" antfile="build.xml" target="publish-local" />
+		<ant dir="object-packager" antfile="build.xml" target="publish-local" />
 	</target>	
 	
 	<target name="objects" >
-		<ant dir="../objects" antfile="build.xml" target="publish-local" />
+		<ant dir="objects" antfile="build.xml" target="publish-local" />
 	</target>
 	
 	<target name="software" >
-		<ant dir="../software" antfile="build.xml" target="publish-local" />
+		<ant dir="software" antfile="build.xml" target="publish-local" />
 	</target>
 
 	<target name="installer">
-	    <ant dir="../installer" antfile="build.xml" target="package" />
+	    <ant dir="installer" antfile="build.xml" target="package" />
 	</target>
 
 </project>

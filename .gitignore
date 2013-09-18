@@ -15,3 +15,7 @@
 tools
 compil.sh
 .DS_Store
+.project
+common-conf.properties
+.externalToolBuilders
+

@@ -36,12 +36,13 @@ import org.colombbus.build.Localize;
 public class TObject {
 	private GraphicsPane graphicsPane;
 
-	private static Logger LOG = Logger.getLogger(TObject.class);
+	protected static Logger LOG = Logger.getLogger(TObject.class);
 
 	private Map<String, List<String>> handlers = new HashMap<String, List<String>>();
 
 	protected boolean displayEvents = true;
 
+	
 	/**
 	 * Creates a new tangara non graphical object and adds it to tangara non
 	 * graphical objects list.

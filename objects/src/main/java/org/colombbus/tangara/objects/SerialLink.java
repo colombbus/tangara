@@ -1,7 +1,7 @@
 package org.colombbus.tangara.objects;
 
 import org.colombbus.build.Localize;
-import org.colombbus.tangara.Program;
+//import org.colombbus.tangara.Program;
 import org.colombbus.tangara.TObject;
 
 import java.io.BufferedReader;
@@ -17,7 +17,7 @@ import gnu.io.SerialPortEventListener;
 
 import java.util.Enumeration;
 
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Localize(value = "SerialLink", localizeParent = true)
 public class SerialLink extends TObject implements
 		SerialPortEventListener {
@@ -38,7 +38,7 @@ public class SerialLink extends TObject implements
 
 	public void initialize() {
 		CommPortIdentifier portId = null;
-		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
+		Enumeration<?> portEnum = CommPortIdentifier.getPortIdentifiers();
 
 		try {
 			while (portEnum.hasMoreElements()) {
@@ -110,7 +110,7 @@ public class SerialLink extends TObject implements
 		}
 		try {
 			// DETERMINER L'INTERET ...
-			Thread.sleep(1000);
+			Thread.sleep(20);
 		} catch (InterruptedException ie) {
 		}
 	}

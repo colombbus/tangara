@@ -42,6 +42,7 @@ ArrayNode, ,NoeudTableau,NodoMatriz
 Array, ,Tableau, Matriz
 SerialLink, ,LienSerie, SerieConexion
 Led, ,Del,Del
+DCmotor, ,MoteurCourantContinu,MotorCorienteContinua
 StringNode, ,NoeudTexte,NodoTexto
 Triangle, ,Triangle,Triangulo
 InputArea, ,ZoneSaisie,ZonaDeEntrada

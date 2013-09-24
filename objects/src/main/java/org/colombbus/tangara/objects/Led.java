@@ -36,7 +36,7 @@ public class Led extends TObject
 	
 	@Localize(value = "Led")
 	public Led() {
-		Program.instance().writeMessage("usage: name = new Led(my_serial_link)");
+		Program.instance().writeMessage("usage:\nmyLed = new Led(mySerialLink)");
 	}
 	
 	@Localize(value = "Led")
@@ -52,7 +52,6 @@ public class Led extends TObject
 	
 	@Localize(value = "Led.turnOn")
 	public void turnOn() {
-		Program.instance().writeMessage("- - - is in turnOn");
 		if(isOn == false) {
 			serial.send(String.valueOf(pinNumber));
 			isOn = true;
@@ -61,7 +60,6 @@ public class Led extends TObject
 	
 	@Localize(value = "Led.turnOff")
 	public void turnOff() {
-		Program.instance().writeMessage("- - - is in turnOff");
 		if(isOn == true) {
 			serial.send(String.valueOf(pinNumber));
 			isOn = false;

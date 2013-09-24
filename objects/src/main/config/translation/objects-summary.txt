@@ -41,6 +41,7 @@ Curve, ,Courbe,Curva
 ArrayNode, ,NoeudTableau,NodoMatriz
 Array, ,Tableau, Matriz
 SerialLink, ,LienSerie, SerieConexion
+Led, ,Del,Del
 StringNode, ,NoeudTexte,NodoTexto
 Triangle, ,Triangle,Triangulo
 InputArea, ,ZoneSaisie,ZonaDeEntrada

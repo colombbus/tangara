@@ -131,7 +131,6 @@ public abstract class Clock extends TObject{
 		{
 			super();
 		}
-
 		
 		@Override
 		public void actionPerformed(ActionEvent e) 

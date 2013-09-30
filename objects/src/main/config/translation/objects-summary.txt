@@ -43,6 +43,7 @@ Array, ,Tableau, Matriz
 SerialLink, ,LienSerie, SerieConexion
 Led, ,Del,Del
 DCmotor, ,MoteurCourantContinu,MotorCorienteContinua
+ServoMotor, ,Servomoteur,Actuador
 StringNode, ,NoeudTexte,NodoTexto
 Triangle, ,Triangle,Triangulo
 InputArea, ,ZoneSaisie,ZonaDeEntrada

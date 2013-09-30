@@ -17,6 +17,10 @@ import gnu.io.SerialPortEventListener;
 
 import java.util.Enumeration;
 
+/*
+ * @author damien & marc
+ */
+
 //@SuppressWarnings("serial")
 @Localize(value = "SerialLink", localizeParent = true)
 public class SerialLink extends TObject implements
@@ -30,13 +34,19 @@ public class SerialLink extends TObject implements
 	private BufferedReader input;
 	private BufferedWriter output;
 	private String command;
+	
+	private boolean digital[] = new boolean[14];
 
 	@Localize(value = "SerialLink")
 	public SerialLink() {
 		initialize();
 	}
+	
 
 	public void initialize() {
+		for (int i = 0; i < digital.length; i++) {
+		    digital[i] = false;
+		}
 		CommPortIdentifier portId = null;
 		Enumeration<?> portEnum = CommPortIdentifier.getPortIdentifiers();
 
@@ -96,6 +106,19 @@ public class SerialLink extends TObject implements
 		command = action;
 	}
 
+	@Localize(value = "SerialLink.modifyDigital")
+	public void modifyDigital(int pinNumber, boolean state) {
+		if(digital[pinNumber] != state) {
+			digital[pinNumber] = state;
+			String a = String.valueOf(pinNumber);
+			send(a);
+		}
+	}
+	
+	public boolean verifyDigital(int pinNumber) {
+		return digital[pinNumber];
+	}
+	
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
@@ -110,7 +133,7 @@ public class SerialLink extends TObject implements
 		}
 		try {
 			// DETERMINER L'INTERET ...
-			Thread.sleep(20);
+			Thread.sleep(200);
 		} catch (InterruptedException ie) {
 		}
 	}

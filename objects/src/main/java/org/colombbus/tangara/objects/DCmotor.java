@@ -18,6 +18,11 @@
 
 package org.colombbus.tangara.objects;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
 import org.colombbus.build.Localize;
 import org.colombbus.tangara.Program;
 import org.colombbus.tangara.TObject;
@@ -33,9 +38,11 @@ public class DCmotor extends TObject
 {
 	private int blackPinNumber;
 	private int redPinNumber;
-	private boolean black;
-	private boolean red;
+	/*private boolean black;
+	private boolean red;*/
 	private SerialLink serial;
+	private StopTask task = new StopTask();
+	private Timer timer;
 	
 	@Localize(value = "DCmotor")
 	public DCmotor() {
@@ -44,50 +51,80 @@ public class DCmotor extends TObject
 	
 	@Localize(value = "DCmotor")
 	public DCmotor(SerialLink serial) {
+		timer = new Timer(0,task);
+		timer.setRepeats(false);
 		this.serial = serial;
 	}
-	
+
 	@Localize(value = "DCmotor.connectBlackWire")
 	public void connectBlackWire(int thePin) {
 		blackPinNumber = thePin;
-		black = false;
+		//black = false;
 	}
 	
 	@Localize(value = "DCmotor.connectRedWire")
 	public void connectRedWire(int thePin) {
 		redPinNumber = thePin;
-		red = false;
+		//red = false;
 	}
 	
 	@Localize(value = "DCmotor.clockwiseRotation")
-	public void clockwiseRotation(int timer) {
-		if(black == false) {
-			try {
-				serial.send(String.valueOf(blackPinNumber));
-				black = true;
-			    Thread.sleep(timer);
-			    serial.send(String.valueOf(blackPinNumber));
-				black = false;
-			} 
-			catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
+	public void clockwiseRotation(int duration) {
+		if (timer.isRunning()){
+			timer.stop();
 		}
+		serial.send(String.valueOf(blackPinNumber));
+		timer.setDelay(duration);
+		task.setBlack(true);
+		timer.start();
 	}
 	
 	@Localize(value = "DCmotor.anticlockwiseRotation")
-	public void anticlockwiseRotation(int timer) throws InterruptedException {
-		if(red == false) {
-			try {
+	public void anticlockwiseRotation(int duration){
+		if (timer.isRunning()){
+			timer.stop();
+		}
+		serial.send(String.valueOf(redPinNumber));
+		timer.setDelay(duration);
+		task.setBlack(false);
+		timer.start();
+	}
+	
+	@Localize(value = "DCmotor.clockwiseRun")
+	public void clockwiseRun() {
+		serial.modifyDigital(blackPinNumber,true);
+	}
+	
+	@Localize(value = "DCmotor.anticlockwiseRun")
+	public void anticlockwiseRun() {
+		serial.modifyDigital(redPinNumber,true);
+	}
+	
+	@Localize(value = "DCmotor.stopMotor")
+	public void stopMotor() {
+		serial.modifyDigital(blackPinNumber,false);
+		serial.modifyDigital(redPinNumber,false);
+	}
+	
+	private class StopTask implements ActionListener
+	{
+		boolean black;
+		
+		public StopTask() {
+			super();
+		}
+		
+		public void setBlack(boolean value) {
+			this.black = value;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if (black)
+				serial.send(String.valueOf(blackPinNumber));
+			else
 				serial.send(String.valueOf(redPinNumber));
-				black = true;
-			    Thread.sleep(timer);
-			    serial.send(String.valueOf(redPinNumber));
-				black = false;
-			} 
-			catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
 		}
 	}
 	

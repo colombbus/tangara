@@ -254,7 +254,6 @@ public class Main {
 		LOG = Logger.getLogger(Main.class);
 		LOG.info("Configuration loaded");
 
-
 		if (Configuration.instance().isExecutionMode()) {
 			mainTangaraFile = Configuration.instance().getProperty("main-program");
 			System.out.println("-> Copying files");
@@ -301,7 +300,6 @@ public class Main {
 
 		LOG.info("Help engine initialized");//$NON-NLS-1$
 	}
-
 
 	public static void launchGUI() {
 		if (!programMode)
@@ -472,5 +470,4 @@ public class Main {
 		}
 		return true;
 	}
-
 }

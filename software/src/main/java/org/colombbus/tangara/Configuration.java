@@ -63,7 +63,7 @@ public class Configuration {
 	private static final String USER_HOME_P = "user.home";//$NON-NLS-1$
 	// userHome is in comment in tangara.properties
 
-	/** Related to Mes Documents (pour le français) in tangara.properties */
+	/** Related to Mes Documents (pour le francais) in tangara.properties */
 	private static final String USER_DIRNAME_P = "user.dir";//$NON-NLS-1$
 
 	/** History depth for keeping track of commands */

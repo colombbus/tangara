@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings >
+	<settings defaultResolver="localTangara"/>
+	<include url="${ivy.default.settings.dir}/ivysettings.xml"/>
+	<resolvers>
+		<chain name="localTangara" returnFirst="true">
+			<filesystem name="localRepo" checkmodified="true">
+				<ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}"/>
+				<artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}"/>
+			</filesystem>
+			<url name="java3d">
+				<artifact pattern="http://docs.colombbus.org/java3d/[artifact].[ext]" />
+				<!-- <artifact pattern="http://jogamp.org/deployment/java3d/[revision]/[artifact].[ext]" /> -->
+			</url>
+			<url name="native">
+				<artifact pattern="http://docs.colombbus.org/java3d/[artifact].[ext]" />
+				<!-- <artifact pattern="http://jogamp.org/deployment/[revision]/jar/[artifact].[ext]" /> -->
+			</url>
+			<ibiblio name="ibiblio" m2compatible="true"/>
+		</chain>
+		<!-- Add here other repositories where external dependencies are located -->
+	</resolvers>
+	<modules>
+        <module organisation="org.jogamp.java3d" resolver="java3d"/>
+    </modules>
+	<modules>
+        <module organisation="org.jogamp.native" resolver="native"/>
+    </modules>
+</ivysettings>

@@ -2,7 +2,7 @@
 
 	<property name="artifact.module" value="help-engine" />
 	
-	<import file="../build-main.xml" />
+	<import file="../configuration/build-main.xml" />
 
 	<property name="dist.run.lib.dir" value="${dist.dir}/lib-run" />
 	<property name="dist.generated.html" value="${dist.dir}/generated-html" />

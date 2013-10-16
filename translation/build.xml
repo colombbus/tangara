@@ -3,7 +3,7 @@
 	<property file="build-settings.properties" />
 	<property name="artifact.module" value="translation" />
 
-	<import file="../build-main.xml"/>
+	<import file="../configuration/build-main.xml"/>
 	<import file="../build-publication.xml" optional="true"/>
 
 	<property name="src.test.data.translation.dir" value="src/test/data/translation"/>

@@ -3,7 +3,7 @@
 	<property file="build-conf.properties" />
 	<property name="artifact.module" value="objects" />
 
-	<import file="../build-main.xml"/>
+	<import file="../configuration/build-main.xml"/>
 	<import file="../build-publication.xml" optional="true"/>
 
 	<property name="dist.apt.generated.dir" location="${dist.dir}/.apt_generated"/>

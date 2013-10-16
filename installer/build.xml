@@ -30,7 +30,7 @@
 
 	<property name="launch4j.dir" value="${basedir}/../tools/launch4j"/>
 	
-	<property file="../common-conf.properties"/>
+	<property file="../configuration/common-conf.properties"/>
 
 	<!-- CHECK FOR WINDOWS FAMILY OS -->
 	<condition property="is_windows">
@@ -69,7 +69,7 @@
 	</target>
 
 	<target name="init" depends="clean, assertConfigurationRequirement">
-		<ivy:configure settingsId="default.ivysettings" file="${build-main.dir}/ivysettings.xml" />
+		<ivy:configure settingsId="default.ivysettings" file="${build-main.dir}/configuration/ivysettings.xml" />
 	</target>
 
 

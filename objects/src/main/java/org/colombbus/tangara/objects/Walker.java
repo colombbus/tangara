@@ -148,6 +148,12 @@ public abstract class Walker extends Sprite
 	    gravityPixelStep = Math.max(1, (int)gravitySpeedStep);
 	}
 	
+	@Localize(value="Walker.setJump")
+	public void setJump(int height) {
+		// init 46
+		jumpAmplitude = height;
+	}
+	
 	/**
 	 * Override
 	 */

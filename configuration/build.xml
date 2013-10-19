@@ -18,6 +18,7 @@ It provides targets to:
 		- all-objects
 	</description>
 <!-- commentaires -->
+	<property name="bae.dir" value="C:\Users\ColombbusOne\git\tangara"/>
 	<property name="tools.dir" value="../tools"/>
 	<property name="work.dir" value="work"/>
 	<property name="downloads.dir" value="${work.dir}/downloads"/>
@@ -42,7 +43,7 @@ It provides targets to:
 	
 	<property name="nsis-installer.url" value="http://prdownloads.sourceforge.net/nsis/nsis-2.46-setup.exe?download"/>
 	<property name="nsis-installer.binary" location="${downloads.dir}/nsis-2.46-setup.exe"/>
-	<property file="../common-conf.properties"/>
+	<property file="common-conf.properties"/>
 
 
 	<target name="clean" description="--> Remove the generated or downloaded data">
@@ -173,7 +174,7 @@ It provides targets to:
 	<target name="verify-local-repo">
 		<delete dir="${retrieve.dir}"/>
 		<mkdir dir="${retrieve.dir}"/>
-		<ivy:configure settingsId="default.ivysettings" file="../ivysettings.xml"/>		
+		<ivy:configure settingsId="default.ivysettings" file="ivysettings.xml"/>		
 		<ivy:configure settingsId="configuration.ivysettings" file="${settings.dir}/configuration-ivysettings.xml"/>
 		<echo>Verify that external libraries are available in local repository ${ivy.local.default.root}</echo>
 		<ivy:retrieve conf="default" pattern="${retrieve.dir}/[artifact].[ext]" type="jar"/>
@@ -247,27 +248,26 @@ It provides targets to:
 	<target name="all-objects" depends="translation, objects, software, installer" />
 
 	<target name="help-engine" >
-		<ant dir="../help-engine" antfile="build.xml" target="publish-local" />
+		<ant dir="${bae.dir}/help-engine" antfile="build.xml" target="publish-local" />
 	</target>
 	
 	<target name="translation" >
-		<ant dir="../translation" antfile="build.xml" target="publish-local" />
+		<ant dir="${bae.dir}/translation" antfile="build.xml" target="publish-local" />
 	</target>
 
 	<target name="object-packager" >
-		<ant dir="../object-packager" antfile="build.xml" target="publish-local" />
+		<ant dir="${bae.dir}/object-packager" antfile="build.xml" target="publish-local" />
 	</target>	
 	
 	<target name="objects" >
-		<ant dir="../objects" antfile="build.xml" target="publish-local" />
+		<ant dir="${bae.dir}/objects" antfile="build.xml" target="publish-local" />
 	</target>
 	
 	<target name="software" >
-		<ant dir="../software" antfile="build.xml" target="publish-local" />
+		<ant dir="${bae.dir}/software" antfile="build.xml" target="publish-local" />
 	</target>
 
 	<target name="installer">
-	    <ant dir="../installer" antfile="build.xml" target="package" />
+	    <ant dir="${bae.dir}/installer" antfile="build.xml" target="package" />
 	</target>
-
 </project>

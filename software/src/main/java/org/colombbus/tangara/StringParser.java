@@ -408,9 +408,11 @@ public class StringParser
 				case '/' :
 					if ( !inString ) {
 						try {
-							if (string.charAt(iterator.getIndex()+1) == '*') {
-								// entering comment
-								skipComment(iterator);
+							switch(string.charAt(iterator.getIndex()+1)){
+								case '/':
+								case '*':
+									skipComment(iterator);
+									break;
 							}
 						} catch (IndexOutOfBoundsException e) {
 							// end of string reached
@@ -464,10 +466,16 @@ public class StringParser
 		boolean inString = false;
 		boolean escape = false;
 		boolean commandInserted = false;
+		boolean isComment = false;
 		int bracketsLevel = 0;
 		int startIndex = 0;
 		for (int i=0;i<characters.length;i++) {
 			switch(characters[i]) {
+				case '/':
+					if(characters[i+1] == '/'){
+						isComment = true;
+					}
+					break;
 				case '[' :
 				case '(' :
 					if (!inString)
@@ -518,7 +526,7 @@ public class StringParser
 					}
 				case '{' :
 				case '}' :
-					if (!inString) {
+					if (!inString && !isComment) {
 						commands.add(string.substring(startIndex, i+1));
 						commandInserted = true;
 						startIndex = i+1;
